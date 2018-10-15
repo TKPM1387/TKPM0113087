@@ -1,0 +1,105 @@
+﻿@{
+    ViewBag.Title = "hoc sinh";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <div class="col-lg-9 col-xlg-10 col-md-8">
+
+        <div class="card">
+            <div class="card-block">
+                <h2>hey guys</h2>
+                <table id="studentTable" class="table" style="width:100%">
+                    
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Mã học sinh</th>
+                            <th>Họ tên</th>
+                            <th>Fees Paid</th>
+                            <th>Gender</th>
+                            <th>Email</th>
+                            <th>Telephone Number</th>
+                            <th>Date of Birth</th>
+                            <th>eed</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-xlg-2 col-md-4">
+        <div class="stickyside">
+            <div class="list-group" id="top-menu">
+                <div id="treeview5" class=""></div>
+            </div>
+        </div>
+    </div>
+
+<script src="~/Scripts/Students/Students.js"></script>
+<script>
+    $(document).ready(function () {
+        load_data();
+    })
+    function load_data() {
+        var defaultData = [
+          {
+              text: 'Parent 1',
+              href: '#parent1',
+              tags: ['4'],
+              nodes: [
+                {
+                    text: 'Child 1',
+                    href: '#child1',
+                    tags: ['2'],
+                    nodes: [
+                      {
+                          text: 'Grandchild 1',
+                          href: '#grandchild1',
+                          tags: ['0']
+                      },
+                      {
+                          text: 'Grandchild 2',
+                          href: '#grandchild2',
+                          tags: ['0']
+                      }
+                    ]
+                },
+                {
+                    text: 'Child 2',
+                    href: '#child2',
+                    tags: ['0']
+                }
+              ]
+          },
+          {
+              text: 'Parent 2',
+              href: '#parent2',
+              tags: ['0']
+          },
+          {
+              text: 'Parent 3',
+              href: '#parent3',
+              tags: ['0']
+          },
+          {
+              text: 'Parent 4',
+              href: '#parent4',
+              tags: ['0']
+          },
+          {
+              text: 'Parent 5',
+              href: '#parent5',
+              tags: ['0']
+          }
+        ];
+
+        $('#treeview5').treeview({
+
+            expandIcon: 'ti-angle-right',
+            onhoverColor: "rgba(0, 0, 0, 0.05)",
+            selectedBackColor: "#03a9f3",
+            collapseIcon: 'ti-angle-down',
+            nodeIcon: 'fa fa-bookmark',
+            data: defaultData
+        });
+    }
+</script>
