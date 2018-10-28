@@ -4,7 +4,7 @@ Author: Themedesigner
 Email: niravjoshi87@gmail.com
 File: js
 */
-$(document).ready(function () {
+$(function () {
     "use strict";
     // ============================================================== 
     // Foo1 total visit

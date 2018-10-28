@@ -16,3 +16,36 @@ C:\Users\Administrator\Documents\Visual Studio 2013\Projects\QuanLyHocSinh\QLHoc
 C:\Users\Administrator\Documents\Visual Studio 2013\Projects\QuanLyHocSinh\QLHocSinh\obj\Debug\QLHocSinh.dll
 C:\Users\Administrator\Documents\Visual Studio 2013\Projects\QuanLyHocSinh\QLHocSinh\obj\Debug\QLHocSinh.pdb
 C:\Users\Administrator\Documents\Visual Studio 2013\Projects\QuanLyHocSinh\QLHocSinh\obj\Debug\QLHocSinh.csprojResolveAssemblyReference.cache
+D:\Demo\TKPM0113087-master\QuanLyHocSinh\QLHocSinh\bin\QLHocSinh.dll
+D:\Demo\TKPM0113087-master\QuanLyHocSinh\QLHocSinh\bin\QLHocSinh.pdb
+D:\Demo\TKPM0113087-master\QuanLyHocSinh\QLHocSinh\bin\System.Web.Helpers.dll
+D:\Demo\TKPM0113087-master\QuanLyHocSinh\QLHocSinh\bin\System.Web.Mvc.dll
+D:\Demo\TKPM0113087-master\QuanLyHocSinh\QLHocSinh\bin\System.Web.Razor.dll
+D:\Demo\TKPM0113087-master\QuanLyHocSinh\QLHocSinh\bin\System.Web.Webpages.Deployment.dll
+D:\Demo\TKPM0113087-master\QuanLyHocSinh\QLHocSinh\bin\System.Web.Webpages.dll
+D:\Demo\TKPM0113087-master\QuanLyHocSinh\QLHocSinh\bin\System.Web.Webpages.Razor.dll
+D:\Demo\TKPM0113087-master\QuanLyHocSinh\QLHocSinh\bin\System.Web.Razor.xml
+D:\Demo\TKPM0113087-master\QuanLyHocSinh\QLHocSinh\bin\System.Web.Webpages.xml
+D:\Demo\TKPM0113087-master\QuanLyHocSinh\QLHocSinh\bin\System.Web.Webpages.Deployment.xml
+D:\Demo\TKPM0113087-master\QuanLyHocSinh\QLHocSinh\bin\System.Web.Webpages.Razor.xml
+D:\Demo\TKPM0113087-master\QuanLyHocSinh\QLHocSinh\bin\System.Web.Helpers.xml
+D:\Demo\TKPM0113087-master\QuanLyHocSinh\QLHocSinh\bin\System.Web.Mvc.xml
+D:\Demo\TKPM0113087-master\QuanLyHocSinh\QLHocSinh\obj\Debug\QLHocSinh.dll
+D:\Demo\TKPM0113087-master\QuanLyHocSinh\QLHocSinh\obj\Debug\QLHocSinh.pdb
+C:\Users\Administrator\Desktop\QuanLyHocSinh1\QLHocSinh\bin\QLHocSinh.dll.config
+C:\Users\Administrator\Desktop\QuanLyHocSinh1\QLHocSinh\bin\QLHocSinh.dll
+C:\Users\Administrator\Desktop\QuanLyHocSinh1\QLHocSinh\bin\QLHocSinh.pdb
+C:\Users\Administrator\Desktop\QuanLyHocSinh1\QLHocSinh\bin\System.Web.Helpers.dll
+C:\Users\Administrator\Desktop\QuanLyHocSinh1\QLHocSinh\bin\System.Web.Mvc.dll
+C:\Users\Administrator\Desktop\QuanLyHocSinh1\QLHocSinh\bin\System.Web.Razor.dll
+C:\Users\Administrator\Desktop\QuanLyHocSinh1\QLHocSinh\bin\System.Web.Webpages.Deployment.dll
+C:\Users\Administrator\Desktop\QuanLyHocSinh1\QLHocSinh\bin\System.Web.Webpages.dll
+C:\Users\Administrator\Desktop\QuanLyHocSinh1\QLHocSinh\bin\System.Web.Webpages.Razor.dll
+C:\Users\Administrator\Desktop\QuanLyHocSinh1\QLHocSinh\bin\System.Web.Razor.xml
+C:\Users\Administrator\Desktop\QuanLyHocSinh1\QLHocSinh\bin\System.Web.Webpages.xml
+C:\Users\Administrator\Desktop\QuanLyHocSinh1\QLHocSinh\bin\System.Web.Webpages.Deployment.xml
+C:\Users\Administrator\Desktop\QuanLyHocSinh1\QLHocSinh\bin\System.Web.Webpages.Razor.xml
+C:\Users\Administrator\Desktop\QuanLyHocSinh1\QLHocSinh\bin\System.Web.Helpers.xml
+C:\Users\Administrator\Desktop\QuanLyHocSinh1\QLHocSinh\bin\System.Web.Mvc.xml
+C:\Users\Administrator\Desktop\QuanLyHocSinh1\QLHocSinh\obj\Debug\QLHocSinh.dll
+C:\Users\Administrator\Desktop\QuanLyHocSinh1\QLHocSinh\obj\Debug\QLHocSinh.pdb

@@ -1,5 +1,6 @@
 // Dashboard 1 Morris-chart
-
+$(function () {
+    "use strict";
 Morris.Area({
         element: 'morris-area-chart',
         data: [{
@@ -255,3 +256,4 @@ Morris.Area({
                 hideHover: 'auto'
         
     });
+ });    

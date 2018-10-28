@@ -38,10 +38,18 @@ namespace QLHocSinh.Controllers
         {
             return View();
         }
+        public ActionResult AddStudent()
+        {
+            return View();
+        }
+        public ActionResult Score()
+        {
+            return View();
+        }
         public ActionResult GetStudents()
         {
-            string path = @"Data Source=.\SQLEXPRESS;Initial Catalog=Test;Integrated Security=True";
-
+            string path = @"Data Source=.\SQLEXPRESS;Initial Catalog=QLHS;Integrated Security=True";
+            int i = 1;
             var students = new List<Students>();
             using (var con = new SqlConnection(path))
             {
@@ -52,36 +60,20 @@ namespace QLHocSinh.Controllers
                 {
                     var student = new Students
                     {
-                        iD = Convert.ToInt32(dr[0].ToString()),
-                        firstName = dr[1].ToString(),
-                        lastName = dr[2].ToString(),
-                        feesPaid = Convert.ToInt32(dr[3].ToString()),
-                        gender = dr[4].ToString(),
-                        emailId = dr[5].ToString(),
-                        telephoneNumber = dr[6].ToString(),
-                        dateOfBirth = Convert.ToDateTime(dr[7].ToString())
+                        STT = i,
+                        StudentID = Convert.ToInt32(dr[0].ToString()),
+                        FullName = dr[1].ToString(),
+                        BirthDay = Convert.ToDateTime(dr[2].ToString()),
+                        Gender = Convert.ToInt32(dr[3].ToString()),
+                        Email = dr[4].ToString(),
+                        PhoneNumber = dr[5].ToString(),
+                        Address = dr[6].ToString()
                     };
                     students.Add(student);
+                    i++;
                 }
             }
-            //var js = new JavaScriptSerializer();
-            //Context.Response.Write(js.Serialize(students));  
-            //return View();
             return Json(students, JsonRequestBehavior.AllowGet);
-        }
-        public ActionResult AddNewStudent(string fname, string lname)
-        {
-            string path = @"Data Source=.\SQLEXPRESS;Initial Catalog=Test;Integrated Security=True";
-            var con = new SqlConnection(path);
-            var cmd = new SqlCommand("addStudent", con);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add(new SqlParameter("@fname", fname));
-            cmd.Parameters.Add(new SqlParameter("@lname", lname));
-            con.Open();
-            int n = cmd.ExecuteNonQuery();
-            con.Close();
-
-            return Json(n, JsonRequestBehavior.AllowGet);
         }
         public ActionResult getListStudents()
         {
@@ -100,15 +92,131 @@ namespace QLHocSinh.Controllers
             return json;
 
         }
-        public ActionResult AddStudent()
+        public ActionResult getIDStudent()
         {
-            return View();
+            int id = 1800000;
+            string path = @"Data Source=.\SQLEXPRESS;Initial Catalog=QLHS;Integrated Security=True";
+            var con = new SqlConnection(path);
+            var cmd = new SqlCommand("SELECT MAX(id) AS idm FROM Students", con);
+            cmd.CommandType = CommandType.Text;
+            con.Open();
+            SqlDataAdapter da = new SqlDataAdapter();
+            da.SelectCommand = cmd;
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+
+            //if (dt.Rows.Count > 0)
+            id += (dt.Rows[0][0].ToString() != "") ? int.Parse(dt.Rows[0][0].ToString()) : 0;
+            //id += int.Parse(dt.Rows[0][0].ToString());
+
+            var x = new ArrayList()
+            {
+                new { Value =id}
+            };
+
+            return Json(x, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
-        public ActionResult AddStudent1(string s)
+        public ActionResult getStudentByID(string id)
         {
-            return View();
+            string path = @"Data Source=.\SQLEXPRESS;Initial Catalog=QLHS;Integrated Security=True";
+           
+            var students = new List<Students>();
+            using (var con = new SqlConnection(path))
+            {
+                var cmd = new SqlCommand("getStudentByID", con);
+                cmd.CommandType = CommandType.StoredProcedure ;
+                cmd.Parameters.Add(new SqlParameter("@id", id));
+                con.Open();
+                var dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    var student = new Students
+                    {
+                        StudentID = Convert.ToInt32(dr[1].ToString()),
+                        FullName = dr[2].ToString(),
+                        BirthDay = Convert.ToDateTime(dr[3].ToString()),
+                        Gender = Convert.ToInt32(dr[4].ToString()),
+                        Email = dr[5].ToString(),
+                        PhoneNumber = dr[6].ToString(),
+                        Address = dr[7].ToString(),
+                        ClassLevel = Convert.ToInt32(dr[8].ToString()),
+                        Class = Convert.ToInt32(dr[9].ToString())
+                    };
+                    students.Add(student);
+                }
+            }
+            return Json(students, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpPost]
+        public ActionResult AddNewStudent(Students s)
+        {
+            string path = @"Data Source=.\SQLEXPRESS;Initial Catalog=QLHS;Integrated Security=True";
+            var con = new SqlConnection(path);
+            var cmd = new SqlCommand("addStudent", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@fidstudent", s.StudentID));
+            cmd.Parameters.Add(new SqlParameter("@ffullname", s.FullName));
+            cmd.Parameters.Add(new SqlParameter("@fbirthday", s.BirthDay));
+            cmd.Parameters.Add(new SqlParameter("@fgender", s.Gender));
+            cmd.Parameters.Add(new SqlParameter("@femail", s.Email));
+            cmd.Parameters.Add(new SqlParameter("@fphonenumber", s.PhoneNumber));
+            cmd.Parameters.Add(new SqlParameter("@faddress", s.Address));
+            con.Open();
+
+            //SqlDataAdapter da = new SqlDataAdapter();
+            //da.SelectCommand = cmd;
+            //DataTable dt = new DataTable();
+            //da.Fill(dt);
+            //con.Close();
+
+            int n = cmd.ExecuteNonQuery();
+            var result = new ArrayList();
+            result.Add(
+                new
+                {
+                    value = n
+                });
+
+
+            con.Close();
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetStudentsByClass(string grade)
+        {
+            string path = @"Data Source=.\SQLEXPRESS;Initial Catalog=QLHS;Integrated Security=True";
+            int i = 1;
+            var students = new List<Students>();
+            using (var con = new SqlConnection(path))
+            {
+                var cmd = new SqlCommand("getStudentsByClass", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(new SqlParameter("@fclass", grade));
+                con.Open();
+                var dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    var student = new Students
+                    {
+                        STT = i,
+                        StudentID = Convert.ToInt32(dr[1].ToString()),
+                        FullName = dr[2].ToString(),
+                        BirthDay = Convert.ToDateTime(dr[3].ToString()),
+                        Gender = Convert.ToInt32(dr[4].ToString()),
+                        Email = dr[5].ToString(),
+                        PhoneNumber = dr[6].ToString(),
+                        Address = dr[7].ToString(),
+                    };
+                    students.Add(student);
+                    i++;
+                }
+            }
+            return Json(students, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -116,12 +224,12 @@ namespace QLHocSinh.Controllers
         {
             int a = 1;
 
-         var b = new ArrayList()
+            var b = new ArrayList()
         {
             new { Value = 4, Display = "Emily" },
             new { Value = 5, Display = "Lauri" },
         };
-            return Json(b, JsonRequestBehavior.AllowGet);  
+            return Json(b, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -1,4 +1,11 @@
-$(document).ready(function() {
+/*
+Template Name: Monster Admin
+Author: Themedesigner
+Email: niravjoshi87@gmail.com
+File: js
+*/
+$(function() {
+    "use strict";
       $(".tst1").click(function(){
            $.toast({
             heading: 'Welcome to Monster admin',
@@ -49,7 +56,5 @@ $(document).ready(function() {
           });
 
      });
-     
-
 });
           

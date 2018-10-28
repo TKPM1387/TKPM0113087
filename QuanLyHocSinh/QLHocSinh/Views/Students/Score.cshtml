@@ -1,18 +1,13 @@
-﻿@{
-    ViewBag.Title = "lop hoc";
+﻿
+@{
+    ViewBag.Title = "Score";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<style>
-    .form-group row {
-        padding-top: 10px;
-    }
-</style>
-
 <div class="row">
     <div class="col-12">
         <div class="card card-outline-info">
             <div class="card-header">
-                <h4 class="m-b-0 text-white">Thông tin lớp học</h4>
+                <h4 class="m-b-0 text-white">Bảng điểm môn học</h4>
             </div>
             <div class="card-block">
                 <form action="form-layout.html#" class="form-horizontal">
@@ -20,14 +15,6 @@
                         <hr class="m-t-0 m-b-40">
                         <!--/row-->
                         <div class="row">
-                            <div class="col-md-3">
-                                <div id="fmblock" class="form-group row">
-                                    <label class="control-label text-right col-md-3">Khối</label>
-                                    <div class="col-md-9">
-                                        <select id="block" data-style="form-control btn-secondary"></select>
-                                      </div>
-                                </div>
-                            </div>
                             <div class="col-md-3">
                                 <div id="fmgrade" class="form-group row">
                                     <label class="control-label text-right col-md-3">Lớp</label>
@@ -38,16 +25,27 @@
                             </div>
                             <div class="col-md-3">
                                 <div id="fmgrade" class="form-group row">
-                                    <label class="control-label text-right col-md-4">Sĩ số:</label>
+                                    <label class="control-label text-right col-md-4">Môn</label>
                                     <div class="col-md-8">
-                                        <span>30/40</span>
+                                        <select id="subject" data-style="form-control btn-secondary"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div id="fmgrade" class="form-group row">
+                                    <label class="control-label text-right col-md-4">Học kỳ</label>
+                                    <div class="col-md-8">
+                                        <select id="semester" data-style="form-control btn-secondary">
+                                            <option value="1">Học kỳ 1</option>
+                                            <option value="2">Học kỳ 2</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div id="fmgrade" class="form-group row">
                                     <div class="col-md-9">
-                                        <button type="button" onclick="ViewListStudent()" class="btn btn-success">Xem danh sách</button>
+                                        <button type="button" onclick="ViewStudentScore()" class="btn btn-success">Xem danh sách</button>
                                     </div>
                                 </div>
                             </div>
@@ -59,12 +57,9 @@
                                     <th>STT</th>
                                     <th>Mã học sinh</th>
                                     <th>Họ tên</th>
-                                    <th>Ngày sinh</th>
-                                    <th>Giới tính</th>
-                                    <th>Email</th>
-                                    <th>Số điện thoại</th>
-                                    <th>Địa chỉ</th>
-                                    <th>Cập nhật</th>
+                                    <th>Điểm 15 phút</th>
+                                    <th>Điểm 1 tiết</th>
+                                    <th>Điểm cuối học kỳ</th>
                                 </tr>
                             </thead>
                         </table>
@@ -75,10 +70,5 @@
     </div>
 </div>
 
-<script src="~/Scripts/Classes/Classes.js"></script>
-<script>
-    $(document).ready(function () {
 
-    })
-   
-</script>
+<script src="~/Scripts/Students/Score.js"></script>

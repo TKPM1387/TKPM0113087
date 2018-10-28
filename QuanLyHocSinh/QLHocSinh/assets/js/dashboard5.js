@@ -4,7 +4,7 @@ Author: Themedesigner
 Email: niravjoshi87@gmail.com
 File: js
 */
-$(document).ready(function () {
+$(function () {
     "use strict";
     // ============================================================== 
     // Total revenue chart
@@ -31,7 +31,7 @@ $(document).ready(function () {
             }
         }
     });
-});    
+    });    
     // ============================================================== 
     // doughnut chart option
     // ============================================================== 

@@ -1,24 +1,201 @@
 ﻿$(document).ready(function () {
-    load_table();
-    hideError()
+    createControl();
+    hideError();
+    
+    loadClass();
 });
 
+function createControl() {
+    $('#block').selectpicker(); 
+    $('#grade').selectpicker();      
+    $('#birthDay').datepicker({
+        autoclose: true,
+        todayHighlight: true,
+        format: 'dd/mm/yyyy'
+    });
+    $('#birthDay').datepicker('update', new Date());
+    $.ajax({
+        type: "GET",
+        url: '/Classes/getClassLevel',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async:false,
+        success: function (data) {
+            var jsonData = JSON.stringify(data);
+            $.each(JSON.parse(jsonData), function (idx, obj) {
+                $("#block").append('<option value="' + obj.value + '">' + obj.text + '</option>').selectpicker('refresh');
+            });
+        },
+        error: function (xhr, status, error) {
+            alert('err or seleccct 2222:');
+        }
+    });
+
+    $('#block').on('change', function(e){
+        // console.log(this.value);
+        $.ajax({
+            type: "GET",
+            url: '/Classes/getClassByLevel',
+            contentType: "application/json; charset=utf-8",
+            data: { idLevel: this.value },
+            dataType: "json",
+            success: function (data) {
+                $('#grade').find('option').remove().end();
+                var jsonData = JSON.stringify(data);
+                $.each(JSON.parse(jsonData), function (idx, obj) {
+                    $("#grade").append('<option value="' + obj.value + '">' + obj.text + '</option>').selectpicker('refresh');
+                });
+            },
+            error: function (xhr, status, error) {
+                alert('Error789:');
+            }
+        });
+    });
+
+    setIDStudent();
+    //load_table();
+    //hideError();
+}
+$("#btnClearForm").click(function () {
+    //hideError();
+    //alert(1);
+    swal("Thêm thành công", "nhé", "success");
+});
+function loadClass() {
+    var idLevel = $("#block").val();
+    if (idLevel == null)
+        return;
+    $.ajax({
+        type: "GET",
+        url: '/Classes/getClassByLevel',
+        contentType: "application/json; charset=utf-8",
+        data: { idLevel: idLevel },
+        dataType: "json",
+        success: function (data) {
+            $('#grade').find('option').remove().end();
+            var jsonData = JSON.stringify(data);
+            $.each(JSON.parse(jsonData), function (idx, obj) {
+                $("#grade").append('<option value="' + obj.value + '">' + obj.text + '</option>').selectpicker('refresh');
+            });
+        },
+        error: function (xhr, status, error) {
+            alert('Error789:');
+        }
+    });
+}
+
+function addStudent() {
+    var sid = $('#idstudent').val();
+    var sfullname = $("#fullName").val();
+    var sbirthday = $("#birthDay").val();
+    var c = sbirthday.split('/');
+    sbirthday =c[1]+'/'+c[0]+'/'+c[2];
+    var saddress = $("#address").val();
+    var sgender = $("#gender").val();
+    var semail = $("#email").val();
+    var snote = $("#note").val();
+
+    var sblock = $("#block").val();
+    var sgrade = $("#grade").val();
+    var i = 0;
+    if (sfullname == "") {
+        $('#fmfullname').removeClass('row');
+        $('#fmfullname').addClass('has-danger row');
+        $('#spfullname').show()
+        i++;
+    }
+    else {
+        $('#fmfullname').removeClass('has-danger row');
+        $('#fmfullname').addClass('row');
+        $('#spfullname').hide()
+
+    }
+    if (sbirthday == "") {
+        $('#fmbirthday').removeClass('row');
+        $('#fmbirthday').addClass('has-danger row');
+        $('#spbirthday').show()
+        i++;
+    }
+    else {
+        $('#fmbirthday').removeClass('has-danger row');
+        $('#fmbirthday').addClass('row');
+        $('#spbirthday').hide()
+
+    }
+    if (saddress == "") {
+        $('#fmaddress').removeClass('row');
+        $('#fmaddress').addClass('has-danger row');
+        $('#spaddress').show()
+        i++;
+    }
+    else {
+        $('#fmaddress').removeClass('has-danger row');
+        $('#fmaddress').addClass('row');
+        $('#spaddress').hide()
+
+    }
+    if (sblock == ""||sblock == null) {
+        $('#fmblock').removeClass('row');
+        $('#fmblock').addClass('has-danger row');
+        $('#spblock').show()
+        i++;
+    }
+    else {
+        $('#fmblock').removeClass('has-danger row');
+        $('#fmblock').addClass('row');
+        $('#spblock').hide()
+
+    }
+    if (sgrade == "" || sgrade == null) {
+        $('#fmgrade').removeClass('row');
+        $('#fmgrade').addClass('has-danger row');
+        $('#spgrade').show()
+        i++;
+    }
+    else {
+        $('#fmgrade').removeClass('has-danger row');
+        $('#fmgrade').addClass('row');
+        $('#spgrade').hide()
+
+    }
+    //if (i != 0) {
+    //    alert(i);
+    //    return;
+    //}
+
+    var stu = studentdetail = {
+        StudentID: sid,
+        FullName: sfullname,
+        BirthDay: sbirthday,
+        Gender: sgender,
+        Email: semail,
+        PhoneNumber: snote,
+        Address: saddress
+    }; 
+
+    $.ajax({
+        type: "POST",
+        url: '/Students/AddNewStudent',
+        contentType: "application/json; charset=utf-8",
+        //data: stu,
+        data: JSON.stringify(stu),
+        dataType: "json",
+        success: function (result)
+        {
+            if (result[0].value == 1)
+                swal("Thêm thành công", "nhé", "success");
+        },
+        error: function (xhr, status, error) { alert('Error:'); }
+    });
+    setIDStudent();
+}
+function myFunction() {
+    alert("I am an alert box!");
+}
 function load_table() {
     $(document).ready(function () {
-        //$('#example').DataTable({
-        //    data: dataSet,
-        //    columns: [
-        //        { title: "Name" },
-        //        { title: "Position" },
-        //        { title: "Office" },
-        //        { title: "Extn." },
-        //        { title: "Start date" },
-        //        { title: "Salary" }
-        //    ]
-        //});
-
         $.ajax({
-            type: "POST",
+            type: "GET",
             dataType: "json",
             url: "/Students/GetStudents",
             //url: "/GetStudents",
@@ -57,27 +234,23 @@ function load_table() {
                         }
                     },
                     columns: [
-                        { 'data': 'iD' },
-                        { 'data': 'firstName' },
-                        { 'data': 'lastName' },
+                        { 'data': 'STT' },
+                        { 'data': 'StudentID' },
+                        { 'data': 'FullName' },
                         {
-                            'data': 'feesPaid', 'render': function (feesPaid) {
-                                return '$ ' + feesPaid;
-                            }
-                        },
-                        { 'data': 'gender' },
-                        { 'data': 'emailId' },
-                        { 'data': 'telephoneNumber' },
-                        {
-                            'data': 'dateOfBirth', 'render': function (date) {
+                            'data': 'BirthDay', 'render': function (date) {
                                 var date = new Date(parseInt(date.substr(6)));
                                 var month = date.getMonth() + 1;
                                 return date.getDate() + "/" + month + "/" + date.getFullYear();
                             }
                         },
+                        { 'data': 'Gender' },
+                        { 'data': 'Email' },
+                        { 'data': 'PhoneNumber' },
+                        { 'data': 'Address' },                        
                          {
-                             "render": function (data, type, full, meta) {
-                                 return '<a href=add.html?id=">Edit</a>';
+                             "render": function (data, type, row) {
+                                 return '<button type="button" onclick="edit(' + row.StudentID + ')" class="btn btn-danger waves-effect waves-light">Sửa</button>';
                              }
                          }
                     ]
@@ -100,7 +273,6 @@ function load_table() {
         });
     })
 };
-
 function isEmail(email) {
     var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     return regex.test(email);
@@ -115,74 +287,111 @@ function hideError() {
 
     $("div.form-group").removeClass('has-error');
 }
-
-function checkAddStudent() {
-    var sfullname = $("#fullName").val();
-    var sbirthday = $("#birthDay").val();
-    var saddress = $("#address").val();
-    var sgender = $("#gender").val();
-    var semail = $("#email").val();
-    var snote = $("#note").val();
-
-    var sblock = $("#block").val();
-    var sgrade = $("#grade").val();
-    var i = 0;
-    if (sfullname == "") {
-        $('#fmfullname').addClass('has-error');
-        $('#spfullname').show()
-
-        i++;
-    }
-    if (sbirthday == "") {
-        $('#fmbirthday').addClass('has-error');
-        $('#spbirthday').show()
-        i++;
-    }
-    if (saddress == "") {
-        $('#fmaddress').addClass('has-error');
-        $('#spaddress').show()
-        i++;
-    }
-    if (semail == "") {
-        $('#fmemail').addClass('has-error');
-        $('#spemail').show()
-        i++;
-    }
-    if (sblock == "") {
-        $('#fmblock').addClass('has-error');
-        $('#spblock').show()
-        i++;
-    }
-    if (sgrade == "") {
-        $('#fmgrade').addClass('has-error');
-        $('#spgrade').show()
-        i++;
-    }
-    //if (i != 0) {
-    //    alert(i);
-    //    return;
-    //}
-
-    var stu = studentdetai = {
-        iD: 123,
-        firstName: sfullname,
-        lastName: sfullname,
-        feesPaid: 2,
-        gender: "NN",
-        emailId: snote,
-        telephoneNumber: snote,
-        dateOfBirth: sbirthday
-    };
-
+function setIDStudent() {
 
     $.ajax({
         type: "POST",
-        url: '/Students/testadd',
+        url: '/Students/getIDStudent',
         contentType: "application/json; charset=utf-8",
         //data: stu,
-        data: JSON.stringify(stu),
+        //data: JSON.stringify(stu),
         dataType: "json",
-        success: function () { alert('Success'); },
+        success: function (x)
+        {
+            $('#idstudent').val(x[0].Value);
+        },
         error: function (xhr, status, error) { alert('Error:'); }
     });
+}
+function loadClassLevel() {
+    $.ajax({
+        type: "GET",
+        url: '/Classes/getClassLevel',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            $("#block").select2({
+                data: data,
+                minimumResultsForSearch: -1
+            })
+        },
+        error: function (xhr, status, error) {
+            alert('err or seleccct 2222:');
+        }
+    });
+}
+function loadClass2() {
+    var idLevel = $("#block2").val();
+    if (idLevel == null)
+        idLevel = 1;
+    $.ajax({
+        type: "GET",
+        url: '/Classes/getClassByLevel2',
+        contentType: "application/json; charset=utf-8",
+        data: { idLevel: idLevel },
+        dataType: "json",
+        success: function (data) {
+            var ddl = $('#grade2').data("kendoDropDownList");
+            ddl.setDataSource(data);
+            ddl.refresh();
+            ddl.select(0);
+            ddl.trigger("change");
+        },
+        error: function (xhr, status, error) {
+            alert('Error789:');
+        }
+    });
+}
+function setDataEdit(s) {
+    $("#block").data("kendoDropDownList").select(function (dataItem) {
+        return dataItem.value === s.ClassLevel;
+    });
+    loadClass();
+    $("#fullName").val(s.FullName);
+    $("#gender").val(s.Gender);
+    $("#address").val(s.Address);
+    $("#email").val(s.Email);
+
+    var date = new Date(parseInt(s.BirthDay.substr(6)));
+    var month = date.getMonth() + 1;
+    var d= date.getDate() + "/" + month + "/" + date.getFullYear();
+
+    $("#birthDay").val(d);
+    $("#note").val(s.PhoneNumber);
+    //$("#fullName").val(s.FullName);
+    // $("#fullName").val(s.FullName);
+    
+
+    $("#gender").data("kendoDropDownList").select(function (dataItem) {
+        return dataItem.value === `${s.Gender}`;
+    });
+    
+    $("#grade").data("kendoDropDownList").select(function (dataItem) {
+        return dataItem.value === s.Class;
+    });
+
+    $("#idstudent").val(s.StudentID);
+    
+}
+function edit(id) {
+    //alert("edit:_" + id);
+
+    $.ajax({
+        type: "GET",
+        url: '/Students/getStudentByID',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: {id : id},
+        success: function (data) {
+            //alert('Success');
+            setDataEdit(data[0]);
+            $("#window").data("kendoWindow").center().open();
+
+        },
+        error: function (xhr, status, error) {
+            alert('Error456:');
+        }
+    });
+
+
 }

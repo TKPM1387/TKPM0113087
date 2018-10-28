@@ -4,62 +4,9 @@ Author: Themedesigner
 Email: niravjoshi87@gmail.com
 File: js
 */
-$(document).ready(function () {
+$(function () {
     "use strict";
-    // ============================================================== 
-    // Total revenue chart
-    // ============================================================== 
-    new Chartist.Line('.total-revenue4', {
-        labels: ['0', '4', '8', '12', '16', '20', '24', '30']
-        , series: [
-        [0, 2, 3.5, 0, 13, 1, 4, 1]
-        , [0, 4, 0, 4, 0, 4, 0, 4]
-      ]
-    }, {
-        high: 15
-        , low: 0
-        , showArea: true
-        , fullWidth: true
-        , plugins: [
-        Chartist.plugins.tooltip()
-      ], // As this is axis specific we need to tell Chartist to use whole numbers only on the concerned axis
-        axisY: {
-            onlyInteger: true
-            , offset: 20
-            , labelInterpolationFnc: function (value) {
-                return (value / 1) + 'k';
-            }
-        }
-    });
-    // ============================================================== 
-    // User analytics
-    // ============================================================== 
-    new Chartist.Line('.user-analytics', {
-        labels: ['10 jan', '15 jan', '20 jan', '25 jan', '30 jan', '05 Feb', '10 Feb']
-        , series: [
-        [0, 2, 3.5, 0, 13, 1, 4]
-
-      ]
-    }, {
-        high: 25
-        , low: 0
-        , showArea: true
-        , lineSmooth: Chartist.Interpolation.simple({
-            divisor: 10
-        })
-        , fullWidth: true
-        , chartPadding: 0
-        , plugins: [
-        Chartist.plugins.tooltip()
-      ], // As this is axis specific we need to tell Chartist to use whole numbers only on the concerned axis
-        axisY: {
-            onlyInteger: true
-            , offset: 20
-            , labelInterpolationFnc: function (value) {
-                return (value / 1) + 'k';
-            }
-        }
-    });
+    
     // ============================================================== 
     // Realtime chart
     // ============================================================== 
@@ -113,7 +60,7 @@ $(document).ready(function () {
         , xaxis: {
             show: false
         }
-        , colors: ["#55ce63"]
+        , colors: ["#26c6da"]
         , grid: {
             color: "#AFAFAF"
             , hoverable: true
@@ -287,7 +234,7 @@ option = {
             }
         }
     }
-    , color: ["#745af2", "#f62d51", "#55ce63", "#dadada"]
+    , color: ["#745af2", "#f62d51", "#26c6da", "#dadada"]
     , calculable: true
     , series: [
         {
