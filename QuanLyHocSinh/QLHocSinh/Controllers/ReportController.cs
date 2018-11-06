@@ -14,6 +14,10 @@ namespace QLHocSinh.Controllers
         {
             return View();
         }
+        public ActionResult ReportBySubject()
+        {
+            return View();
+        }
         public ActionResult GetReportByClass(string grade)
         {
             return View();

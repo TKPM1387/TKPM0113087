@@ -42,5 +42,28 @@ namespace QLHocSinh.Controllers
             }
             return Json(sjs, JsonRequestBehavior.AllowGet);
         }
+        public ActionResult getListSubject()
+        {
+            string path = @"Data Source=.\SQLEXPRESS;Initial Catalog=QLHS;Integrated Security=True";
+            int i = 1;
+            var sjs = new List<Subjects>();
+            using (var con = new SqlConnection(path))
+            {
+                var cmd = new SqlCommand("getListSubject", con) { CommandType = CommandType.StoredProcedure };
+                con.Open();
+                var dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    var sj = new Subjects
+                    {
+                        SubjectID = Convert.ToInt32(dr[0].ToString()),
+                        SubjectName = dr[1].ToString(),
+                    };
+                    sjs.Add(sj);
+                    i++;
+                }
+            }
+            return Json(sjs, JsonRequestBehavior.AllowGet);
+        }
 	}
 }

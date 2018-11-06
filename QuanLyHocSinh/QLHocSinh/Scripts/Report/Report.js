@@ -1,48 +1,31 @@
 ﻿$(document).ready(function () {
    
     createControl();
-    load_table();
+    //load_table();
 
 });
 
 function createControl() {
-    $('#block').selectpicker();
-    $('#grade').selectpicker();
+
+    $('#subject').selectpicker();
+    $('#semester').selectpicker();
+
     $.ajax({
         type: "GET",
-        url: '/Classes/getClassLevel',
+        url: '/Subjects/getListSubject',
         contentType: "application/json; charset=utf-8",
+        data: { idLevel: '0' },
         dataType: "json",
         success: function (data) {
+            $('#subject').find('option').remove().end();
             var jsonData = JSON.stringify(data);
             $.each(JSON.parse(jsonData), function (idx, obj) {
-                $("#block").append('<option value="' + obj.value + '">' + obj.text + '</option>').selectpicker('refresh');
+                $("#subject").append('<option value="' + obj.SubjectID + '">' + obj.SubjectName + '</option>').selectpicker('refresh');
             });
         },
         error: function (xhr, status, error) {
-            alert('err or seleccct 2222:');
+            alert('Error789:');
         }
-    });
-
-    $('#block').on('change', function (e) {
-        // console.log(this.value);
-        $.ajax({
-            type: "GET",
-            url: '/Classes/getClassByLevel',
-            contentType: "application/json; charset=utf-8",
-            data: { idLevel: this.value },
-            dataType: "json",
-            success: function (data) {
-                $('#grade').find('option').remove().end();
-                var jsonData = JSON.stringify(data);
-                $.each(JSON.parse(jsonData), function (idx, obj) {
-                    $("#grade").append('<option value="' + obj.value + '">' + obj.text + '</option>').selectpicker('refresh');
-                });
-            },
-            error: function (xhr, status, error) {
-                alert('Error789:');
-            }
-        });
     });
 
 }
@@ -121,7 +104,7 @@ function edit(a) {
     
 }
 
-function ViewStudentAVG() {
+function ViewRP() {
     var dataTable = $('#rp1table').DataTable();
     dataTable.destroy();
     load_table();

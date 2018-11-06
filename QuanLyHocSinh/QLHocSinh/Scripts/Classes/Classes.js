@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-   
+
     createControl();
     load_table();
 
@@ -12,6 +12,7 @@ function createControl() {
         type: "GET",
         url: '/Classes/getClassLevel',
         contentType: "application/json; charset=utf-8",
+        async: false,
         dataType: "json",
         success: function (data) {
             var jsonData = JSON.stringify(data);
@@ -29,6 +30,7 @@ function createControl() {
         $.ajax({
             type: "GET",
             url: '/Classes/getClassByLevel',
+            async: false,
             contentType: "application/json; charset=utf-8",
             data: { idLevel: this.value },
             dataType: "json",
@@ -44,7 +46,7 @@ function createControl() {
             }
         });
     });
-
+    initSP();
 }
 function load_table() {
     var gr = $('#grade').val();
@@ -91,9 +93,10 @@ function load_table() {
                     }
                 },
                 columns: [
-                    { 'data': 'STT' },
-                        { 'data': 'StudentID' },
+                        { 'data': 'STT' },
+                        { 'data': 'StudentID', "visible": false },
                         { 'data': 'FullName' },
+                        { 'data': 'Gender' },
                         {
                             'data': 'BirthDay', 'render': function (date) {
                                 var date = new Date(parseInt(date.substr(6)));
@@ -101,9 +104,8 @@ function load_table() {
                                 return date.getDate() + "/" + month + "/" + date.getFullYear();
                             }
                         },
-                        { 'data': 'Gender' },
-                        { 'data': 'Email' },
-                        { 'data': 'PhoneNumber' },
+                        { 'data': 'Email', "visible": false },
+                        { 'data': 'PhoneNumber', "visible": false },
                         { 'data': 'Address' },
                          {
                              "render": function (data, type, row) {
@@ -118,7 +120,7 @@ function load_table() {
 
 function edit(a) {
     alert(a);
-    
+
 }
 
 function ViewListStudent() {
@@ -127,5 +129,26 @@ function ViewListStudent() {
     load_table();
 }
 
+function initSP() {
 
+    $.ajax({
+        type: "GET",
+        url: '/Classes/getClassByLevel',
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        data: { idLevel: $('#block').val() },
+        dataType: "json",
+        success: function (data) {
+            $('#grade').find('option').remove().end();
+            var jsonData = JSON.stringify(data);
+            $.each(JSON.parse(jsonData), function (idx, obj) {
+                $("#grade").append('<option value="' + obj.value + '">' + obj.text + '</option>').selectpicker('refresh');
+            });
+        },
+        error: function (xhr, status, error) {
+            alert('Error789:');
+        }
+    });
+
+}
 

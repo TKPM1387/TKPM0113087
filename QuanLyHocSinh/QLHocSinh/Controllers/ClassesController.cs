@@ -18,6 +18,10 @@ namespace QLHocSinh.Controllers
         {
             return View();
         }
+        public ActionResult Search()
+        {
+            return View();
+        }
         string path = @"Data Source=.\SQLEXPRESS;Initial Catalog=QLHS;Integrated Security=True";
         public List<Dictionary<string, object>> GetTableRows(DataTable dtData)
         {
@@ -259,5 +263,65 @@ namespace QLHocSinh.Controllers
             return Json(students, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult GetStudentDetail(string idname)
+        {
+            string path = @"Data Source=.\SQLEXPRESS;Initial Catalog=QLHS;Integrated Security=True";
+            int i = 1;
+            var students = new List<StudentDetail>();
+            using (var con = new SqlConnection(path))
+            {
+                var cmd = new SqlCommand("getStudentDetail", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(new SqlParameter("@idname", idname));
+                con.Open();
+                var dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    var student = new StudentDetail
+                    {
+                        STT = i,
+                        StudentID = Convert.ToInt32(dr[0].ToString()),
+                        FullName = dr[1].ToString(),
+                        Class = dr[2].ToString(),
+                        TBHK1 = Convert.ToInt32(dr[3].ToString()),
+                        TBHK2 = Convert.ToInt32(dr[4].ToString()),
+                    };
+                    students.Add(student);
+                    i++;
+                }
+            }
+            return Json(students, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetStudentPoint(string grade, string subject)
+        {
+            string path = @"Data Source=.\SQLEXPRESS;Initial Catalog=QLHS;Integrated Security=True";
+            int i = 1;
+            var students = new List<StudentPoint>();
+            using (var con = new SqlConnection(path))
+            {
+                var cmd = new SqlCommand("getStudentPoint", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(new SqlParameter("@fsubjectid", grade));
+                cmd.Parameters.Add(new SqlParameter("@fclassid", subject));
+                con.Open();
+                var dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    var student = new StudentPoint
+                    {
+                        STT = i,
+                        StudentID = Convert.ToInt32(dr[0].ToString()),
+                        FullName = dr[1].ToString(),
+                        Test15Minutes = dr[2].ToString(),
+                        Test45Minutes = dr[3].ToString(),
+                        TestSemester = dr[4].ToString(),
+                    };
+                    students.Add(student);
+                    i++;
+                }
+            }
+            return Json(students, JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -46,6 +46,10 @@ namespace QLHocSinh.Controllers
         {
             return View();
         }
+        public ActionResult UpdateScore()
+        {
+            return View();
+        }
         public ActionResult GetStudents()
         {
             string path = @"Data Source=.\SQLEXPRESS;Initial Catalog=QLHS;Integrated Security=True";
@@ -217,6 +221,36 @@ namespace QLHocSinh.Controllers
                 }
             }
             return Json(students, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult UpdateStudentPoint(StudentPoint s)
+        {
+            string path = @"Data Source=.\SQLEXPRESS;Initial Catalog=QLHS;Integrated Security=True";
+            int i = 1;
+            var students = new List<Students>();
+            using (var con = new SqlConnection(path))
+            {
+                var cmd = new SqlCommand("UpdateStudentPoint", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(new SqlParameter("@fids", s.StudentID));
+                cmd.Parameters.Add(new SqlParameter("@fp15", s.Test15Minutes));
+                cmd.Parameters.Add(new SqlParameter("@fp45", s.Test45Minutes));
+                cmd.Parameters.Add(new SqlParameter("@fpl", s.TestSemester));
+                con.Open();
+                int n = cmd.ExecuteNonQuery();
+                var result = new ArrayList();
+                result.Add(
+                    new
+                    {
+                        value = n
+                    });
+
+
+                con.Close();
+
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
         }
 
         [HttpPost]

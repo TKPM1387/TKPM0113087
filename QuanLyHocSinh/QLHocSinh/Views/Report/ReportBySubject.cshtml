@@ -1,8 +1,9 @@
 ﻿
 @{
-    ViewBag.Title = "Score";
+    ViewBag.Title = "Báo cáo tổng kết môn";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <div class="row">
     <div class="col-12">
         <div class="card card-outline-info">
@@ -15,23 +16,15 @@
                         <hr class="m-t-0 m-b-40">
                         <!--/row-->
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div id="fmgrade" class="form-group row">
-                                    <label class="control-label text-right col-md-3">Lớp</label>
-                                    <div class="col-md-9">
-                                        <select id="grade" data-style="form-control btn-secondary"></select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div id="fmgrade" class="form-group row">
-                                    <label class="control-label text-right col-md-4">Môn</label>
+                                    <label class="control-label text-right col-md-4">Môn học</label>
                                     <div class="col-md-8">
                                         <select id="subject" data-style="form-control btn-secondary"></select>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div id="fmgrade" class="form-group row">
                                     <label class="control-label text-right col-md-4">Học kỳ</label>
                                     <div class="col-md-8">
@@ -42,10 +35,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div id="fmgrade" class="form-group row">
                                     <div class="col-md-9">
-                                        <button type="button" onclick="ViewStudentScore()" class="btn btn-success">Xem bảng điểm lớp</button>
+                                        <button type="button" onclick="ViewRP()" class="btn btn-success">Xem báo cáo</button>
                                     </div>
                                 </div>
                             </div>
@@ -55,11 +48,10 @@
                             <thead>
                                 <tr>
                                     <th>STT</th>
-                                    <th>Mã học sinh</th>
-                                    <th>Họ tên</th>
-                                    <th>Điểm 15 phút</th>
-                                    <th>Điểm 1 tiết</th>
-                                    <th>Điểm cuối học kỳ</th>
+                                    <th>Lớp</th>
+                                    <th>Sĩ số</th>
+                                    <th>Số lượng đạt</th>
+                                    <th>Tỷ lệ</th>
                                 </tr>
                             </thead>
                         </table>
@@ -70,5 +62,4 @@
     </div>
 </div>
 
-
-<script src="~/Scripts/Students/Score.js"></script>
+<script src="~/Scripts/Report/Report.js"></script>
