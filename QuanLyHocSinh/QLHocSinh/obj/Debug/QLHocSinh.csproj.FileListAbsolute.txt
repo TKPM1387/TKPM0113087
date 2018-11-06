@@ -66,3 +66,8 @@ D:\QLHS\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\System.Web.Helpers.xml
 D:\QLHS\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\System.Web.Mvc.xml
 D:\QLHS\TKPM0113087\QuanLyHocSinh\QLHocSinh\obj\Debug\QLHocSinh.dll
 D:\QLHS\TKPM0113087\QuanLyHocSinh\QLHocSinh\obj\Debug\QLHocSinh.pdb
+D:\QLHS\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\EntityFramework.dll
+D:\QLHS\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\EntityFramework.SqlServer.dll
+D:\QLHS\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\EntityFramework.xml
+D:\QLHS\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\EntityFramework.SqlServer.xml
+D:\QLHS\TKPM0113087\QuanLyHocSinh\QLHocSinh\obj\Debug\QLHocSinh.csprojResolveAssemblyReference.cache

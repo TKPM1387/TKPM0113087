@@ -1,11 +1,17 @@
 ﻿@{
-    ViewBag.Title = "lop hoc";
+    ViewBag.Title = "Quản lý lớp học";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Page = "Quản lý lớp học";
 }
 <style>
-    .form-group row {
-        padding-top: 10px;
+    .modal-dialog {
+        max-width: 500px !important;
     }
+
+    .form-horizontal label {
+        margin-top: 8px !important;
+    }
+
 </style>
 
 <div class="row">
@@ -75,10 +81,118 @@
     </div>
 </div>
 
+
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-block">
+            <h4 class="card-title">Modal based on trigger button</h4>
+            <!-- sample modal content -->
+            <div class="button-box">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Open modal for mdo</button>
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">Open modal for fat</button>
+                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">Open modal for getbootstrap</button>
+            </div>
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="exampleModalLabel1">Cập nhật thông tin</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <label class="control-label text-right  col-md-3">Họ tên</label>
+                                            <div class="col-md-9">
+                                                <input id="fullName" type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>                                    
+                                  
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label class="control-label text-right  col-md-3">Giới tính</label>
+                                        <div class="col-md-9">
+                                            @*<input id="gender" type="text" class="form-control">*@
+                                            <select id="gender" class="selectpicker" data-style="form-control btn-secondary">
+                                                <option value="1">Nam</option>
+                                                <option value="2">Nữ</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>   
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label class="control-label text-right  col-md-3">Ngày sinh</label>
+                                        <div class="col-md-9">
+                                            @*<input id="fullName" type="text" class="form-control">*@
+                                            <input type="text" id="birthDay" class="form-control" placeholder="mm/dd/yyyy">
+                                        </div>
+                                    </div>
+                                </div>   
+
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label class="control-label text-right  col-md-3">Địa chỉ</label>
+                                        <div class="col-md-9">
+                                            <input id="address" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label class="control-label text-right  col-md-3">Lớp</label>
+                                        <div class="col-md-9">
+                                            <select id="grade" data-style="form-control btn-secondary"></select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="updatepoint()"><i class="fa fa-edit" style="font-size:16px"></i>Lưu</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal -->
+        </div>
+    </div>
+</div>
 <script src="~/Scripts/Classes/Classes.js"></script>
 <script>
     $(document).ready(function () {
+        $('#grade').selectpicker();
+        $('#birthDay').datepicker({
+            autoclose: true,
+            todayHighlight: true,
+            format: 'dd/mm/yyyy'
+        });
 
+        $.ajax({
+            type: "GET",
+            url: '/Classes/getClassByLevel',
+            contentType: "application/json; charset=utf-8",
+            data: { idLevel: 0 },
+            dataType: "json",
+            async:false,
+            success: function (data) {
+                //$('#grade').find('option').remove().end();
+                var jsonData = JSON.stringify(data);
+                $.each(JSON.parse(jsonData), function (idx, obj) {
+                    $("#grade").append('<option value="' + obj.value + '">' + obj.text + '</option>').selectpicker('refresh');
+                });
+            },
+            error: function (xhr, status, error) {
+                alert('Error789:');
+            }
+        });
     })
    
 </script>

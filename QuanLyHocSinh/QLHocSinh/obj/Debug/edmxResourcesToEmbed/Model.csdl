@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QLHSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Class">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClassName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ClassLevel" Type="Int32" />
+    <Property Name="Total" Type="Int32" />
+    <Property Name="Flag" Type="Int32" />
+  </EntityType>
+  <EntityType Name="ClassLevel">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LevelName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MaxTotal" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Point">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StudenID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="SubjectID" Type="Int32" />
+    <Property Name="Semester" Type="Int32" />
+    <Property Name="Test15Minutes" Type="Double" />
+    <Property Name="Test45Minutes" Type="Double" />
+    <Property Name="TestSemester" Type="Double" />
+    <Property Name="Average" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StudentID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FullName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="BirthDay" Type="DateTime" Precision="3" />
+    <Property Name="Gender" Type="Int32" />
+    <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ClassLevel" Type="Int32" />
+    <Property Name="Class" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Subject">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SubjectName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Flag" Type="Int32" />
+    <Property Name="Type" Type="Int32" />
+    <Property Name="Level1" Type="Int32" />
+    <Property Name="Level2" Type="Int32" />
+    <Property Name="Level3" Type="Int32" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FullName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Role" Type="Int32" />
+  </EntityType>
+  <EntityContainer Name="QLHSEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Classes" EntityType="Self.Class" />
+    <EntitySet Name="ClassLevels" EntityType="Self.ClassLevel" />
+    <EntitySet Name="Points" EntityType="Self.Point" />
+    <EntitySet Name="Students" EntityType="Self.Student" />
+    <EntitySet Name="Subjects" EntityType="Self.Subject" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <FunctionImport Name="addStudent">
+      <Parameter Name="fidstudent" Mode="In" Type="String" />
+      <Parameter Name="ffullname" Mode="In" Type="String" />
+      <Parameter Name="fbirthday" Mode="In" Type="String" />
+      <Parameter Name="fgender" Mode="In" Type="String" />
+      <Parameter Name="femail" Mode="In" Type="String" />
+      <Parameter Name="fphonenumber" Mode="In" Type="String" />
+      <Parameter Name="faddress" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="checklogin" ReturnType="Collection(QLHSModel.checklogin_Result)">
+      <Parameter Name="fusername" Mode="In" Type="String" />
+      <Parameter Name="fpassword" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="getClassByLevel">
+      <Parameter Name="iDLevel" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="GetClasses" ReturnType="Collection(QLHSModel.GetClasses_Result)" />
+    <FunctionImport Name="getClassLevel" ReturnType="Collection(QLHSModel.getClassLevel_Result)" />
+    <FunctionImport Name="getListSubject" ReturnType="Collection(QLHSModel.getListSubject_Result)" />
+    <FunctionImport Name="getStudentByID" ReturnType="Collection(QLHSModel.getStudentByID_Result)">
+      <Parameter Name="id" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="getStudentDetail" ReturnType="Collection(QLHSModel.getStudentDetail_Result)">
+      <Parameter Name="idname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="getStudentPoint" ReturnType="Collection(QLHSModel.getStudentPoint_Result)">
+      <Parameter Name="fsubjectid" Mode="In" Type="String" />
+      <Parameter Name="fclassid" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="getStudents" ReturnType="Collection(QLHSModel.getStudents_Result)" />
+    <FunctionImport Name="getStudentsByClass" ReturnType="Collection(QLHSModel.getStudentsByClass_Result)">
+      <Parameter Name="fclass" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="getSubjects" ReturnType="Collection(QLHSModel.getSubjects_Result)" />
+    <FunctionImport Name="UpdateStudentPoint">
+      <Parameter Name="fids" Mode="In" Type="String" />
+      <Parameter Name="fp15" Mode="In" Type="String" />
+      <Parameter Name="fp45" Mode="In" Type="String" />
+      <Parameter Name="fpl" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="checklogin_Result">
+    <Property Type="String" Name="FullName" Nullable="true" MaxLength="200" />
+    <Property Type="Int32" Name="Role" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="GetClasses_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="ClassName" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="LevelName" Nullable="true" MaxLength="255" />
+  </ComplexType>
+  <ComplexType Name="getClassLevel_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="LevelName" Nullable="true" MaxLength="255" />
+    <Property Type="Int32" Name="MaxTotal" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="getListSubject_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="SubjectName" Nullable="true" MaxLength="255" />
+    <Property Type="Int32" Name="Flag" Nullable="true" />
+    <Property Type="Int32" Name="Type" Nullable="true" />
+    <Property Type="Int32" Name="Level1" Nullable="true" />
+    <Property Type="Int32" Name="Level2" Nullable="true" />
+    <Property Type="Int32" Name="Level3" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="getStudentByID_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="StudentID" Nullable="false" MaxLength="255" />
+    <Property Type="String" Name="FullName" Nullable="true" MaxLength="255" />
+    <Property Type="DateTime" Name="BirthDay" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="Gender" Nullable="true" />
+    <Property Type="String" Name="Email" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="PhoneNumber" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Address" Nullable="true" MaxLength="500" />
+    <Property Type="Int32" Name="ClassLevel" Nullable="true" />
+    <Property Type="Int32" Name="Class" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="getStudentDetail_Result">
+    <Property Type="String" Name="StudentID" Nullable="false" MaxLength="255" />
+    <Property Type="String" Name="FullName" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="ClassName" Nullable="true" MaxLength="255" />
+    <Property Type="Int32" Name="TBHK1" Nullable="false" />
+    <Property Type="Int32" Name="TBHK2" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="getStudentPoint_Result">
+    <Property Type="String" Name="StudentID" Nullable="false" MaxLength="255" />
+    <Property Type="String" Name="FullName" Nullable="true" MaxLength="255" />
+    <Property Type="Double" Name="Test15Minutes" Nullable="true" />
+    <Property Type="Double" Name="Test45Minutes" Nullable="true" />
+    <Property Type="Double" Name="TestSemester" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="getStudents_Result">
+    <Property Type="String" Name="StudentID" Nullable="false" MaxLength="255" />
+    <Property Type="String" Name="FullName" Nullable="true" MaxLength="255" />
+    <Property Type="DateTime" Name="BirthDay" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="Gender" Nullable="true" />
+    <Property Type="String" Name="Email" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="PhoneNumber" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Address" Nullable="true" MaxLength="500" />
+  </ComplexType>
+  <ComplexType Name="getStudentsByClass_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="StudentID" Nullable="false" MaxLength="255" />
+    <Property Type="String" Name="FullName" Nullable="true" MaxLength="255" />
+    <Property Type="DateTime" Name="BirthDay" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="Gender" Nullable="true" />
+    <Property Type="String" Name="Email" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="PhoneNumber" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Address" Nullable="true" MaxLength="500" />
+    <Property Type="Int32" Name="ClassLevel" Nullable="true" />
+    <Property Type="Int32" Name="Class" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="getSubjects_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="SubjectName" Nullable="true" MaxLength="255" />
+    <Property Type="Int32" Name="Type" Nullable="true" />
+  </ComplexType>
+</Schema>

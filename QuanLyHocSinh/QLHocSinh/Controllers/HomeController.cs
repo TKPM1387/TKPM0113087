@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QLHocSinh.Helper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,9 +11,10 @@ namespace QLHocSinh.Controllers
     {
         //
         // GET: /Home/
+        //[CheckLogin]
         public ActionResult Index()
         {
             return View();
         }
-	}
+    }
 }

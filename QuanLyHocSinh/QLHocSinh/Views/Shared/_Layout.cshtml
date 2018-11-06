@@ -73,7 +73,7 @@
                 <!-- Logo -->
                 <!-- ============================================================== -->
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="@Url.Action("Index","Home")">
                         <!-- Logo icon -->
                         <b>
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
@@ -109,39 +109,36 @@
                     <!-- User profile and search -->
                     <!-- ============================================================== -->
                     <ul class="navbar-nav my-lg-0">
-                        <li class="nav-item hidden-sm-down">
-                            <form class="app-search">
-                                <input type="text" class="form-control" placeholder="Search for..."> <a class="srh-btn"><i class="ti-search"></i></a>
-                            </form>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="index.html" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="../assets/images/users/1.jpg" alt="user" class="profile-pic" /></a>
-                            <div class="dropdown-menu dropdown-menu-right animated flipInY">
-                                <ul class="dropdown-user">
-                                    <li>
-                                        <div class="dw-user-box">
-                                            <div class="u-img"><img src="../assets/images/users/1.jpg" alt="user"></div>
-                                            <div class="u-text">
-                                                <h4>Steave Jobs</h4>
-                                                <p class="text-muted">varun@gmail.com</p><a href="profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile</a>
+                        
+                        @if (QLHocSinh.Helper.CurrentContext.IsLogged() == true)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="index.html" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="../assets/images/users/1.jpg" alt="user" class="profile-pic" /></a>
+                                <div class="dropdown-menu dropdown-menu-right animated flipInY">
+                                    <ul class="dropdown-user">
+                                        <li>
+                                            <div class="dw-user-box">
+                                                <div class="u-img"><img src="../assets/images/users/1.jpg" alt="user"></div>
+                                                <div class="u-text">
+                                                    <h4> @QLHocSinh.Helper.CurrentContext.GetCurUser().FullName</h4>
+                                                    <p class="text-muted">@QLHocSinh.Helper.CurrentContext.GetCurUser().email</p><a href="#" class="btn btn-rounded btn-danger btn-sm">View Profile</a>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="index.html#"><i class="ti-user"></i> My Profile</a></li>
-                                    <li><a href="index.html#"><i class="ti-wallet"></i> My Balance</a></li>
-                                    <li><a href="index.html#"><i class="ti-email"></i> Inbox</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="index.html#"><i class="ti-settings"></i> Account Setting</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="index.html#"><i class="fa fa-power-off"></i> Logout</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="index.html" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="flag-icon flag-icon-us"></i></a>
-                            <div class="dropdown-menu  dropdown-menu-right animated bounceInDown"> <a class="dropdown-item" href="index.html#"><i class="flag-icon flag-icon-in"></i> India</a> <a class="dropdown-item" href="index.html#"><i class="flag-icon flag-icon-fr"></i> French</a> <a class="dropdown-item" href="index.html#"><i class="flag-icon flag-icon-cn"></i> China</a> <a class="dropdown-item" href="index.html#"><i class="flag-icon flag-icon-de"></i> Dutch</a> </div>
-                        </li>
+                                        </li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="index.html#"><i class="ti-user"></i> My Profile</a></li>
+                                        <li><a href="index.html#"><i class="ti-wallet"></i> My Balance</a></li>
+                                        <li><a href="index.html#"><i class="ti-email"></i> Inbox</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="index.html#"><i class="ti-settings"></i> Account Setting</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a id="logoutLink" href="javascript:;" ><i class="fa fa-power-off"></i> Logout</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        }
+                         <form id="frmLogout" method="post" action="@Url.Action("Logout","Account")"></form>
+                        
                     </ul>
                 </div>
             </nav>
@@ -156,26 +153,11 @@
             <!-- Sidebar scroll-->
             <div class="scroll-sidebar">
                 <!-- User profile -->
-                <div class="user-profile">
-                    <!-- User profile image -->
-                    <div class="profile-img"> <img src="../assets/images/users/1.jpg" alt="user" /> </div>
-                    <!-- User profile text-->
-                    <div class="profile-text">
-                        <a href="index.html#" class="dropdown-toggle link u-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Markarn Doe <span class="caret"></span></a>
-                        <div class="dropdown-menu animated flipInY">
-                            <a href="index.html#" class="dropdown-item"><i class="ti-user"></i> My Profile</a>
-                            <a href="index.html#" class="dropdown-item"><i class="ti-wallet"></i> My Balance</a>
-                            <a href="index.html#" class="dropdown-item"><i class="ti-email"></i> Inbox</a>
-                            <div class="dropdown-divider"></div> <a href="index.html#" class="dropdown-item"><i class="ti-settings"></i> Account Setting</a>
-                            <div class="dropdown-divider"></div> <a href="login.html" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a>
-                        </div>
-                    </div>
-                </div>
+               
                 <!-- End User profile text-->
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <li class="nav-small-cap">PERSONAL</li>
                         <li>
                             <a class="has-arrow" href="/Students/AddStudent" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Tiếp nhận học sinh <span class="label label-rounded label-success">*</span></span></a>
                         </li>
@@ -222,25 +204,10 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-6 col-8 align-self-center">
-                        <h3 class="text-themecolor m-b-0 m-t-0">Dashboard</h3>
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                            <li class="breadcrumb-item active">Dashboard</li>
+                            <li class="breadcrumb-item"><a href="Home/Index">Trang chủ</a></li>
+                            <li class="breadcrumb-item active">@ViewBag.Page</li>
                         </ol>
-                    </div>
-                    <div class="col-md-6 col-4 align-self-center">
-                        <button class="right-side-toggle waves-effect waves-light btn-info btn-circle btn-sm pull-right m-l-10"><i class="ti-settings text-white"></i></button>
-                        <button class="btn pull-right hidden-sm-down btn-success"><i class="mdi mdi-plus-circle"></i> Create</button>
-                        <div class="dropdown pull-right m-r-10 hidden-sm-down">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                January 2017
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="index.html#">February 2017</a>
-                                <a class="dropdown-item" href="index.html#">March 2017</a>
-                                <a class="dropdown-item" href="index.html#">April 2017</a>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <!-- ============================================================== -->
@@ -996,5 +963,10 @@
     <!-- Style switcher -->
     <!-- ============================================================== -->
     <script src="../assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
+    <script type="text/javascript">
+        $('#logoutLink').on('click', function () {
+            $('#frmLogout').submit();
+        })
+    </script>
 </body>
 </html>

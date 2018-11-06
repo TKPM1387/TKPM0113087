@@ -109,7 +109,7 @@ function load_table() {
                         { 'data': 'Address' },
                          {
                              "render": function (data, type, row) {
-                                 return '<button type="button" onclick="edit(' + row.StudentID + ')" class="btn btn-danger waves-effect waves-light">Sửa</button>';
+                                 return '<button type="button" data-toggle="modal" data-target="#exampleModal" onclick="edit(' + row.StudentID + ',' + "'" + row.FullName + "'" + ',' + row.Gender + ',' + row.BirthDay + ',' + "'" + row.Address + "'" + ')" class="btn btn-warning waves-effect waves-light"><i class="fa fa-pencil-square-o" ></i></button>';
                              }
                          }
                 ]
@@ -118,9 +118,14 @@ function load_table() {
     });
 };
 
-function edit(a) {
-    alert(a);
-
+function edit(fid,fname,fgender,fbirthday,faddress) {
+    $('#fullName').val(fname);
+    $('#address').val(faddress);
+    //$('#birthDay').datepicker('update', fbirthday);
+    var date = new Date(parseInt(fbirthday.toString().substr(6)));
+    var month = date.getMonth() + 1;
+    //return date.getDate() + "/" + month + "/" + date.getFullYear();
+    $('#birthDay').val(date.getDate() + "/" + month + "/" + date.getFullYear());
 }
 
 function ViewListStudent() {
