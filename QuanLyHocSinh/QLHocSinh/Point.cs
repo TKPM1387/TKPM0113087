@@ -16,11 +16,12 @@ namespace QLHocSinh
     {
         public int ID { get; set; }
         public string StudenID { get; set; }
-        public Nullable<int> SubjectID { get; set; }
+        public string SubjectID { get; set; }
         public Nullable<int> Semester { get; set; }
         public Nullable<double> Test15Minutes { get; set; }
         public Nullable<double> Test45Minutes { get; set; }
         public Nullable<double> TestSemester { get; set; }
-        public Nullable<int> Average { get; set; }
+        public Nullable<double> Average { get; set; }
+        public Nullable<int> Flag { get; set; }
     }
 }

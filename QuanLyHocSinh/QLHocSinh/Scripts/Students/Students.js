@@ -52,15 +52,20 @@ function createControl() {
         });
     });
 
-    setIDStudent();
-    //load_table();
-    //hideError();
 }
 $("#btnClearForm").click(function () {
-    //hideError();
-    //alert(1);
-    swal("Thêm thành công", "nhé", "success");
+    clearfilter();
 });
+
+function clearfilter(){
+    
+    $("#fullName").val('');
+    $('#birthDay').datepicker('update', new Date());
+    $("#address").val('');
+    $("#email").val('');
+    $("#note").val('');
+}
+
 function loadClass() {
     var idLevel = $("#block").val();
     if (idLevel == null)
@@ -85,7 +90,6 @@ function loadClass() {
 }
 
 function addStudent() {
-    var sid = $('#idstudent').val();
     var sfullname = $("#fullName").val();
     var sbirthday = $("#birthDay").val();
     var c = sbirthday.split('/');
@@ -158,19 +162,20 @@ function addStudent() {
         $('#spgrade').hide()
 
     }
-    //if (i != 0) {
-    //    alert(i);
-    //    return;
-    //}
+    if (i != 0) {
+        //alert(i);
+        return;
+    }
 
     var stu = studentdetail = {
-        StudentID: sid,
         FullName: sfullname,
         BirthDay: sbirthday,
         Gender: sgender,
         Email: semail,
         PhoneNumber: snote,
-        Address: saddress
+        Address: saddress,
+        ClassLevel: sblock,
+        Class:sgrade
     }; 
 
     $.ajax({
@@ -182,12 +187,13 @@ function addStudent() {
         dataType: "json",
         success: function (result)
         {
-            if (result[0].value == 1)
-                swal("Thêm thành công", "nhé", "success");
+            if (result[0].value == 1){
+                swal("Thêm thành công", "success", "success");
+                clearfilter();
+            }
         },
-        error: function (xhr, status, error) { alert('Error:'); }
+        error: function (xhr, status, error) { alert('Có lỗi xảy ra!!'); }
     });
-    setIDStudent();
 }
 function myFunction() {
     alert("I am an alert box!");
@@ -286,22 +292,6 @@ function hideError() {
     $('#spgrade').hide()
 
     $("div.form-group").removeClass('has-error');
-}
-function setIDStudent() {
-
-    $.ajax({
-        type: "POST",
-        url: '/Students/getIDStudent',
-        contentType: "application/json; charset=utf-8",
-        //data: stu,
-        //data: JSON.stringify(stu),
-        dataType: "json",
-        success: function (x)
-        {
-            $('#idstudent').val(x[0].Value);
-        },
-        error: function (xhr, status, error) { alert('Error:'); }
-    });
 }
 function loadClassLevel() {
     $.ajax({

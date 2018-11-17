@@ -14,11 +14,13 @@ namespace QLHocSinh
     public partial class getListSubject_Result
     {
         public int ID { get; set; }
+        public string SubjectID { get; set; }
         public string SubjectName { get; set; }
         public Nullable<int> Flag { get; set; }
         public Nullable<int> Type { get; set; }
         public Nullable<int> Level1 { get; set; }
         public Nullable<int> Level2 { get; set; }
         public Nullable<int> Level3 { get; set; }
+        public Nullable<int> Period { get; set; }
     }
 }

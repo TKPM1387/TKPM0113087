@@ -726,11 +726,16 @@
     <Content Include="assets\scss\icons\weather-icons\fonts\weathericons-regular-webfont.woff" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\Classes\Classes.js" />
+    <Content Include="Scripts\Classes\List.js" />
     <Content Include="Scripts\Classes\Search.js" />
+    <Content Include="Scripts\Home\Home.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\Report\Report.js" />
+    <Content Include="Scripts\Students\Detail.js" />
+    <Content Include="Scripts\Students\loadindex.js" />
     <Content Include="Scripts\Students\Score.js" />
     <Content Include="Scripts\Students\Students.js" />
+    <Content Include="Scripts\Students\ViewDetail.js" />
     <Content Include="Scripts\Subjects\Subjects.js" />
     <Content Include="Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -752,8 +757,12 @@
     <Compile Include="Controllers\ClassesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\RuleController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="Controllers\SubjectsController.cs" />
+    <Compile Include="Customer.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="GetClasses_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -806,12 +815,20 @@
     <Compile Include="Models\NodeClass.cs" />
     <Compile Include="Models\StudentDetail.cs" />
     <Compile Include="Models\StudentPoint.cs" />
-    <Compile Include="Models\Students.cs" />
     <Compile Include="Models\Subjects.cs" />
     <Compile Include="Point.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RuleAge.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RuleStandardScore.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RuleSubject.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Student.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -834,9 +851,13 @@
     <Content Include="Views\Report\Index.cshtml" />
     <Content Include="Views\Report\ReportByClass.cshtml" />
     <Content Include="Views\Classes\Search.cshtml" />
-    <Content Include="Views\Students\UpdateScore.cshtml" />
     <Content Include="Views\Report\ReportBySubject.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Rule\Age.cshtml" />
+    <Content Include="Views\Rule\TotalStudent.cshtml" />
+    <Content Include="Views\Rule\Subject.cshtml" />
+    <Content Include="Views\Classes\List.cshtml" />
+    <Content Include="assets\Vietnamese.json" />
     <EntityDeploy Include="Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model.Designer.cs</LastGenOutput>
@@ -854,6 +875,8 @@
       <DependentUpon>Model.edmx</DependentUpon>
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
+    <Content Include="Views\Students\Detail.cshtml" />
+    <Content Include="Views\Students\ViewDetail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

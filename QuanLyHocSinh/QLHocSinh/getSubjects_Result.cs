@@ -16,5 +16,6 @@ namespace QLHocSinh
         public int ID { get; set; }
         public string SubjectName { get; set; }
         public Nullable<int> Type { get; set; }
+        public Nullable<int> Period { get; set; }
     }
 }

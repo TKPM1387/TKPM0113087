@@ -14,6 +14,7 @@
           <Property Name="ClassLevel" Type="int" />
           <Property Name="Total" Type="int" />
           <Property Name="Flag" Type="int" />
+          <Property Name="MaxTotal" Type="int" />
         </EntityType>
         <EntityType Name="ClassLevel">
           <Key>
@@ -23,25 +24,62 @@
           <Property Name="LevelName" Type="nvarchar" MaxLength="255" />
           <Property Name="MaxTotal" Type="int" />
         </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CUSId" />
+          </Key>
+          <Property Name="CUSId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CUSKey" Type="varchar" MaxLength="8" StoreGeneratedPattern="Computed" />
+          <Property Name="CusName" Type="varchar" MaxLength="50" />
+          <Property Name="mobileno" Type="int" />
+          <Property Name="Gender" Type="varchar" MaxLength="10" />
+        </EntityType>
         <EntityType Name="Point">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="StudenID" Type="nvarchar" MaxLength="255" />
-          <Property Name="SubjectID" Type="int" />
+          <Property Name="StudenID" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="SubjectID" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="Semester" Type="int" />
           <Property Name="Test15Minutes" Type="float" />
           <Property Name="Test45Minutes" Type="float" />
           <Property Name="TestSemester" Type="float" />
-          <Property Name="Average" Type="int" />
+          <Property Name="Average" Type="float" />
+          <Property Name="Flag" Type="int" />
+        </EntityType>
+        <EntityType Name="RuleAge">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MinAge" Type="int" Nullable="false" />
+          <Property Name="MaxAge" Type="int" Nullable="false" />
+          <Property Name="Flag" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="RuleStandardScore">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StandardScore" Type="float" />
+          <Property Name="Flag" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="RuleSubject">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDSubject" Type="int" Nullable="false" />
+          <Property Name="MaxTotal" Type="int" Nullable="false" />
+          <Property Name="Flag" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Students">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="StudentID" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="StudentID" Type="varchar" MaxLength="7" StoreGeneratedPattern="Computed" />
           <Property Name="FullName" Type="nvarchar" MaxLength="255" />
           <Property Name="BirthDay" Type="datetime" />
           <Property Name="Gender" Type="int" />
@@ -50,18 +88,21 @@
           <Property Name="Address" Type="nvarchar" MaxLength="500" />
           <Property Name="ClassLevel" Type="int" />
           <Property Name="Class" Type="int" />
+          <Property Name="State" Type="int" />
         </EntityType>
         <EntityType Name="Subject">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubjectID" Type="varchar" MaxLength="7" StoreGeneratedPattern="Computed" />
           <Property Name="SubjectName" Type="nvarchar" MaxLength="255" />
           <Property Name="Flag" Type="int" />
           <Property Name="Type" Type="int" />
           <Property Name="Level1" Type="int" />
           <Property Name="Level2" Type="int" />
           <Property Name="Level3" Type="int" />
+          <Property Name="Period" Type="int" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -117,7 +158,11 @@
         <EntityContainer Name="QLHSModelStoreContainer">
           <EntitySet Name="Classes" EntityType="Self.Classes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClassLevel" EntityType="Self.ClassLevel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Point" EntityType="Self.Point" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RuleAge" EntityType="Self.RuleAge" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RuleStandardScore" EntityType="Self.RuleStandardScore" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RuleSubject" EntityType="Self.RuleSubject" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Subject" EntityType="Self.Subject" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
@@ -136,6 +181,7 @@
           <Property Name="ClassLevel" Type="Int32" />
           <Property Name="Total" Type="Int32" />
           <Property Name="Flag" Type="Int32" />
+          <Property Name="MaxTotal" Type="Int32" />
         </EntityType>
         <EntityType Name="ClassLevel">
           <Key>
@@ -145,25 +191,62 @@
           <Property Name="LevelName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="MaxTotal" Type="Int32" />
         </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CUSId" />
+          </Key>
+          <Property Name="CUSId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CUSKey" Type="String" MaxLength="8" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="CusName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="mobileno" Type="Int32" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="Point">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StudenID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="SubjectID" Type="Int32" />
+          <Property Name="StudenID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SubjectID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Semester" Type="Int32" />
           <Property Name="Test15Minutes" Type="Double" />
           <Property Name="Test45Minutes" Type="Double" />
           <Property Name="TestSemester" Type="Double" />
-          <Property Name="Average" Type="Int32" />
+          <Property Name="Average" Type="Double" />
+          <Property Name="Flag" Type="Int32" />
+        </EntityType>
+        <EntityType Name="RuleAge">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MinAge" Type="Int32" Nullable="false" />
+          <Property Name="MaxAge" Type="Int32" Nullable="false" />
+          <Property Name="Flag" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="RuleStandardScore">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StandardScore" Type="Double" />
+          <Property Name="Flag" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="RuleSubject">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDSubject" Type="Int32" Nullable="false" />
+          <Property Name="MaxTotal" Type="Int32" Nullable="false" />
+          <Property Name="Flag" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Student">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StudentID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StudentID" Type="String" MaxLength="7" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="FullName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="BirthDay" Type="DateTime" Precision="3" />
           <Property Name="Gender" Type="Int32" />
@@ -172,18 +255,21 @@
           <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="ClassLevel" Type="Int32" />
           <Property Name="Class" Type="Int32" />
+          <Property Name="State" Type="Int32" />
         </EntityType>
         <EntityType Name="Subject">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubjectID" Type="String" MaxLength="7" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="SubjectName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Flag" Type="Int32" />
           <Property Name="Type" Type="Int32" />
           <Property Name="Level1" Type="Int32" />
           <Property Name="Level2" Type="Int32" />
           <Property Name="Level3" Type="Int32" />
+          <Property Name="Period" Type="Int32" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -199,7 +285,11 @@
         <EntityContainer Name="QLHSEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Classes" EntityType="Self.Class" />
           <EntitySet Name="ClassLevels" EntityType="Self.ClassLevel" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
           <EntitySet Name="Points" EntityType="Self.Point" />
+          <EntitySet Name="RuleAges" EntityType="Self.RuleAge" />
+          <EntitySet Name="RuleStandardScores" EntityType="Self.RuleStandardScore" />
+          <EntitySet Name="RuleSubjects" EntityType="Self.RuleSubject" />
           <EntitySet Name="Students" EntityType="Self.Student" />
           <EntitySet Name="Subjects" EntityType="Self.Subject" />
           <EntitySet Name="Users" EntityType="Self.User" />
@@ -260,16 +350,18 @@
         </ComplexType>
         <ComplexType Name="getListSubject_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="SubjectID" Nullable="true" MaxLength="7" />
           <Property Type="String" Name="SubjectName" Nullable="true" MaxLength="255" />
           <Property Type="Int32" Name="Flag" Nullable="true" />
           <Property Type="Int32" Name="Type" Nullable="true" />
           <Property Type="Int32" Name="Level1" Nullable="true" />
           <Property Type="Int32" Name="Level2" Nullable="true" />
           <Property Type="Int32" Name="Level3" Nullable="true" />
+          <Property Type="Int32" Name="Period" Nullable="true" />
         </ComplexType>
         <ComplexType Name="getStudentByID_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="StudentID" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="StudentID" Nullable="true" MaxLength="7" />
           <Property Type="String" Name="FullName" Nullable="true" MaxLength="255" />
           <Property Type="DateTime" Name="BirthDay" Nullable="true" Precision="23" />
           <Property Type="Int32" Name="Gender" Nullable="true" />
@@ -278,23 +370,24 @@
           <Property Type="String" Name="Address" Nullable="true" MaxLength="500" />
           <Property Type="Int32" Name="ClassLevel" Nullable="true" />
           <Property Type="Int32" Name="Class" Nullable="true" />
+          <Property Type="Int32" Name="State" Nullable="true" />
         </ComplexType>
         <ComplexType Name="getStudentDetail_Result">
-          <Property Type="String" Name="StudentID" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="StudentID" Nullable="true" MaxLength="7" />
           <Property Type="String" Name="FullName" Nullable="true" MaxLength="255" />
           <Property Type="String" Name="ClassName" Nullable="true" MaxLength="255" />
           <Property Type="Int32" Name="TBHK1" Nullable="false" />
           <Property Type="Int32" Name="TBHK2" Nullable="false" />
         </ComplexType>
         <ComplexType Name="getStudentPoint_Result">
-          <Property Type="String" Name="StudentID" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="StudentID" Nullable="true" MaxLength="7" />
           <Property Type="String" Name="FullName" Nullable="true" MaxLength="255" />
           <Property Type="Double" Name="Test15Minutes" Nullable="true" />
           <Property Type="Double" Name="Test45Minutes" Nullable="true" />
           <Property Type="Double" Name="TestSemester" Nullable="true" />
         </ComplexType>
         <ComplexType Name="getStudents_Result">
-          <Property Type="String" Name="StudentID" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="StudentID" Nullable="true" MaxLength="7" />
           <Property Type="String" Name="FullName" Nullable="true" MaxLength="255" />
           <Property Type="DateTime" Name="BirthDay" Nullable="true" Precision="23" />
           <Property Type="Int32" Name="Gender" Nullable="true" />
@@ -304,7 +397,7 @@
         </ComplexType>
         <ComplexType Name="getStudentsByClass_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="StudentID" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="StudentID" Nullable="true" MaxLength="7" />
           <Property Type="String" Name="FullName" Nullable="true" MaxLength="255" />
           <Property Type="DateTime" Name="BirthDay" Nullable="true" Precision="23" />
           <Property Type="Int32" Name="Gender" Nullable="true" />
@@ -313,11 +406,13 @@
           <Property Type="String" Name="Address" Nullable="true" MaxLength="500" />
           <Property Type="Int32" Name="ClassLevel" Nullable="true" />
           <Property Type="Int32" Name="Class" Nullable="true" />
+          <Property Type="Int32" Name="State" Nullable="true" />
         </ComplexType>
         <ComplexType Name="getSubjects_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
           <Property Type="String" Name="SubjectName" Nullable="true" MaxLength="255" />
           <Property Type="Int32" Name="Type" Nullable="true" />
+          <Property Type="Int32" Name="Period" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -333,6 +428,7 @@
                 <ScalarProperty Name="ClassLevel" ColumnName="ClassLevel" />
                 <ScalarProperty Name="Total" ColumnName="Total" />
                 <ScalarProperty Name="Flag" ColumnName="Flag" />
+                <ScalarProperty Name="MaxTotal" ColumnName="MaxTotal" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -342,6 +438,17 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="LevelName" ColumnName="LevelName" />
                 <ScalarProperty Name="MaxTotal" ColumnName="MaxTotal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="QLHSModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="CUSId" ColumnName="CUSId" />
+                <ScalarProperty Name="CUSKey" ColumnName="CUSKey" />
+                <ScalarProperty Name="CusName" ColumnName="CusName" />
+                <ScalarProperty Name="mobileno" ColumnName="mobileno" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -356,6 +463,36 @@
                 <ScalarProperty Name="Test45Minutes" ColumnName="Test45Minutes" />
                 <ScalarProperty Name="TestSemester" ColumnName="TestSemester" />
                 <ScalarProperty Name="Average" ColumnName="Average" />
+                <ScalarProperty Name="Flag" ColumnName="Flag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RuleAges">
+            <EntityTypeMapping TypeName="QLHSModel.RuleAge">
+              <MappingFragment StoreEntitySet="RuleAge">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="MinAge" ColumnName="MinAge" />
+                <ScalarProperty Name="MaxAge" ColumnName="MaxAge" />
+                <ScalarProperty Name="Flag" ColumnName="Flag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RuleStandardScores">
+            <EntityTypeMapping TypeName="QLHSModel.RuleStandardScore">
+              <MappingFragment StoreEntitySet="RuleStandardScore">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="StandardScore" ColumnName="StandardScore" />
+                <ScalarProperty Name="Flag" ColumnName="Flag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RuleSubjects">
+            <EntityTypeMapping TypeName="QLHSModel.RuleSubject">
+              <MappingFragment StoreEntitySet="RuleSubject">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IDSubject" ColumnName="IDSubject" />
+                <ScalarProperty Name="MaxTotal" ColumnName="MaxTotal" />
+                <ScalarProperty Name="Flag" ColumnName="Flag" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -372,6 +509,7 @@
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="ClassLevel" ColumnName="ClassLevel" />
                 <ScalarProperty Name="Class" ColumnName="Class" />
+                <ScalarProperty Name="State" ColumnName="State" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -379,12 +517,14 @@
             <EntityTypeMapping TypeName="QLHSModel.Subject">
               <MappingFragment StoreEntitySet="Subject">
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
                 <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
                 <ScalarProperty Name="Flag" ColumnName="Flag" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Level1" ColumnName="Level1" />
                 <ScalarProperty Name="Level2" ColumnName="Level2" />
                 <ScalarProperty Name="Level3" ColumnName="Level3" />
+                <ScalarProperty Name="Period" ColumnName="Period" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -432,12 +572,14 @@
             <ResultMapping>
               <ComplexTypeMapping TypeName="QLHSModel.getListSubject_Result">
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
                 <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
                 <ScalarProperty Name="Flag" ColumnName="Flag" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Level1" ColumnName="Level1" />
                 <ScalarProperty Name="Level2" ColumnName="Level2" />
                 <ScalarProperty Name="Level3" ColumnName="Level3" />
+                <ScalarProperty Name="Period" ColumnName="Period" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -454,6 +596,7 @@
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="ClassLevel" ColumnName="ClassLevel" />
                 <ScalarProperty Name="Class" ColumnName="Class" />
+                <ScalarProperty Name="State" ColumnName="State" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -505,6 +648,7 @@
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="ClassLevel" ColumnName="ClassLevel" />
                 <ScalarProperty Name="Class" ColumnName="Class" />
+                <ScalarProperty Name="State" ColumnName="State" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -514,6 +658,7 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Period" ColumnName="Period" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

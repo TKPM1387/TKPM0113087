@@ -1,78 +1,154 @@
 ﻿@{
-    ViewBag.Title = "lop hoc";
+    ViewBag.Title = "Quản lý môn học";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 <div class="row">
-    <div class="col-lg-8 col-xlg-10 col-md-8">
-        <div class="card card-outline-info">
+    <button class="btn pull-left hidden-sm-down btn-success" data-toggle="modal" data-target="#ModelAddSubject" style="margin-left: 15px;">
+        <i class="fa fa-plus"></i> Thêm môn học
+    </button>
+   
+</div>
+<div class="row">
+   
+
+</div>
+<div class="row" style="    margin-top: 10px;">
+    <div class="col-lg-12 col-xlg-10 col-md-12">
+        <div class="card card-outline-primary">
             <div class="card-header">
-                <h4 class="m-b-0 text-white">Danh sách lớp học</h4>
+                <h4 class="m-b-0 text-white">Danh sách môn học</h4>
             </div>
             <div class="card-block">
-                <table id="subjecttable" class="table color-bordered-table success-bordered-table" style="width: 100%">
+                <table id="subjecttable" class="table color-bordered-table" style="width: 100%">
                     <thead>
                         <tr>
                             <th>STT</th>
                             <th>Mã môn học</th>
                             <th>Tên môn học</th>
-                            <th>Edit</th>
+                            <th>Số tiết</th>
+                            <th>Hệ số</th>
+                            <th>Cập nhật</th>
                         </tr>
                     </thead>
                 </table>
             </div>
         </div>
     </div>
-    <div class="col-lg-4 col-xlg-2 col-md-4">
-        <div class="stickyside">
-            <div class="list-group" id="top-menu">
-                <div class="card card-outline-info">
-                    <div class="card-header">
-                        <h4 class="m-b-0 text-white">Thông tin chi tiết</h4>
-                    </div>
-                    <div class="card-block">
-                            <div class="col-md-12">
-                                <div class="form-group row">
-                                    <label class="control-label text-right  col-md-3" style="padding-top: 9px">Lớp</label>
-                                    <div class="col-md-9">
-                                        <input id="classname" type="text" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group row">
-                                    <label class="control-label text-right  col-md-3" style="padding-top: 9px">Khối</label>
-                                    <div class="col-md-9">
-                                        <input id="classlevelname" type="text" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group row">
-                                    <label class="control-label text-right  col-md-3" style="padding-top: 9px">Sĩ số</label>
-                                    <div class="col-md-9">
-                                        <input id="total" type="text" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group row">
-                                    <label class="control-label text-right  col-md-3" style="padding-top: 9px">GVCN</label>
-                                    <div class="col-md-9">
-                                        <input id="teachername" type="text" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
 
+</div>
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-block">
+            
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="exampleModalLabel1">Cập nhật thông tin môn học</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label class="control-label text-right  col-md-4">Mã môn học</label>
+                                        <div class="col-md-8">
+                                            <input id="subjectid" type="text" class="form-control" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label class="control-label text-right  col-md-4">Tên môn học</label>
+                                        <div class="col-md-8">
+                                            <input id="subjectname" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label class="control-label text-right  col-md-4">Số tiết</label>
+                                        <div class="col-md-8">
+                                            <input id="subjectperiod" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label class="control-label text-right  col-md-4">Hệ số</label>
+                                        <div class="col-md-8">
+                                            <input id="subjecttype" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="updateinfosubject()"><i class="fa fa-edit" style="font-size:16px"></i>Lưu</button>
+                        </div>
+                    </div>
                 </div>
+            </div>
+            <!-- /.modal -->
 
+            <div class="modal fade" id="ModelAddSubject" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="exampleModalLabel1">Thêm môn học</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label class="control-label text-right  col-md-4">Tên môn học</label>
+                                        <div class="col-md-8">
+                                            <input id="subjectnameadd" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label class="control-label text-right  col-md-4">Số tiết</label>
+                                        <div class="col-md-8">
+                                            <input id="subjectperiodadd" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label class="control-label text-right  col-md-4">Hệ số</label>
+                                        <div class="col-md-8">
+                                            <input id="subjecttypeadd" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="addsubject()"><i class="fa fa-edit" style="font-size:16px"></i>Lưu</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
 </div>
+
 <script src="~/Scripts/Subjects/Subjects.js"></script>
 <script>
     $(document).ready(function () {

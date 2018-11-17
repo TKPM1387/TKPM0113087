@@ -12,13 +12,11 @@ namespace QLHocSinh
     using System;
     using System.Collections.Generic;
     
-    public partial class Class
+    public partial class RuleSubject
     {
         public int ID { get; set; }
-        public string ClassName { get; set; }
-        public Nullable<int> ClassLevel { get; set; }
-        public Nullable<int> Total { get; set; }
-        public Nullable<int> Flag { get; set; }
-        public Nullable<int> MaxTotal { get; set; }
+        public int IDSubject { get; set; }
+        public int MaxTotal { get; set; }
+        public string Flag { get; set; }
     }
 }

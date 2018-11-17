@@ -17,7 +17,7 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <div id="fmgrade" class="form-group row">
-                                    <label class="control-label text-right col-md-3">Lớp</label>
+                                    <label class="control-label text-right col-md-3" style="padding-top: 6px;">Lớp</label>
                                     <div class="col-md-9">
                                         <select id="grade" data-style="form-control btn-secondary"></select>
                                     </div>
@@ -25,7 +25,7 @@
                             </div>
                             <div class="col-md-3">
                                 <div id="fmgrade" class="form-group row">
-                                    <label class="control-label text-right col-md-4">Môn</label>
+                                    <label class="control-label text-right col-md-4" style="padding-top: 6px;">Môn</label>
                                     <div class="col-md-8">
                                         <select id="subject" data-style="form-control btn-secondary"></select>
                                     </div>
@@ -33,7 +33,7 @@
                             </div>
                             <div class="col-md-3">
                                 <div id="fmgrade" class="form-group row">
-                                    <label class="control-label text-right col-md-4">Học kỳ</label>
+                                    <label class="control-label text-right col-md-4" style="padding-top: 6px;">Học kỳ</label>
                                     <div class="col-md-8">
                                         <select id="semester" data-style="form-control btn-secondary">
                                             <option value="1">Học kỳ 1</option>
@@ -45,7 +45,10 @@
                             <div class="col-md-3">
                                 <div id="fmgrade" class="form-group row">
                                     <div class="col-md-9">
-                                        <button type="button" onclick="ViewStudentScore()" class="btn btn-success">Xem bảng điểm lớp</button>
+                                        <button type="button" onclick="ViewStudentScore()" class="btn btn-primary">
+                                        <i class="fa fa-search" aria-hidden="true"></i>
+                                        Xem bảng điểm lớp
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -60,6 +63,7 @@
                                     <th>Điểm 15 phút</th>
                                     <th>Điểm 1 tiết</th>
                                     <th>Điểm cuối học kỳ</th>
+                                    <th>Cập nhật</th>
                                 </tr>
                             </thead>
                         </table>
@@ -70,5 +74,59 @@
     </div>
 </div>
 
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">Cập nhật điểm số</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form>
+
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="control-label text-right  col-md-4">Họ tên</label>
+                            <div class="col-md-8">
+                                <input id="fullName" type="text" class="form-control" disabled>
+                                <input id="fid" type="hidden" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="control-label text-right  col-md-4">Điểm 15 phút</label>
+                            <div class="col-md-8">
+                                <input id="fp15" type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="control-label text-right  col-md-4">Điểm 1 tiết</label>
+                            <div class="col-md-8">
+                                <input id="fp45" type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="control-label text-right  col-md-4">Điểm cuối kỳ</label>
+                            <div class="col-md-8">
+                                <input id="fpl" type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i>Đóng</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="updatepoint()"><i class="fa fa-edit" style="font-size:16px"></i>Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="~/Scripts/Students/Score.js"></script>

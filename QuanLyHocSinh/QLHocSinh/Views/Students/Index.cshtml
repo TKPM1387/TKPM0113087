@@ -5,34 +5,51 @@
  
 <link href="../assets/css/style.css" rel="stylesheet">
 <style>
-    ul.tree > * {
+    /*ul.tree > * {
         display: none;
     }
 
     .form-control {
         padding: 0px 12px !important;
+    }*/
+
+    .form-group {
+        margin-bottom: 10px !important;
     }
 
     label {
         font-weight: normal !important;
         padding-top: 12px;
     }
+    /*div.dataTables_wrapper {
+        margin: 0 auto;
+    }*/
+    #liststudent {
+        overflow-x: scroll;
+        /*max-width: 100%;*/
+        /*display: block;*/
+        white-space: nowrap;
+    }
 </style>
 <div class="row">
-    <div class="col-lg-9 col-xlg-10 col-md-8">
-        <div class="card">
+    <div class="col-12">
+        <div class="card card-outline-primary">
+            <div class="card-header">
+                <h4 class="m-b-0 text-white">Danh sách học sinh</h4>
+            </div>
             <div class="card-block">
-                <h2>Danh sách học sinh</h2>
-                <table id="studentTable" class="table table-striped table-bordered" style="width: 100%">
+                <table id="liststudent" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
                             <th>STT</th>
-                            <th>Mã học sinh</th>
+                            <th>Mã HS</th>
                             <th>Họ tên</th>
+                            <th>ID</th>
+                            <th>Lớp</th>
                             <th>Ngày sinh</th>
                             <th>Giới tính</th>
                             <th>Email</th>
-                            <th>Số điện thoại</th>
+                            <th>Điện thoại</th>
                             <th>Địa chỉ</th>
                             <th>Cập nhật</th>
                         </tr>
@@ -41,193 +58,125 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-3 col-xlg-2 col-md-4">
-        <div class="card">
-            <div class="card-block">
-                <table>
-                    <tr>
-                        <th>
-                            <label class="control-label text-right col-md-3">Khối</label>
-                        </th>
-                        <th>
-                            <input id="block2" />
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>
-                            <label class="control-label text-right col-md-3">Lớp</label>
-                        </th>
-                        <th>
-                            <input id="grade2" />
-                        </th>
-                    </tr>
+</div>
 
-                </table>
+
+<div class="col-md-12">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content card card-outline-primary">
+                <div class="modal-header card-header">
+                    <h4 class="modal-title" id="exampleModalLabel1" style="color:white">Cập nhật thông tin</h4>
+                    @*<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>*@
+                </div>
+                <div class="modal-body">
+                    <form>
+
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="control-label text-right  col-md-4">Họ tên</label>
+                                <div class="col-md-8">
+                                    <input id="fullName" type="text" class="form-control">
+                                    <input id="sid" type="hidden" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="control-label text-right  col-md-4">Giới tính</label>
+                                <div class="col-md-8">
+                                    @*<input id="gender" type="text" class="form-control">*@
+                                    <select id="gender" class="selectpicker" data-style="form-control btn-secondary">
+                                        <option value="1">Nam</option>
+                                        <option value="2">Nữ</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="control-label text-right  col-md-4">Ngày sinh</label>
+                                <div class="col-md-8">
+                                    @*<input id="fullName" type="text" class="form-control">*@
+                                    <input type="text" id="birthDay" class="form-control" placeholder="mm/dd/yyyy">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="control-label text-right  col-md-4">Địa chỉ</label>
+                                <div class="col-md-8">
+                                    <input id="address" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="control-label text-right  col-md-4">Email</label>
+                                <div class="col-md-8">
+                                    <input id="email" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="control-label text-right  col-md-4">Số điện thoại</label>
+                                <div class="col-md-8">
+                                    <input id="phonenumber" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="control-label text-right  col-md-4">Lớp</label>
+                                <div class="col-md-8">
+                                    <select id="grade2" data-style="form-control btn-secondary"></select>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="updateinfo()"><i class="fa fa-edit" style="font-size:16px"></i>Lưu</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<div id="window">
-    <h5 class="box-title"><b>Thông tin lớp học</b></h5>
-    <div class="row">
-        <div class="col-md-5">
-            <div class="form-group row">
-                <label class="control-label text-right  col-md-3">Họ tên</label>
-                <div class="col-md-7">
-                    <input id="fullName" type="text" class="form-control">
-                    <small id="spfullname" class="form-control-feedback">Họ tên </small>
-                </div>
-            </div>
-        </div>
-        <!--/span-->
-        <div class="col-md-5">
-            <div class="form-group row ">
-                <label class="control-label text-right  col-md-3">Giới tính</label>
-                <div class="col-md-7">
-                    <input id="gender" style="width: 100%">
-                </div>
-            </div>
-        </div>
-        <!--/span-->
-    </div>
-
-    <div class="row">
-
-        <div class="col-md-5">
-            <div id="fmaddress" class="form-group row">
-                <label class="control-label text-right  col-md-3">Địa chỉ</label>
-                <div class="col-md-7">
-                    <input id="address" type="text" class="form-control">
-                </div>
-            </div>
-        </div>
-        <!--/span-->
-        <div class="col-md-5">
-            <div id="fmemail" class="form-group row">
-                <label class="control-label text-right  col-md-3">Email</label>
-                <div class="col-md-7">
-                    <input id="email" type="text" class="form-control">
-                </div>
-            </div>
-        </div>
-
-        <!--/span-->
-    </div>
-    <!--/row-->
-    <div class="row">
-        <div class="col-md-5">
-            <div id="fmbirthday" class="form-group row">
-                <label class="control-label text-right col-md-3">Ngày sinh</label>
-                <div class="col-md-7">
-                    <input type="text" id="birthDay" style="width: 100%">
-                </div>
-            </div>
-        </div>
-        <!--/span-->
-        <div class="col-md-5">
-            <div class="form-group has-error row ">
-                <label class="control-label text-right col-md-3">Điện thoại</label>
-                <div class="col-md-7">
-                    <input id="note" type="text" class="form-control">
-                </div>
-            </div>
-        </div>
-        <!--/span-->
-    </div>
-
-    <h5 class="box-title"><b>Thông tin lớp học</b></h5>
-    <hr class="m-t-0 m-b-40">
-    <!--/row-->
-    <div class="row">
-        <div class="col-md-5">
-            <div id="fmblock" class="form-group row">
-                <label class="control-label text-right col-md-3">Khối</label>
-                <div class="col-md-7">
-                    <input id="block" type="text" style="width: 100%">
-                </div>
-            </div>
-        </div>
-        <div class="col-md-5">
-            <div id="fmgrade" class="form-group row">
-                <label class="control-label text-right col-md-3">Lớp</label>
-                <div class="col-md-7">
-                    <input id="grade" style="width: 100%">
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-5">
-            <div class="form-group row">
-                <label class="control-label text-right col-md-3">Mã HS</label>
-                <div class="col-md-7">
-                    <input id="idstudent" type="text" class="form-control" disabled>
-                </div>
-            </div>
-        </div>
-        <!--/span-->
-        <div class="col-md-5">
-            <div class="form-group row">
-                <label class="control-label text-right col-md-3">State</label>
-                <div class="col-md-7">
-                    <input type="text" class="form-control">
-                </div>
-            </div>
-        </div>
-        <!--/span-->
-    </div>
-</div>
-
-<script src="~/Scripts/Students/Students.js"></script>
-<script crossorigin="anonymous" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="~/Scripts/Students/loadindex.js"></script>
 <script>
     $(document).ready(function () {
-        $("#block2").kendoDropDownList({
-            dataTextField: "text",
-            dataValueField: "value",
-            index: 1,
-            change: loadClass2,
-            showSelectAll: true
+        $('#grade2').selectpicker();
+        $('#birthDay').datepicker({
+            autoclose: true,
+            todayHighlight: true,
+            format: 'dd/mm/yyyy'
         });
-        $("#grade2").kendoDropDownList({
-            dataTextField: "text",
-            dataValueField: "value",
-            index: 1,
-            showSelectAll: true
-        });
+
         $.ajax({
             type: "GET",
-            url: '/Classes/getClassLevel2',
+            url: '/Classes/getClassByLevel',
             contentType: "application/json; charset=utf-8",
+            data: { idLevel: 0 },
             dataType: "json",
+            async: false,
             success: function (data) {
-                var ddl = $('#block2').data("kendoDropDownList");
-                ddl.setDataSource(data);
-                ddl.refresh();
-                ddl.select(0);
-                ddl.trigger("change");
+                //$('#grade').find('option').remove().end();
+                var jsonData = JSON.stringify(data);
+                $.each(JSON.parse(jsonData), function (idx, obj) {
+                    $("#grade2").append('<option value="' + obj.value + '">' + obj.text + '</option>').selectpicker('refresh');
+                });
             },
             error: function (xhr, status, error) {
-                alert('err or seleccct 2222:');
+                alert('Error789:');
             }
         });
-
-
-        var myWindow = $("#window");
-
-
-        myWindow.kendoWindow({
-            width: "800px",
-            height: "500px",
-            title: "Cập nhật thông tin học sinh",
-            visible: false,
-            actions: [
-                "Pin",
-                "Minimize",
-                "Maximize",
-                "Close"
-            ],
-        }).data("kendoWindow")
     })
 </script>

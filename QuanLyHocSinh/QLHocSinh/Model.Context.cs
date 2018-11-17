@@ -29,7 +29,11 @@ namespace QLHocSinh
     
         public virtual DbSet<Class> Classes { get; set; }
         public virtual DbSet<ClassLevel> ClassLevels { get; set; }
+        public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Point> Points { get; set; }
+        public virtual DbSet<RuleAge> RuleAges { get; set; }
+        public virtual DbSet<RuleStandardScore> RuleStandardScores { get; set; }
+        public virtual DbSet<RuleSubject> RuleSubjects { get; set; }
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<Subject> Subjects { get; set; }
         public virtual DbSet<User> Users { get; set; }

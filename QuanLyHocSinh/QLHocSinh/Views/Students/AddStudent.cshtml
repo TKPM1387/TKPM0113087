@@ -11,12 +11,11 @@
 
 <div class="row">
     <div class="col-12">
-        <div class="card card-outline-info">
+        <div class="card card-outline-primary">
             <div class="card-header">
                 <h4 class="m-b-0 text-white">Tiếp nhận học sinh</h4>
             </div>
             <div class="card-block">
-                @*<form action="" class="form-horizontal">*@
                     <div class="form-body">
                         <h4 class="box-title">Thông tin cá nhân</h4>
                         <hr class="m-t-0 m-b-40">
@@ -50,7 +49,7 @@
                                 <div id="fmaddress" class="form-group row">
                                     <label class="control-label col-md-3">Địa chỉ</label>
                                     <div class="col-md-9">
-                                        <input id="address" type="text" class="form-control">
+                                        <input id="address" type="text" class="form-control" placeholder="Nhập địa chỉ">
                                         <small id="spaddress" class="form-control-feedback">Địa chỉ không được để trống. </small>
                                     </div>
                                 </div>
@@ -60,7 +59,7 @@
                                 <div id="fmemail" class="form-group row">
                                     <label class="control-label col-md-3">Email</label>
                                     <div class="col-md-9">
-                                        <input id="email" type="text" class="form-control">
+                                        <input id="email" type="text" class="form-control" placeholder="Nhập Email">
                                     </div>
                                 </div>
                             </div>
@@ -86,7 +85,7 @@
                                 <div class="form-group has-error row ">
                                     <label class="control-label col-md-3">Điện thoại</label>
                                     <div class="col-md-9">
-                                        <input id="note" type="text" class="form-control">
+                                        <input id="note" type="text" class="form-control" placeholder="Nhập số điện thoại">
                                     </div>
                                 </div>
                             </div>
@@ -118,10 +117,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label class="control-label text-right col-md-3">Mã HS</label>
-                                    <div class="col-md-9">
-                                        <input id="idstudent" type="text" class="form-control" disabled>
-                                    </div>
+                                    
                                 </div>
                             </div>
                             <!--/span-->
@@ -129,8 +125,8 @@
                                 <div class="form-group row">
                                     <label class="control-label text-right col-md-3"></label>
                                     <div class="col-md-9">
-                                        <button onclick="addStudent()" class="btn pull-right hidden-sm-down btn-success"><i class="mdi mdi-plus-circle"></i> Thêm</button>
-                                        <button id="btnClearForm" class="btn pull-right hidden-sm-down btn-primary" style="margin-left: 12px;"><i class="mdi mdi-plus-circle"></i> Làm mới</button>
+                                        <button onclick="addStudent()" class="btn pull-right hidden-sm-down btn-success" style="    width: 110px;"><i class="fa fa-plus-square"></i> Thêm</button>
+                                        <button id="btnClearForm" class="btn pull-right hidden-sm-down btn-primary" style="margin-left: 12px;"><i class="fa fa-refresh"></i> Làm mới</button>
 
                                     </div>
                                 </div>

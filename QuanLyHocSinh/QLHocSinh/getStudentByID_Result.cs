@@ -23,5 +23,6 @@ namespace QLHocSinh
         public string Address { get; set; }
         public Nullable<int> ClassLevel { get; set; }
         public Nullable<int> Class { get; set; }
+        public Nullable<int> State { get; set; }
     }
 }

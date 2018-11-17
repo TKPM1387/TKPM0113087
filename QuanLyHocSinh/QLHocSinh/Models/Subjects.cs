@@ -10,6 +10,9 @@ namespace QLHocSinh.Models
         public int STT { get; set; }
         public int SubjectID { get; set; }
         public string SubjectName { get; set; }
+        public int Type { get; set; }
         public string Level { get; set; }
+
+        public int Period { get; set; }
     }
 }

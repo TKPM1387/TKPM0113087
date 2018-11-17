@@ -9,6 +9,7 @@
     <Property Name="ClassLevel" Type="Int32" />
     <Property Name="Total" Type="Int32" />
     <Property Name="Flag" Type="Int32" />
+    <Property Name="MaxTotal" Type="Int32" />
   </EntityType>
   <EntityType Name="ClassLevel">
     <Key>
@@ -18,25 +19,62 @@
     <Property Name="LevelName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="MaxTotal" Type="Int32" />
   </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CUSId" />
+    </Key>
+    <Property Name="CUSId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CUSKey" Type="String" MaxLength="8" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
+    <Property Name="CusName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="mobileno" Type="Int32" />
+    <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+  </EntityType>
   <EntityType Name="Point">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="StudenID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="SubjectID" Type="Int32" />
+    <Property Name="StudenID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SubjectID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Semester" Type="Int32" />
     <Property Name="Test15Minutes" Type="Double" />
     <Property Name="Test45Minutes" Type="Double" />
     <Property Name="TestSemester" Type="Double" />
-    <Property Name="Average" Type="Int32" />
+    <Property Name="Average" Type="Double" />
+    <Property Name="Flag" Type="Int32" />
+  </EntityType>
+  <EntityType Name="RuleAge">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MinAge" Type="Int32" Nullable="false" />
+    <Property Name="MaxAge" Type="Int32" Nullable="false" />
+    <Property Name="Flag" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+  </EntityType>
+  <EntityType Name="RuleStandardScore">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StandardScore" Type="Double" />
+    <Property Name="Flag" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="RuleSubject">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IDSubject" Type="Int32" Nullable="false" />
+    <Property Name="MaxTotal" Type="Int32" Nullable="false" />
+    <Property Name="Flag" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="Student">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="StudentID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="StudentID" Type="String" MaxLength="7" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
     <Property Name="FullName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="BirthDay" Type="DateTime" Precision="3" />
     <Property Name="Gender" Type="Int32" />
@@ -45,18 +83,21 @@
     <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="ClassLevel" Type="Int32" />
     <Property Name="Class" Type="Int32" />
+    <Property Name="State" Type="Int32" />
   </EntityType>
   <EntityType Name="Subject">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SubjectID" Type="String" MaxLength="7" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
     <Property Name="SubjectName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="Flag" Type="Int32" />
     <Property Name="Type" Type="Int32" />
     <Property Name="Level1" Type="Int32" />
     <Property Name="Level2" Type="Int32" />
     <Property Name="Level3" Type="Int32" />
+    <Property Name="Period" Type="Int32" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -72,7 +113,11 @@
   <EntityContainer Name="QLHSEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Classes" EntityType="Self.Class" />
     <EntitySet Name="ClassLevels" EntityType="Self.ClassLevel" />
+    <EntitySet Name="Customers" EntityType="Self.Customer" />
     <EntitySet Name="Points" EntityType="Self.Point" />
+    <EntitySet Name="RuleAges" EntityType="Self.RuleAge" />
+    <EntitySet Name="RuleStandardScores" EntityType="Self.RuleStandardScore" />
+    <EntitySet Name="RuleSubjects" EntityType="Self.RuleSubject" />
     <EntitySet Name="Students" EntityType="Self.Student" />
     <EntitySet Name="Subjects" EntityType="Self.Subject" />
     <EntitySet Name="Users" EntityType="Self.User" />
@@ -133,16 +178,18 @@
   </ComplexType>
   <ComplexType Name="getListSubject_Result">
     <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="SubjectID" Nullable="true" MaxLength="7" />
     <Property Type="String" Name="SubjectName" Nullable="true" MaxLength="255" />
     <Property Type="Int32" Name="Flag" Nullable="true" />
     <Property Type="Int32" Name="Type" Nullable="true" />
     <Property Type="Int32" Name="Level1" Nullable="true" />
     <Property Type="Int32" Name="Level2" Nullable="true" />
     <Property Type="Int32" Name="Level3" Nullable="true" />
+    <Property Type="Int32" Name="Period" Nullable="true" />
   </ComplexType>
   <ComplexType Name="getStudentByID_Result">
     <Property Type="Int32" Name="ID" Nullable="false" />
-    <Property Type="String" Name="StudentID" Nullable="false" MaxLength="255" />
+    <Property Type="String" Name="StudentID" Nullable="true" MaxLength="7" />
     <Property Type="String" Name="FullName" Nullable="true" MaxLength="255" />
     <Property Type="DateTime" Name="BirthDay" Nullable="true" Precision="23" />
     <Property Type="Int32" Name="Gender" Nullable="true" />
@@ -151,23 +198,24 @@
     <Property Type="String" Name="Address" Nullable="true" MaxLength="500" />
     <Property Type="Int32" Name="ClassLevel" Nullable="true" />
     <Property Type="Int32" Name="Class" Nullable="true" />
+    <Property Type="Int32" Name="State" Nullable="true" />
   </ComplexType>
   <ComplexType Name="getStudentDetail_Result">
-    <Property Type="String" Name="StudentID" Nullable="false" MaxLength="255" />
+    <Property Type="String" Name="StudentID" Nullable="true" MaxLength="7" />
     <Property Type="String" Name="FullName" Nullable="true" MaxLength="255" />
     <Property Type="String" Name="ClassName" Nullable="true" MaxLength="255" />
     <Property Type="Int32" Name="TBHK1" Nullable="false" />
     <Property Type="Int32" Name="TBHK2" Nullable="false" />
   </ComplexType>
   <ComplexType Name="getStudentPoint_Result">
-    <Property Type="String" Name="StudentID" Nullable="false" MaxLength="255" />
+    <Property Type="String" Name="StudentID" Nullable="true" MaxLength="7" />
     <Property Type="String" Name="FullName" Nullable="true" MaxLength="255" />
     <Property Type="Double" Name="Test15Minutes" Nullable="true" />
     <Property Type="Double" Name="Test45Minutes" Nullable="true" />
     <Property Type="Double" Name="TestSemester" Nullable="true" />
   </ComplexType>
   <ComplexType Name="getStudents_Result">
-    <Property Type="String" Name="StudentID" Nullable="false" MaxLength="255" />
+    <Property Type="String" Name="StudentID" Nullable="true" MaxLength="7" />
     <Property Type="String" Name="FullName" Nullable="true" MaxLength="255" />
     <Property Type="DateTime" Name="BirthDay" Nullable="true" Precision="23" />
     <Property Type="Int32" Name="Gender" Nullable="true" />
@@ -177,7 +225,7 @@
   </ComplexType>
   <ComplexType Name="getStudentsByClass_Result">
     <Property Type="Int32" Name="ID" Nullable="false" />
-    <Property Type="String" Name="StudentID" Nullable="false" MaxLength="255" />
+    <Property Type="String" Name="StudentID" Nullable="true" MaxLength="7" />
     <Property Type="String" Name="FullName" Nullable="true" MaxLength="255" />
     <Property Type="DateTime" Name="BirthDay" Nullable="true" Precision="23" />
     <Property Type="Int32" Name="Gender" Nullable="true" />
@@ -186,10 +234,12 @@
     <Property Type="String" Name="Address" Nullable="true" MaxLength="500" />
     <Property Type="Int32" Name="ClassLevel" Nullable="true" />
     <Property Type="Int32" Name="Class" Nullable="true" />
+    <Property Type="Int32" Name="State" Nullable="true" />
   </ComplexType>
   <ComplexType Name="getSubjects_Result">
     <Property Type="Int32" Name="ID" Nullable="false" />
     <Property Type="String" Name="SubjectName" Nullable="true" MaxLength="255" />
     <Property Type="Int32" Name="Type" Nullable="true" />
+    <Property Type="Int32" Name="Period" Nullable="true" />
   </ComplexType>
 </Schema>

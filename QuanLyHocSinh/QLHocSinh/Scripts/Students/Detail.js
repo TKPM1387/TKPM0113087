@@ -1,10 +1,10 @@
 ﻿$(document).ready(function () {
-    init();
-
-});
-function init() {
-
-    $('#detailtable').DataTable({
+    createControl();
+})
+function createControl() {
+    $('#semester').selectpicker();
+    
+    $('#student').DataTable({
         "paging": true,
         "ordering": false,
         "info": false,
@@ -34,51 +34,44 @@ function init() {
                 "next": "Sau",
                 "previous": "Trước"
             },
+            "emptyTable": "Không có dữ liệu",
             "aria": {
                 "sortAscending": ": activate to sort column ascending",
                 "sortDescending": ": activate to sort column descending"
             }
         },
         columns: [
-                {
-                    "data": "id",
-                    render: function (data, type, row, meta) {
-                        return meta.row + meta.settings._iDisplayStart + 1;
-                    }
-                },
-                { 'data': 'StudentID' },
+                 {
+                     "data": "id",
+                     render: function (data, type, row, meta) {
+                         return meta.row + meta.settings._iDisplayStart + 1;
+                     }
+                 },
+                { 'data': 'StudentID'},
                 { 'data': 'FullName' },
-                { 'data': 'ClassName' },
-                { 'data': 'TBHK1',
-                render: function (data, type, row, meta) {
-                    if (row.TBHK1<5)
-                        return "<span id='total' class='badge badge-danger'>" + row.TBHK1 + " </span>"
-                    else
-                        return "<span id='total' class='badge badge-success'>" + row.TBHK1 + " </span>"
-                    } },
-                {
-                    'data': 'TBHK2',
-                    render: function (data, type, row, meta) {
-                        if (row.TBHK2 < 5)
-                            return "<span id='total' class='badge badge-danger'>" + row.TBHK2 + " </span>"
-                        else
-                            return "<span id='total' class='badge badge-success'>" + row.TBHK2 + " </span>"
-                    }
-                },
+                { 'data': 'SubjectName' },
+                { 'data': 'Test15Minutes' },
+                { 'data': 'Test45Minutes' },
+                { 'data': 'TestSemester' },
+                { 'data': 'Average' },                
         ]
     });
+
 }
-function ViewDetailStudent() {
+function ViewDetail() {
+
+    
+    var id = $('#txtIDName').val();
 
     $.ajax({
         type: "GET",
         dataType: "json",
-        url: "/Classes/GetStudentDetail",
-        data: { idname: $('#txtIDName').val() },
+        url: "/Classes/GetStudentPointDetail",
+        data: { ID: id, semester: $('#semester').val() },
         success: function (data) {
-            var dataTable = $('#detailtable').DataTable();
+            var dataTable = $('#student').DataTable();
             dataTable.clear().draw();
             dataTable.rows.add(data).draw();
         }
     });
-};
+}
