@@ -126,38 +126,53 @@ function createControl() {
                 {
                     'data': 'Test15Minutes',
                     render: function (data, type, row, meta) {
-                        if (row.Test15Minutes < 5)
-                            return "<span id='total' style='color:#f62d51;'>" + row.Test15Minutes + " </span>"
+                        if (typeof (data) == "number") {
+                            if (data < 5)
+                                return "<span id='total' style='color:#f62d51;'>" + data + " </span>"
+                            else
+                                return "<span id='total' style='color:#55ce63;'>" + data + " </span>"
+                        }
                         else
-                            return "<span id='total' style='color:#55ce63;'>" + row.Test15Minutes + " </span>"
+                            return data;
                     }
                 },
                 {
                     'data': 'Test45Minutes',
                     render: function (data, type, row, meta) {
-                        if (row.Test45Minutes != null)
-                            return "<span id='total' style='color:#f62d51;'" + row.Test45Minutes + " </span>"
+                        if (typeof (data) == "number") {
+                            if (data < 5)
+                                return "<span id='total' style='color:#f62d51;'>" + data + " </span>"
+                            else
+                                return "<span id='total' style='color:#55ce63;'>" + data + " </span>"
+                        }
                         else
-                            return "<span id='total' style='color:#55ce63;'>" + row.Test45Minutes + " </span>"
+                            return data;
                     }
                 },
                 {
                     'data': 'TestSemester',
                     render: function (data, type, row, meta) {
-                        return data + 0;
-                        //if (data == '')
-                        //    return "<span id='total' style='color:#f62d51;'>" + "1" + " </span>"
-                        //else
-                        //    return "<span id='total' style='color:#55ce63;'>" + "2" + " </span>"
+                        if (typeof (data) == "number") {
+                            if (data < 5)
+                                return "<span id='total' style='color:#f62d51;'>" + data + " </span>"
+                            else
+                                return "<span id='total' style='color:#55ce63;'>" + data + " </span>"
+                        }
+                        else
+                            return data;
                     }
                 },
                 {
                     'data': 'Average',
                     render: function (data, type, row, meta) {
-                        if (row.Average < 5)
-                            return "<span id='total' class='badge badge-danger'>" + row.Average + " </span>"
+                        if (typeof (data) == "number") {
+                            if (data < 5)
+                                return "<span id='total' style='color:#f62d51;'>" + data + " </span>"
+                            else
+                                return "<span id='total' style='color:#55ce63;'>" + data + " </span>"
+                        }
                         else
-                            return "<span id='total' class='badge badge-success'>" + row.Average + " </span>"
+                            return data;
                     }
                 },
                  {
