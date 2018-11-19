@@ -46,7 +46,12 @@ function init() {
                         return meta.row + meta.settings._iDisplayStart + 1;
                     }
                 },
-                { 'data': 'StudentID' },
+                {
+                    'data': 'StudentID',
+                    "render": function (data, type, row) {
+                        return '<a href= "/Students/ViewDetail?ID=' + row.StudentID + '">' + row.StudentID + '</a>';
+                    }
+                },
                 { 'data': 'FullName' },
                 { 'data': 'ClassName' },
                 { 'data': 'TBHK1',

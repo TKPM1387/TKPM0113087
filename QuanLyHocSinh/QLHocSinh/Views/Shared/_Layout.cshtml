@@ -8,7 +8,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="https://wrappixel.com/demos/admin-templates/monster-admin/assets/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/assets/item/420756-PDLYSC-675.jpg">
+
     <title>@ViewBag.Title || Phần mềm quản lý học sinh cấp 3</title>
     <!-- Bootstrap Core CSS -->
     <link href="../assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -30,6 +31,8 @@
     <!-- You can change the theme colors from here -->
     <link href="../assets/css/colors/blue.css" id="theme" rel="stylesheet">
     <script src="../assets/plugins/jquery/jquery.min.js"></script>
+    <script src="~/assets/moment.js"></script>
+    <link href="../assets/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -54,6 +57,7 @@
         body {
             font-family: Arial, Helvetica, sans-serif !important;
         }
+
         .sweet-alert h2 {
             font-size: 25px !important;
             font-family: Arial, Helvetica, sans-serif !important;
@@ -115,7 +119,7 @@
                         <!-- ============================================================== -->
                         <!-- Comment -->
                         <!-- ============================================================== -->
-                        <li class="nav-item dropdown">
+                        @*<li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted text-muted waves-effect waves-dark" href="index.html" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="mdi mdi-message"></i>
                                 <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
@@ -162,45 +166,47 @@
                                     </li>
                                 </ul>
                             </div>
-                        </li>
+                        </li>*@
                         <!-- ============================================================== -->
                         <!-- End Comment -->
-                    
+
                     </ul>
                     <!-- ============================================================== -->
                     <!-- User profile and search -->
                     <!-- ============================================================== -->
                     <ul class="navbar-nav my-lg-0">
-                        
+
                         @if (QLHocSinh.Helper.CurrentContext.IsLogged() == true)
                         {
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="index.html" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="../assets/images/users/1.jpg" alt="user" class="profile-pic" /></a>
+                                <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="index.html" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="~/assets/images/users/default.png" alt="user" class="profile-pic" />
+                                </a>
                                 <div class="dropdown-menu dropdown-menu-right animated flipInY">
                                     <ul class="dropdown-user">
                                         <li>
                                             <div class="dw-user-box">
-                                                <div class="u-img"><img src="../assets/images/users/1.jpg" alt="user"></div>
+                                                <div class="u-img"><img src="~/assets/images/users/default.png" alt="user"></div>
                                                 <div class="u-text">
                                                     <h4> @QLHocSinh.Helper.CurrentContext.GetCurUser().FullName</h4>
-                                                    <p class="text-muted">@QLHocSinh.Helper.CurrentContext.GetCurUser().email</p><a href="#" class="btn btn-rounded btn-danger btn-sm">View Profile</a>
+                                                    <p class="text-muted">@QLHocSinh.Helper.CurrentContext.GetCurUser().email</p><a href="#" class="btn btn-rounded btn-danger btn-sm">Xem chi tiết</a>
                                                 </div>
                                             </div>
                                         </li>
                                         <li role="separator" class="divider"></li>
-                                        <li><a href="index.html#"><i class="ti-user"></i> My Profile</a></li>
-                                        <li><a href="index.html#"><i class="ti-wallet"></i> My Balance</a></li>
-                                        <li><a href="index.html#"><i class="ti-email"></i> Inbox</a></li>
+                                        <li><a href="@Url.Action("Profile","Account")"><i class="ti-user"></i> Cài đặt tài khoản</a></li>
+                                        <li><a href="@Url.Action("ChangePassword","Account")"><i class="ti-lock"></i> Thay đổi mật khẩu</a></li>
+                                        @*<li><a href="index.html#"><i class="ti-email"></i> Inbox</a></li>
                                         <li role="separator" class="divider"></li>
-                                        <li><a href="index.html#"><i class="ti-settings"></i> Account Setting</a></li>
+                                        <li><a href="index.html#"><i class="ti-settings"></i> Account Setting</a></li>*@
                                         <li role="separator" class="divider"></li>
-                                        <li><a id="logoutLink" href="javascript:;" ><i class="fa fa-power-off"></i> Logout</a></li>
+                                        <li><a id="logoutLink" href="javascript:;"><i class="fa fa-power-off"></i> Thoát</a></li>
                                     </ul>
                                 </div>
                             </li>
                         }
-                         <form id="frmLogout" method="post" action="@Url.Action("Logout","Account")"></form>
-                        
+                        <form id="frmLogout" method="post" action="@Url.Action("Logout","Account")"></form>
+
                     </ul>
                 </div>
             </nav>
@@ -215,50 +221,128 @@
             <!-- Sidebar scroll-->
             <div class="scroll-sidebar">
                 <!-- User profile -->
-               
                 <!-- End User profile text-->
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                         <li>
-                            <a class="has-arrow " href="#" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Quản lý học sinh <span class="label label-rounded label-success">*</span></span></a>
+                            <a class="has-arrow " href="#" aria-expanded="false">
+                                <i class="fa fa-users"></i>
+                                <span class="hide-menu">
+                                    Quản lý học sinh
+                                    <span class="label label-rounded label-success">*</span>
+                                </span>
+                            </a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="/Students/AddStudent"> Tiếp nhận học sinh</a></li>
-                                <li><a href="/Students/Index">Danh sách học sinh</a></li>
+                                <li>
+                                    <a href="/Students/AddStudent">
+                                        <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                        Tiếp nhận học sinh
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Students/Index">
+                                        <i class="fa fa-list-alt" aria-hidden="true"></i>
+                                        Danh sách học sinh
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         <li>
-                            <a class="has-arrow " href="#" aria-expanded="false"><i class="mdi mdi-bullseye"></i><span class="hide-menu">Quản lý lớp học</span></a>
+                            <a class="has-arrow " href="#" aria-expanded="false">
+                                <i class="fa fa-graduation-cap"></i>
+                                <span class="hide-menu">
+
+                                    Quản lý lớp học
+                                </span>
+                            </a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="/Classes">Danh sách lớp học</a></li>
-                                <li><a href="/Classes/Search">Tra cứu học sinh</a></li>
+                                <li>
+                                    <a href="/Classes">
+                                        <i class="fa fa-id-card-o" aria-hidden="true"></i>
+                                        Danh sách lớp học
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Classes/Search">
+                                        <i class="fa fa-search" aria-hidden="true"></i>
+                                        Tra cứu học sinh
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         <li>
-                            <a  href="/Subjects" aria-expanded="false"><i class="mdi mdi-bullseye"></i><span class="hide-menu">Quản lý môn học</span></a>
-                            
+                            <a href="/Subjects" aria-expanded="false">
+                                <i class="fa fa-book"></i>
+                                <span class="hide-menu">Quản lý môn học</span>
+                            </a>
+
                         </li>
                         <li>
-                            <a class="has-arrow " href="#" aria-expanded="false"><i class="mdi mdi-email"></i><span class="hide-menu">Bảng điểm</span></a>
+                            <a class="has-arrow " href="#" aria-expanded="false">
+                                <i class="fa fa-pencil"></i><span class="hide-menu">Bảng điểm</span>
+                            </a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="/Students/Score">Bảng điểm môn</a></li>
-                                <li><a href="/Students/Detail">Bảng điểm cá nhân</a></li>
+                                <li>
+                                    <a href="/Students/Score">
+                                        <i class="fa fa-columns" aria-hidden="true"></i>
+                                        Bảng điểm môn
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Students/Detail">
+                                        <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                                        Bảng điểm cá nhân
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         <li>
-                            <a class="has-arrow" href="index.html#" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Báo cáo</span></a>
+                            <a class="has-arrow" href="index.html#" aria-expanded="false">
+                                <i class="fa fa-bar-chart"></i><span class="hide-menu">Báo cáo</span>
+                            </a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="/Report/ReportBySubject">Tổng kết môn</a></li>
-                                <li><a href="ui-user-card.html">Tổng kết học kỳ</a></li>
+                                <li>
+                                    <a href="/Report/ReportBySubject">
+                                        <i class="fa fa-map" aria-hidden="true"></i>
+                                        Tổng kết môn
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="ui-user-card.html">
+                                        <i class="fa fa-pie-chart" aria-hidden="true"></i>
+                                        Tổng kết học kỳ
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         <li>
-                            <a class="has-arrow" href="index.html#" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Thay đổi quy định</span></a>
+                            <a class="has-arrow" href="index.html#" aria-expanded="false"><i class="fa fa-sliders"></i><span class="hide-menu">Thay đổi quy định</span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="/Rule/Age">Quy định về độ tuổi</a></li>
-                                <li><a href="/Rule/TotalStudent">Quy định về sĩ số/lớp học</a></li>
-                                <li><a href="/Rule/Subject">Qui định môn học</a></li>
-                                <li><a href="/Rule/Age">Quy định về điểm chuẩn</a></li>
+                                <li>
+                                    <a href="/Rule/Age">
+                                        <i class="fa fa-ticket" aria-hidden="true"></i>
+                                        Độ tuổi
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Rule/TotalStudent">
+                                        <i class="fa fa-sort-numeric-asc" aria-hidden="true"></i>
+                                        Sĩ số/lớp học
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Rule/Subject">
+                                        <i class="fa fa-calendar-minus-o" aria-hidden="true"></i>
+                                        Môn học
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Rule/StandardScore">
+                                        <i class="fa fa-chain-broken" aria-hidden="true"></i>
+                                        Điểm chuẩn
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                     </ul>
@@ -296,7 +380,6 @@
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
                 @RenderBody()
-
                 <!-- Row -->
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
@@ -367,6 +450,8 @@
     <!-- Chart JS -->
     <script src="../assets/js/dashboard1.js"></script>
     <script src="../assets/js/toastr.js"></script>
+    <script src="../assets/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js" type="text/javascript"></script>
+
     <script>
         $('#myTable').DataTable();
         $(document).ready(function () {

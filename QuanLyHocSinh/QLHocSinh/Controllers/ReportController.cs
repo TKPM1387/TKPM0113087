@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QLHocSinh.Helper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,20 +11,26 @@ namespace QLHocSinh.Controllers
     {
         //
         // GET: /Report/
+
+        [CheckLogin]
         public ActionResult Index()
         {
             return View();
         }
+
+        [CheckLogin]
         public ActionResult ReportBySubject()
         {
             return View();
         }
+        [CheckLogin]
         public ActionResult GetReportByClass(string grade)
         {
             return View();
         }
 
 
+        [CheckLogin]
         public ActionResult ReportByClass()
         {
 

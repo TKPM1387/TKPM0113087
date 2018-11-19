@@ -21,7 +21,7 @@
                                 <label class="control-label col-md-6" style="padding-top: 9px;">Độ tuổi tối thiểu</label>
                                 <div class="col-md-6">
                                     <input id="idr" type="hidden" class="form-control">
-                                    <input id="minage" type="text" class="form-control" >
+                                    <input id="minage"  type="text" class="form-control" >
                                  </div>
                             </div>
                         </div>
@@ -36,7 +36,9 @@
                         </div>
                         <!--/span-->
                         <div class="col-md-4">
-                            <button onclick="updateRuleAge()" class="btn pull-left hidden-sm-down btn-primary"><i class="fa fa-plus-check"></i> Lưu</button>
+                            <button onclick="updateRuleAge()" class="btn btn-primary">
+                                <i class="fa fa-check"></i> Lưu
+                            </button>
                         </div>
                    </div>
                 </div>
@@ -49,7 +51,18 @@
 <script>
     $(document).ready(function () {
         LoadRule();
-
+        $("#minage").TouchSpin({
+            min: 00,
+            max: 100,
+            stepinterval: 1,
+            maxboostedstep: 1,
+        });
+        $("#maxage").TouchSpin({
+            min: 00,
+            max: 100,
+            stepinterval: 1,
+            maxboostedstep: 1,
+        });
     });
     function LoadRule() {
         $.ajax({
@@ -69,6 +82,11 @@
         });
     }
     function updateRuleAge() {
+
+        if ($('#maxage').val() < $('#minage').val()) {
+            swal("Thay đổi thất bại", "Độ tuổi tối đa không thể nhỏ hơn độ tuổi tối thiểu", "error");
+            return
+        }
 
         var ruleage = {
             ID: $('#idr').val(),

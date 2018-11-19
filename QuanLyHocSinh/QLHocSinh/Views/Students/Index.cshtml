@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "Danh sách học sinh";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Page = "Quản lý học sinh";
 }
  
 <link href="../assets/css/style.css" rel="stylesheet">
@@ -63,12 +64,11 @@
 
 <div class="col-md-12">
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog" role="document" id="mmmdo">
             <div class="modal-content card card-outline-primary">
                 <div class="modal-header card-header">
                     <h4 class="modal-title" id="exampleModalLabel1" style="color:white">Cập nhật thông tin</h4>
-                    @*<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>*@
-                </div>
+                  </div>
                 <div class="modal-body">
                     <form>
 
@@ -79,6 +79,7 @@
                                     <input id="fullName" type="text" class="form-control">
                                     <input id="sid" type="hidden" />
                                 </div>
+                                <small id="spfullname" class="form-control-feedback">Họ tên không được để trống </small>
                             </div>
                         </div>
 
@@ -86,7 +87,6 @@
                             <div class="form-group row">
                                 <label class="control-label text-right  col-md-4">Giới tính</label>
                                 <div class="col-md-8">
-                                    @*<input id="gender" type="text" class="form-control">*@
                                     <select id="gender" class="selectpicker" data-style="form-control btn-secondary">
                                         <option value="1">Nam</option>
                                         <option value="2">Nữ</option>
@@ -142,7 +142,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-default" onclick="btnclose()">Đóng</button>
                     <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="updateinfo()"><i class="fa fa-edit" style="font-size:16px"></i>Lưu</button>
                 </div>
             </div>

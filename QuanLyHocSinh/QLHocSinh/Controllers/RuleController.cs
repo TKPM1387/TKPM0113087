@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QLHocSinh.Helper;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,13 @@ namespace QLHocSinh.Controllers
 
         #region Age
         // GET: /Rule/
+        [CheckLogin]
         public ActionResult Age()
+        {
+            return View();
+        }
+        [CheckLogin]
+        public ActionResult StandardScore()
         {
             return View();
         }
@@ -34,7 +41,19 @@ namespace QLHocSinh.Controllers
             }
 
         }
+        public ActionResult GetRuleScore()
+        {
+            var result = new ArrayList();
+            using (var ctx = new QLHSEntities())
+            {
+                var rx = ctx.RuleStandardScores
+                    .Where(r => r.Flag == "1")
+                    .FirstOrDefault();
 
+                return Json(rx, JsonRequestBehavior.AllowGet);
+            }
+
+        }
         [HttpPost]
         public ActionResult UpdateRuleAge(RuleAge ruleage)
         {
@@ -58,6 +77,28 @@ namespace QLHocSinh.Controllers
             }
 
         }
+        public ActionResult updateRuleScore(RuleStandardScore r)
+        {
+            var result = new ArrayList();
+            using (var ctx = new QLHSEntities())
+            {
+                var rx = ctx.RuleStandardScores
+                    .Where(rxs => r.ID == r.ID)
+                    .FirstOrDefault();
+
+                rx.StandardScore = r.StandardScore;
+
+                ctx.SaveChanges();
+                result.Add(
+                    new
+                    {
+                        value = 1
+                    });
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+        
         #endregion
 
         #region TotalStudent
@@ -163,6 +204,7 @@ namespace QLHocSinh.Controllers
 
         #region
 
+        [CheckLogin]
         public ActionResult Subject()
         {
             return View();

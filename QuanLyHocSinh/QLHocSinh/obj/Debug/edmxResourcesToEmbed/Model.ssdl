@@ -109,6 +109,11 @@
     <Property Name="password" Type="varchar" MaxLength="50" />
     <Property Name="email" Type="varchar" MaxLength="100" />
     <Property Name="Role" Type="int" />
+    <Property Name="address" Type="nvarchar(max)" />
+    <Property Name="phonenumber" Type="varchar" MaxLength="20" />
+    <Property Name="flag" Type="int" />
+    <Property Name="birthday" Type="datetime" />
+    <Property Name="gender" Type="int" />
   </EntityType>
   <Function Name="addStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="fidstudent" Type="varchar" Mode="In" />

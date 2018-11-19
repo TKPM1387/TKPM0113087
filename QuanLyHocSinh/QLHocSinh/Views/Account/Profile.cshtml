@@ -1,11 +1,12 @@
 ﻿@{
-    ViewBag.Title = "Tiếp nhận học sinh";
+    ViewBag.Title = "Hồ sơ cá nhân";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Page = "Quản lý học sinh";
+    ViewBag.Page = "Profile";
 }
 <style>
-    .pull-right {
-        float: left !important;
+    .display-6 {
+        font-size: 20px !important;
+        font-family: "Times New Roman", Times, serif !important;
     }
 </style>
 
@@ -13,12 +14,10 @@
     <div class="col-12">
         <div class="card card-outline-primary">
             <div class="card-header">
-                <h4 class="m-b-0 text-white">Tiếp nhận học sinh</h4>
+                <h4 class="m-b-0 text-white">Thông tin cá nhân</h4>
             </div>
             <div class="card-block">
                 <div class="form-body">
-                    <h4 class="box-title">Thông tin cá nhân</h4>
-                    <hr class="m-t-0 m-b-40">
                     <div class="row">
                         <div class="col-md-6">
                             <div id="fmfullname" class="form-group row">
@@ -34,7 +33,7 @@
                         </div>
                         <!--/span-->
                         <div class="col-md-6">
-                            <div class="form-group has-error row ">
+                            <div class="form-group row ">
                                 <label class="control-label col-md-3">Giới tính</label>
                                 <div class="col-md-9">
                                     <select id="gender" class="selectpicker" data-style="form-control btn-secondary">
@@ -68,7 +67,7 @@
                                     <div class="input-group">
                                         <input id="email" type="text" class="form-control" placeholder="Nhập Email">
                                         <div class="input-group-addon"><i class="ti-email"></i></div>
-                                    </div>                                    
+                                    </div>
                                     <small id="spemail" class="form-control-feedback">Email không hợp lệ </small>
                                 </div>
                             </div>
@@ -99,48 +98,25 @@
                                         <input id="note" type="text" class="form-control" placeholder="Nhập số điện thoại">
                                         <div class="input-group-addon"><i class="ti-mobile"></i></div>
                                     </div>
-                                    
+
                                     <small id="spnote" class="form-control-feedback">Số điện thoại không hợp lệ </small>
                                 </div>
                             </div>
                         </div>
                         <!--/span-->
                     </div>
-                    <h3 class="box-title">Thông tin lớp học</h3>
-                    <hr class="m-t-0 m-b-40">
-                    <!--/row-->
+
                     <div class="row">
                         <div class="col-md-6">
-                            <div id="fmblock" class="form-group row">
-                                <label class="control-label text-right col-md-3">Khối</label>
-                                <div class="col-md-9">
-                                    <select id="block" data-style="form-control btn-secondary"></select>
-                                    <small id="spblock" class="form-control-feedback">Khối không được để trống. </small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div id="fmgrade" class="form-group row">
-                                <label class="control-label text-right col-md-3">Lớp</label>
-                                <div class="col-md-9">
-                                    <select id="grade" data-style="form-control btn-secondary"></select>
-                                    <small id="spgrade" class="form-control-feedback">Lớp không được để trống. </small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                           
+
                         </div>
                         <!--/span-->
                         <div class="col-md-6">
                             <div class="form-group row">
                                 <label class="control-label text-right col-md-3"></label>
                                 <div class="col-md-9">
-                                    <button onclick="addStudent()" class="btn pull-right hidden-sm-down btn-success" style="    width: 110px;"><i class="fa fa-plus-square"></i> Thêm</button>
-                                    <button id="btnClearForm" class="btn pull-right hidden-sm-down btn-primary" style="margin-left: 12px;"><i class="fa fa-refresh"></i> Làm mới</button>
-
+                                    <button onclick="UpdateProfile()" class="btn pull-right hidden-sm-down btn-success" style="    width: 110px;">
+                                    <i class="fa fa-check"></i> Lưu</button>
                                 </div>
                             </div>
                         </div>
@@ -155,12 +131,4 @@
     </div>
 </div>
 
-
-<script src="~/Scripts/Students/Students.js"></script>
-<script>
-    $(document).ready(function () {
-
-
-    })
-
-</script>
+<script src="~/Scripts/Account/Profile.js"></script>

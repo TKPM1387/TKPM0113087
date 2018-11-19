@@ -137,6 +137,8 @@
     <Content Include="assets\images\users\6.jpg" />
     <Content Include="assets\images\users\7.jpg" />
     <Content Include="assets\images\users\8.jpg" />
+    <Content Include="assets\images\users\default.png" />
+    <Content Include="assets\item\420756-PDLYSC-675.jpg" />
     <Content Include="assets\js\chat.js" />
     <Content Include="assets\js\custom.min.js" />
     <Content Include="assets\js\dashboard1.js" />
@@ -158,6 +160,7 @@
     <Content Include="assets\js\waves.js" />
     <Content Include="assets\js\widget-charts.js" />
     <Content Include="assets\js\widget-data.js" />
+    <Content Include="assets\moment.js" />
     <Content Include="assets\plugins\bootstrap-datepicker\bootstrap-datepicker.min.css" />
     <Content Include="assets\plugins\bootstrap-datepicker\bootstrap-datepicker.min.js" />
     <Content Include="assets\plugins\bootstrap-daterangepicker\daterangepicker.css" />
@@ -725,6 +728,7 @@
     <Content Include="assets\scss\icons\weather-icons\fonts\weathericons-regular-webfont.ttf" />
     <Content Include="assets\scss\icons\weather-icons\fonts\weathericons-regular-webfont.woff" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\Account\Profile.js" />
     <Content Include="Scripts\Classes\Classes.js" />
     <Content Include="Scripts\Classes\List.js" />
     <Content Include="Scripts\Classes\Search.js" />
@@ -795,6 +799,7 @@
     </Compile>
     <Compile Include="Helper\CheckLoginAttribute.cs" />
     <Compile Include="Helper\CurrentContext.cs" />
+    <Compile Include="Helper\StringUtils.cs" />
     <Compile Include="Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -810,12 +815,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Classes.cs" />
-    <Compile Include="Models\ClassLevel.cs" />
-    <Compile Include="Models\NodeClass.cs" />
-    <Compile Include="Models\StudentDetail.cs" />
-    <Compile Include="Models\StudentPoint.cs" />
-    <Compile Include="Models\Subjects.cs" />
     <Compile Include="Point.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -858,6 +857,11 @@
     <Content Include="Views\Rule\Subject.cshtml" />
     <Content Include="Views\Classes\List.cshtml" />
     <Content Include="assets\Vietnamese.json" />
+    <Content Include="Views\Students\Detail.cshtml" />
+    <Content Include="Views\Students\ViewDetail.cshtml" />
+    <Content Include="Views\Rule\StandardScore.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\Profile.cshtml" />
     <EntityDeploy Include="Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model.Designer.cs</LastGenOutput>
@@ -875,8 +879,7 @@
       <DependentUpon>Model.edmx</DependentUpon>
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Students\Detail.cshtml" />
-    <Content Include="Views\Students\ViewDetail.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -886,6 +889,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

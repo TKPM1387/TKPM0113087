@@ -3,6 +3,45 @@
     hideError();
     
     loadClass();
+
+    $('#fullName').change(function () {
+        if(this.value!=''){
+            $('#fmfullname').removeClass('has-danger row');
+            $('#fmfullname').addClass('row');
+            $('#spfullname').hide()
+        }
+           
+    });
+    
+    $('#address').change(function () {
+        if(this.value!=''){
+            $('#fmaddress').removeClass('has-danger row');
+            $('#fmaddress').addClass('row');
+            $('#spaddress').hide();
+        }
+    });
+    
+    $('#birthDay').change(function () {
+        if(checkvalidDate()){
+            $('#fmbirthday').removeClass('has-danger row');
+            $('#fmbirthday').addClass('row');
+            $('#spbirthday').hide()
+        }
+    });
+    $('#note').change(function(e){
+        if(checkvalidPhone()){
+            $('#fmnote').removeClass('has-danger row');
+            $('#fmnote').addClass('row');
+            $('#spnote').hide()
+        }
+    });
+    $('#email').change(function(e){
+        if(checkvalidPhone() || this.value == ""){
+            $('#fmemail').removeClass('has-danger row');
+            $('#fmemail').addClass('row');
+            $('#spemail').hide()
+        }
+    });
 });
 
 function createControl() {
@@ -56,6 +95,35 @@ function createControl() {
 $("#btnClearForm").click(function () {
     clearfilter();
 });
+
+function checkvalidPhone(){
+    var a = $('#note').val()
+    var filter = /^((\+[1-9]{1,4}[ \-]*)|(\([0-9]{2,3}\)[ \-]*)|([0-9]{2,4})[ \-]*)*?[0-9]{3,4}?[ \-]*[0-9]{3,4}?$/;
+    if(a=="")
+        return true;
+
+    if (filter.test(a) && a.length>=10) {
+        return true
+    }
+    else {
+        return false
+    }
+    
+   
+}
+
+function checkvalidDate(){
+    var c = $('#birthDay').val().split('/');
+    if(c[2]>1900 && moment($('#birthDay').val().split('/'), ["MM-DD-YYYY", "DD-MM", "DD-MM-YYYY"]).isValid())
+        return true;
+    return false;
+}  
+
+function checkvalidEmail() {
+    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+    return regex.test($("#email").val());
+}
 
 function clearfilter(){
     
@@ -114,7 +182,7 @@ function addStudent() {
         $('#spfullname').hide()
 
     }
-    if (sbirthday == "") {
+    if (!checkvalidDate()) {
         $('#fmbirthday').removeClass('row');
         $('#fmbirthday').addClass('has-danger row');
         $('#spbirthday').show()
@@ -135,7 +203,7 @@ function addStudent() {
     else {
         $('#fmaddress').removeClass('has-danger row');
         $('#fmaddress').addClass('row');
-        $('#spaddress').hide()
+        $('#spaddress').hide();
 
     }
     if (sblock == ""||sblock == null) {
@@ -162,6 +230,32 @@ function addStudent() {
         $('#spgrade').hide()
 
     }
+    if (!checkvalidPhone()) {
+        $('#fmnote').removeClass('row');
+        $('#fmnote').addClass('has-danger row');
+        $('#spnote').show()
+        i++;
+    }
+    else {
+        $('#fmnote').removeClass('has-danger row');
+        $('#fmnote').addClass('row');
+        $('#spnote').hide()
+    }
+    if (!checkvalidEmail() && semail!="") {
+        $('#fmemail').removeClass('row');
+        $('#fmemail').addClass('has-danger row');
+        $('#spemail').show()
+        i++;
+    }
+    else {
+        $('#fmemail').removeClass('has-danger row');
+        $('#fmemail').addClass('row');
+        $('#spemail').hide()
+
+    }
+
+
+
     if (i != 0) {
         //alert(i);
         return;
@@ -190,6 +284,11 @@ function addStudent() {
             if (result[0].value == 1){
                 swal("Thêm thành công", "success", "success");
                 clearfilter();
+            }
+            else{
+                
+                swal("Thêm thất bại",result[0].message, "error");
+                //clearfilter();
             }
         },
         error: function (xhr, status, error) { alert('Có lỗi xảy ra!!'); }
@@ -279,10 +378,6 @@ function load_table() {
         });
     })
 };
-function isEmail(email) {
-    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    return regex.test(email);
-}
 function hideError() {
     $('#spfullname').hide()
     $('#spbirthday').hide()
@@ -290,7 +385,8 @@ function hideError() {
     $('#spemail').hide()
     $('#spblock').hide()
     $('#spgrade').hide()
-
+    $('#spnote').hide()
+    
     $("div.form-group").removeClass('has-error');
 }
 function loadClassLevel() {

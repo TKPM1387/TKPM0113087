@@ -1,4 +1,5 @@
-﻿using QLHocSinh.Models;
+﻿
+using QLHocSinh.Helper;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace QLHocSinh.Controllers
     {
         //
         // GET: /Subjects/
+        [CheckLogin]
         public ActionResult Index()
         {
             return View();
@@ -55,7 +57,7 @@ namespace QLHocSinh.Controllers
         {
             using (var ctx = new QLHSEntities())
             {
-                var list = ctx.Subjects.Where(p => p.Flag!=-1).ToList();
+                var list = ctx.Subjects.Where(p => p.Flag != -1).ToList();
                 return Json(list, JsonRequestBehavior.AllowGet);
             }
 

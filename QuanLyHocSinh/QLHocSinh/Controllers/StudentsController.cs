@@ -1,4 +1,5 @@
-﻿using QLHocSinh.Models;
+﻿
+using QLHocSinh.Helper;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -34,6 +35,7 @@ namespace QLHocSinh.Controllers
         // GET: /Students/
 
         SqlDataAdapter _globalAdapt;
+        [CheckLogin]
         public ActionResult Index()
         {
             return View();
@@ -56,14 +58,17 @@ namespace QLHocSinh.Controllers
                 return View();
             }
         }
+        [CheckLogin]
         public ActionResult AddStudent()
         {
             return View();
         }
+        [CheckLogin]
         public ActionResult Score()
         {
             return View();
         }
+        [CheckLogin]
         public ActionResult UpdateScore()
         {
             return View();
@@ -135,7 +140,7 @@ namespace QLHocSinh.Controllers
                         Test15Minutes = m.p.Test15Minutes,
                         Test45Minutes = m.p.Test45Minutes,
                         TestSemester = m.p.TestSemester
-                        
+
                     }).ToList();
 
                 return Json(student, JsonRequestBehavior.AllowGet);
@@ -198,14 +203,67 @@ namespace QLHocSinh.Controllers
             //}
             //return Json(students, JsonRequestBehavior.AllowGet);
         }
+        public bool checkAge(int year)
+        {
+            var ctx = new QLHSEntities();
+            var ruleage = ctx.RuleAges.Where(p => p.Flag == "1").FirstOrDefault();
+            var date = DateTime.Now;
+            var age = date.Year - year;
 
+            if (ruleage.MinAge <= age && age <= ruleage.MaxAge)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool checkTotalClass(int classID, string studentID)
+        {
+            var ctx = new QLHSEntities();
+            var student = ctx.Students.Where(p => p.StudentID == studentID).FirstOrDefault();
+            if (student != null && student.Class == classID)
+            {
+                return true;
+            }
+            var classInfo = ctx.Classes.Where(p => p.ID == classID).FirstOrDefault();
+
+            if (classInfo.Total < classInfo.MaxTotal)
+            {
+                return true;
+            }
+            return false;
+
+        }
 
         [HttpPost]
         public ActionResult AddNewStudent(Student s)
         {
             var result = new ArrayList();
+            if (!checkAge(s.BirthDay.Value.Year))
+            {
+                result.Add(
+                    new
+                    {
+                        value = -1,
+                        message = "Độ tuổi không thỏa quy định."
+                    });
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            if (!checkTotalClass(s.Class.Value, s.StudentID))
+            {
+                result.Add(
+                    new
+                    {
+                        value = -1,
+                        message = "Lớp đã đạt sĩ số tối đa."
+                    });
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+
             using (var ctx = new QLHSEntities())
             {
+
+
                 ctx.Students.Add(s);
 
                 ctx.SaveChanges();
@@ -269,6 +327,26 @@ namespace QLHocSinh.Controllers
                     && u.SubjectID == p.SubjectID
                     && u.Semester == p.Semester)
                     .FirstOrDefault();
+
+                if (pu == null)
+                {
+                    var point = new Point();
+                    point.StudenID = p.StudenID;
+                    point.SubjectID = p.SubjectID;
+                    point.Test15Minutes = p.Test15Minutes;
+                    point.Test45Minutes = p.Test45Minutes;
+                    point.TestSemester = p.TestSemester;
+                    point.Semester = p.Semester;
+                    ctx.Points.Add(point);
+                    ctx.SaveChanges();
+                    result.Add(
+                    new
+                    {
+                        value = 1
+                    });
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+
 
                 pu.Test15Minutes = p.Test15Minutes;
                 pu.Test45Minutes = p.Test45Minutes;
@@ -394,6 +472,7 @@ namespace QLHocSinh.Controllers
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
         }
+        [CheckLogin]
         public ActionResult Detail()
         {
             return View();
@@ -430,6 +509,28 @@ namespace QLHocSinh.Controllers
         public ActionResult UpdateInfoStudent(Student s)
         {
             var result = new ArrayList();
+            if (!checkAge(s.BirthDay.Value.Year))
+            {
+                result.Add(
+                    new
+                    {
+                        value = -1,
+                        message = "Độ tuổi không thỏa quy định."
+                    });
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            if (!checkTotalClass(s.Class.Value, s.StudentID))
+            {
+                result.Add(
+                    new
+                    {
+                        value = -1,
+                        message = "Lớp đã đạt sĩ số tối đa."
+                    });
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+
+
             using (var ctx = new QLHSEntities())
             {
                 var user = ctx.Students.Where(u => u.StudentID == s.StudentID).FirstOrDefault();
@@ -451,6 +552,9 @@ namespace QLHocSinh.Controllers
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
         }
+
+
+
         //[HttpPost]
         //public ActionResult testadd(Students stu)
         //{

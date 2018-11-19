@@ -44,13 +44,14 @@
                     }},
                 { 'data': 'StudentID', "visible": false },
                 {
-                    'data': 'FullName',
+                    'data': 'FullName',"width": "20%",
                     "render": function (data, type, row) {
                         return '<a href= "/Students/ViewDetail?ID=' + row.StudentID + '">' + row.FullName + '</a>';
                     }
                 },
                  {
-                     'data': 'Gender', 'render': function (g) {
+                     'data': 'Gender', "width": "15%"
+                     , 'render': function (g) {
                          if (g == 1)
                              return 'Nam';
                          else
@@ -67,7 +68,7 @@
                 },
                 { 'data': 'Email', "visible": false },
                 { 'data': 'PhoneNumber', "visible": false },
-                { 'data': 'Address' },
+                { 'data': 'Address',"width": "20%", },
                  {
                      "render": function (data, type, row) {
                          return '<button type="button" data-toggle="modal" data-target="#exampleModal" onclick="edit(' + "'" + row.StudentID + "'" + ',' + "'" + row.FullName + "'" + ',' + row.Gender + ',' + row.BirthDay + ',' + "'" + row.Address + "'" + ')" class="btn btn-warning waves-effect waves-light"><i class="fa fa-pencil-square-o" ></i></button>'+
@@ -122,6 +123,8 @@ function DeleteStudent(id)
 
 function createControl() {
     $('#block').selectpicker();
+    $('#block2').selectpicker();
+    
     $('#grade').selectpicker();
     $.ajax({
         type: "GET",
@@ -133,10 +136,11 @@ function createControl() {
             var jsonData = JSON.stringify(data);
             $.each(JSON.parse(jsonData), function (idx, obj) {
                 $("#block").append('<option value="' + obj.value + '">' + obj.text + '</option>').selectpicker('refresh');
+                $("#block2").append('<option value="' + obj.value + '">' + obj.text + '</option>').selectpicker('refresh');
             });
         },
         error: function (xhr, status, error) {
-            alert('err or seleccct 2222:');
+            //alert('err or seleccct 2222:');
         }
     });
 
@@ -158,7 +162,7 @@ function createControl() {
                 loadtotal();
             },
             error: function (xhr, status, error) {
-                alert('Error789:');
+                //alert('Error789:');
             }
         });
     });
@@ -176,7 +180,7 @@ function createControl() {
                 $('#total').html(data.Total + '/' + data.MaxTotal)
             },
             error: function (xhr, status, error) {
-                alert('Error789:');
+                //alert('Error789:');
             }
         });
     });
@@ -185,6 +189,27 @@ function createControl() {
    
 }
 
+function loadclass() {
+    $.ajax({
+        type: "GET",
+        url: '/Classes/getClassByLevel',
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        data: { idLevel: $('#block').val() },
+        dataType: "json",
+        success: function (data) {
+            $('#grade').find('option').remove().end();
+            var jsonData = JSON.stringify(data);
+            $.each(JSON.parse(jsonData), function (idx, obj) {
+                $("#grade").append('<option value="' + obj.value + '">' + obj.text + '</option>').selectpicker('refresh');
+            });
+            loadtotal();
+        },
+        error: function (xhr, status, error) {
+            alert('Error789:');
+        }
+    });
+}
 function edit(fid, fname, fgender, fbirthday, faddress) {
     $('#fullName').val(fname);
     $('#address').val(faddress);
@@ -289,5 +314,28 @@ function updateinfo() {
                 ViewListStudent();
             }
         }
+    });
+}
+
+function addclass() {
+    var classn = {
+        ClassName: $('#classnameadd').val(),
+        ClassLevel: $('#block2').val()
+    }
+
+    $.ajax({
+        type: "POST",
+        url: '/Classes/AddClass',
+        contentType: "application/json; charset=utf-8",        
+        data: JSON.stringify(classn),
+        dataType: "json",
+        success: function (result) {
+            if (result[0].value == 1) {
+                swal("Thêm thành công", "success", "success");
+                $('#classnameadd').val('')
+                loadclass()
+            }
+        },
+        error: function (xhr, status, error) { alert('Có lỗi xảy ra!!'); }
     });
 }

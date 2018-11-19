@@ -1,11 +1,40 @@
 ﻿$(document).ready(function () {
     createControl();
+
 });
 
 function createControl() {
     $('#grade').selectpicker();
     $('#subject').selectpicker();
     $('#semester').selectpicker();
+
+    $("#fp15").TouchSpin({
+        min: 1,
+        max: 10,
+        step: 0.1,
+        decimals: 1,
+        boostat: 5,
+        stepinterval: 1,
+        maxboostedstep: 1,
+    });
+    $("#fp45").TouchSpin({
+        min: 1,
+        max: 10,
+        step: 0.1,
+        decimals: 1,
+        stepinterval: 1,
+        maxboostedstep: 1,
+    });
+    $("#fpl").TouchSpin({
+        min: 1,
+        max: 10,
+        step: 0.1,
+        decimals: 1,
+        stepinterval: 1,
+        maxboostedstep: 1,
+    });
+
+
     $.ajax({
         type: "GET",
         url: '/Classes/getClassByLevel',
@@ -48,7 +77,7 @@ function createControl() {
         "paging": true,
         "ordering": false,
         "info": false,
-        "searching": false,
+        "searching": true,
         //data: data,
         destroy: true,
         retrieve: true,
@@ -66,7 +95,7 @@ function createControl() {
             "lengthMenu": "Hiển thị  _MENU_  dòng",
             "loadingRecords": "Loading...",
             "processing": "Processing...",
-            "search": "Tìm nè:",
+            "search": "Tìm : ",
             "zeroRecords": "No matching records found",
             "paginate": {
                 "first": "Đầu",
@@ -89,15 +118,48 @@ function createControl() {
                  },
                 { 'data': 'StudentID', "visible": false },
                 {
-                    'data': 'FullName',
+                    'data': 'FullName', "width": "20%",
                     "render": function (data, type, row) {
                         return '<a href= "/Students/ViewDetail?ID=' + row.StudentID + '">' + row.FullName + '</a>';
                     }
                 },
-                { 'data': 'Test15Minutes' },
-                { 'data': 'Test45Minutes' },
-                { 'data': 'TestSemester' },
-                { 'data': 'Average' },
+                {
+                    'data': 'Test15Minutes',
+                    render: function (data, type, row, meta) {
+                        if (row.Test15Minutes < 5)
+                            return "<span id='total' style='color:#f62d51;'>" + row.Test15Minutes + " </span>"
+                        else
+                            return "<span id='total' style='color:#55ce63;'>" + row.Test15Minutes + " </span>"
+                    }
+                },
+                {
+                    'data': 'Test45Minutes',
+                    render: function (data, type, row, meta) {
+                        if (row.Test45Minutes != null)
+                            return "<span id='total' style='color:#f62d51;'" + row.Test45Minutes + " </span>"
+                        else
+                            return "<span id='total' style='color:#55ce63;'>" + row.Test45Minutes + " </span>"
+                    }
+                },
+                {
+                    'data': 'TestSemester',
+                    render: function (data, type, row, meta) {
+                        return data + 0;
+                        //if (data == '')
+                        //    return "<span id='total' style='color:#f62d51;'>" + "1" + " </span>"
+                        //else
+                        //    return "<span id='total' style='color:#55ce63;'>" + "2" + " </span>"
+                    }
+                },
+                {
+                    'data': 'Average',
+                    render: function (data, type, row, meta) {
+                        if (row.Average < 5)
+                            return "<span id='total' class='badge badge-danger'>" + row.Average + " </span>"
+                        else
+                            return "<span id='total' class='badge badge-success'>" + row.Average + " </span>"
+                    }
+                },
                  {
                      "render": function (data, type, row) {
                          return '<button type="button" onclick="edit(' + "'" + row.StudentID + "'" + ',' + "'" + row.FullName + "'" + ',' + row.Test15Minutes + ',' + row.Test45Minutes + ',' + row.TestSemester + ')" class="btn btn-warning waves-effect waves-light"  data-toggle="modal" data-target="#exampleModal"><i class="fa fa-pencil" aria-hidden="true"></i></button> ' +
@@ -137,15 +199,6 @@ function edit(id, name, p15, p45, pl) {
 }
 
 function updatepoint() {
-
-    //public int ID { get; set; }
-    //public string StudenID { get; set; }
-    //public Nullable<int> SubjectID { get; set; }
-    //public Nullable<int> Semester { get; set; }
-    //public Nullable<double> Test15Minutes { get; set; }
-    //public Nullable<double> Test45Minutes { get; set; }
-    //public Nullable<double> TestSemester { get; set; }
-    //public Nullable<int> Average { get; set; }
 
     var p = {
         StudenID: $('#fid').val(),

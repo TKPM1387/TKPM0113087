@@ -23,17 +23,17 @@
                             </div>
                         </div>
                         <!--/span-->
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group has-error row ">
-                                <label class="control-label col-md-3" style="padding-top: 9px;">Tên lớp</label>
-                                <div class="col-md-9">
+                                <label class="control-label col-md-4" style="padding-top: 9px;">Tên lớp</label>
+                                <div class="col-md-8">
                                     <input id="gradename" type="text" class="form-control">
                                 </div>
                             </div>
                         </div>
 
 
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group has-error row ">
                                 <label class="control-label col-md-6" style="padding-top: 9px;">Sĩ số tối đa</label>
                                 <div class="col-md-6">
@@ -43,7 +43,10 @@
                         </div>
                         <!--/span-->
                         <div class="col-md-1">
-                            <button onclick="updateRuleTotalStudent()" class="btn pull-left hidden-sm-down btn-primary"><i class="fa fa-plus-check"></i> Lưu</button>
+                            <button onclick="updateRuleTotalStudent()" class="btn btn-primary">
+                                <i class="fa fa-check"></i>
+                                Lưu
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -83,7 +86,10 @@
                         </div>
                         <!--/span-->
                         <div class="col-md-1">
-                            <button onclick="updateRuleTotalBlock()" class="btn btn-primary"><i class="fa fa-plus-check"></i> Lưu</button>
+                            <button onclick="updateRuleTotalBlock()" class="btn btn-primary">
+                                <i class="fa fa-check"></i>
+                                Lưu
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -97,13 +103,25 @@
         $('#block').selectpicker();
         init();
         $('#grade').change(function () {
-            // var selectedText = $(this).find("option:selected").text();            
+            // var selectedText = $(this).find("option:selected").text();
             LoadClass();
         });
 
         $('#block').change(function () {
-            // var selectedText = $(this).find("option:selected").text();            
+            // var selectedText = $(this).find("option:selected").text();
             LoadBlock();
+        });
+        $("#maxtotal").TouchSpin({
+            min: 1,
+            max: 1000,
+            stepinterval: 1,
+            maxboostedstep: 1,
+        });
+        $("#maxtotalblock").TouchSpin({
+            min: 1,
+            max: 1000,
+            stepinterval: 1,
+            maxboostedstep: 1,
         });
         
     });
@@ -124,7 +142,7 @@
             async: false,
             success: function (data) {
                 $('#gradename').val(data.ClassName)
-                $('#maxtotal').val(data.MaxTotal)                
+                $('#maxtotal').val(data.MaxTotal)
             },
             error: function (xhr, status, error) {
                 alert('err or seleccct 2222:');
@@ -166,7 +184,7 @@
             dataType: "json",
             success: function (result) {
                 if (result[0].value == 1) {
-                    swal("Cập nhật thành công", "success", "success");
+                    swal("Cập nhật thành công", "Thông tin lớp học đã được thay đổi", "success");
                     init();
                 }
             },

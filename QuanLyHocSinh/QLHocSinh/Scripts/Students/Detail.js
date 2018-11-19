@@ -47,8 +47,8 @@ function createControl() {
                          return meta.row + meta.settings._iDisplayStart + 1;
                      }
                  },
-                { 'data': 'StudentID'},
-                { 'data': 'FullName' },
+                { 'data': 'StudentID', "visible": false},
+                { 'data': 'FullName', "width": "20%" },
                 { 'data': 'SubjectName' },
                 { 'data': 'Test15Minutes' },
                 { 'data': 'Test45Minutes' },

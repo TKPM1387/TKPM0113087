@@ -1,4 +1,5 @@
-﻿using QLHocSinh.Models;
+﻿
+using QLHocSinh.Helper;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,10 +15,12 @@ namespace QLHocSinh.Controllers
     {
         //
         // GET: /Classes/
+        [CheckLogin]
         public ActionResult Index()
         {
             return View();
         }
+        [CheckLogin]
         public ActionResult Search()
         {
             return View();
@@ -91,63 +94,6 @@ namespace QLHocSinh.Controllers
             }
             return Json(result, JsonRequestBehavior.AllowGet);
 
-
-        }
-        public ActionResult getNodeClass()
-        {
-            {
-
-                var listNode = new List<NodeClass>();
-                var con = new SqlConnection(path);
-                var cmd = new SqlCommand("getClassLevel", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-                con.Open();
-                SqlDataAdapter da = new SqlDataAdapter();
-                da.SelectCommand = cmd;
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-                con.Close();
-
-                foreach (DataRow dr in dt.Rows)
-                {
-                    //var conc = new SqlConnection(path);
-                    string idlv = dr[0].ToString();
-                    var clnodes = new List<NodeClass>();
-                    var cmdc = new SqlCommand("getClassByLevel", con);
-                    cmdc.CommandType = CommandType.StoredProcedure;
-                    cmdc.Parameters.Add(new SqlParameter("@iDLevel", idlv));
-                    con.Open();
-                    SqlDataAdapter da1 = new SqlDataAdapter();
-                    da1.SelectCommand = cmdc;
-                    DataTable dt1 = new DataTable();
-                    da1.Fill(dt1);
-                    con.Close();
-                    foreach (DataRow dr1 in dt1.Rows)
-                    {
-                        var cnode = new NodeClass
-                        {
-                            iD = Convert.ToInt32(dr1[0].ToString()),
-                            //text = "<a onclick=\"myFunction()\">Try it</a>",//dr1[1].ToString(),
-                            text = "<a onclick=\"myFunction()\">" + dr1[1].ToString() + "</a>",
-                            href = "https://www.google.com.vn/",
-                            tags = "['4']",
-                        };
-                        clnodes.Add(cnode);
-                    }
-                    var nodes = new NodeClass
-                    {
-                        iD = Convert.ToInt32(dr[0].ToString()),
-                        text = dr[1].ToString(),
-                        href = "https://www.google.com.vn/",
-                        tags = "['4']",
-                        nodes = clnodes,
-                    };
-                    listNode.Add(nodes);
-
-                }
-
-                return Json(listNode, JsonRequestBehavior.AllowGet);
-            }
 
         }
 
@@ -236,60 +182,6 @@ namespace QLHocSinh.Controllers
 
         }
 
-        public ActionResult GetClasses()
-        {
-            string path = @"Data Source=.\SQLEXPRESS;Initial Catalog=QLHS;Integrated Security=True";
-            int i = 1;
-            var classes = new List<Classes>();
-            using (var con = new SqlConnection(path))
-            {
-                var cmd = new SqlCommand("GetClasses", con) { CommandType = CommandType.StoredProcedure };
-                con.Open();
-                var dr = cmd.ExecuteReader();
-                while (dr.Read())
-                {
-                    var cl = new Classes
-                    {
-                        STT = i,
-                        ClassID = Convert.ToInt32(dr[0].ToString()),
-                        ClassName = dr[1].ToString(),
-                        ClassLevelName = dr[2].ToString()
-                    };
-                    classes.Add(cl);
-                    i++;
-                }
-            }
-            return Json(classes, JsonRequestBehavior.AllowGet);
-        }
-
-        //public ActionResult GetStudents()
-        //{
-        //    string path = @"Data Source=.\SQLEXPRESS;Initial Catalog=QLHS;Integrated Security=True";
-        //    int i = 1;
-        //    var students = new List<Students>();
-        //    using (var con = new SqlConnection(path))
-        //    {
-        //        var cmd = new SqlCommand("getStudents", con) { CommandType = CommandType.StoredProcedure };
-        //        con.Open();
-        //        var dr = cmd.ExecuteReader();
-        //        while (dr.Read())
-        //        {
-        //            var student = new Students
-        //            {
-        //                STT = i,
-        //                StudentID =dr[0].ToString(),
-        //                FullName = dr[1].ToString(),
-        //                BirthDay = Convert.ToDateTime(dr[2].ToString()),
-        //                Gender = Convert.ToInt32(dr[3].ToString()),
-        //                Address = dr[6].ToString()
-        //            };
-        //            students.Add(student);
-        //            i++;
-        //        }
-        //    }
-        //    return Json(students, JsonRequestBehavior.AllowGet);
-        //}
-
         public ActionResult GetStudentDetail(string idname)
         {
             using (var ctx = new QLHSEntities())
@@ -346,20 +238,34 @@ namespace QLHocSinh.Controllers
             var result = new ArrayList();
             using (var ctx = new QLHSEntities())
             {
-                var list = ctx.Students
-                      .Join(ctx.Points
-                      , u => u.StudentID, uir => uir.StudenID, (u, uir) => new { u, uir })
-                      .Where(m => m.u.Class == grade && m.uir.SubjectID == subject)
-                      .OrderBy(m => m.u.StudentID)
-                      .Select(m => new
-                      {
-                          StudentID = m.u.StudentID,
-                          FullName = m.u.FullName,
-                          Test15Minutes = m.uir.Test15Minutes,
-                          Test45Minutes = m.uir.Test45Minutes,
-                          TestSemester = m.uir.TestSemester,
-                          Average = m.uir.Average
-                      }).ToList();
+                var list = (from s in ctx.Students
+                            from p in ctx.Points.Where(p1 => p1.StudenID == s.StudentID && p1.SubjectID == subject).DefaultIfEmpty()
+                            where s.Class == grade
+                            select new
+                            {
+                                StudentID = s.StudentID,
+                                FullName = s.FullName,
+                                Average = p.Average,
+                                Test15Minutes = p.Test15Minutes,
+                                Test45Minutes = p.Test45Minutes,
+                                TestSemester = p.TestSemester
+                            }).ToList();
+
+
+                //var list = ctx.Students
+                //      .Join(ctx.Points
+                //      , u => u.StudentID, uir => uir.StudenID, (u, uir) => new { u, uir })
+                //      .Where(m => m.u.Class == grade && m.uir.SubjectID == subject && m.uir.Flag != -1)
+                //      .OrderBy(m => m.u.StudentID)
+                //      .Select(m => new
+                //      {
+                //          StudentID = m.u.StudentID,
+                //          FullName = m.u.FullName,
+                //          Test15Minutes = m.uir.Test15Minutes,
+                //          Test45Minutes = m.uir.Test45Minutes,
+                //          TestSemester = m.uir.TestSemester,
+                //          Average = m.uir.Average
+                //      }).ToList();
 
                 return Json(list, JsonRequestBehavior.AllowGet);
             }
@@ -393,7 +299,7 @@ namespace QLHocSinh.Controllers
             //return Json(students, JsonRequestBehavior.AllowGet);
         }
 
-
+        [CheckLogin]
         public ActionResult List()
         {
             return View();
@@ -456,6 +362,9 @@ namespace QLHocSinh.Controllers
         [HttpPost]
         public ActionResult AddClass(Class c)
         {
+            c.MaxTotal = 40;
+            c.Total = 0;
+            c.Flag = 1;
             var result = new ArrayList();
             using (var ctx = new QLHSEntities())
             {
@@ -486,39 +395,63 @@ namespace QLHocSinh.Controllers
             var result = new ArrayList();
             using (var ctx = new QLHSEntities())
             {
-                var list = ctx.Points
-                     .Join(ctx.Students
-                     , poi => poi.StudenID, stu => stu.StudentID, ( poi,stu) => new {  poi,stu })
-                     .Join(ctx.Subjects
-                     , p => p.poi.SubjectID, s => s.SubjectID, (p, s) => new { p.stu, p.poi, s }
-                     )
-                     .Where(m => m.stu.StudentID == ID && m.poi.Semester == semester)                     
-                     .Select(m => new
-                     {
-                         StudentID = m.stu.StudentID,
-                         FullName=m.stu.FullName,
-                         SubjectName=m.s.SubjectName,
-                         Test15Minutes=m.poi.Test15Minutes,
-                         Test45Minutes=m.poi.Test45Minutes,
-                         TestSemester=m.poi.TestSemester,
-                         Average = m.poi.Average,
-                     }).ToList();
+                var name = (from s in ctx.Students where s.StudentID == ID select s.FullName).FirstOrDefault().ToString();
+
+                var list = (from sj in ctx.Subjects
+                            from p in ctx.Points.Where(p1 => p1.SubjectID == sj.SubjectID && p1.Semester == semester).DefaultIfEmpty()
+                            from st in ctx.Students.Where(s1 => s1.StudentID == p.StudenID && p.Semester == semester && s1.StudentID == ID).DefaultIfEmpty()
+                            //where st.StudentID == ID
+                            select new
+                            {
+                                StudentID = ID,
+                                FullName = name,
+                                SubjectName=sj.SubjectName,
+                                Average = p.Average,
+                                Test15Minutes = p.Test15Minutes,
+                                Test45Minutes = p.Test45Minutes,
+                                TestSemester = p.TestSemester
+
+                            }).ToList();
+
+                /* SELECT  S.ID ,
+                 S.StudentID ,
+                 S.FullName ,
+                 P.Semester ,
+                 P.Test15Minutes ,
+                 P.Test45Minutes ,
+                 P.TestSemester,S2.SubjectID,S2.SubjectName
+                 FROM    dbo.Subject AS S2
+                 LEFT JOIN dbo.Point AS P ON S2.SubjectID = P.SubjectID
+                 LEFT JOIN ( SELECT  *
+                             FROM    dbo.Students
+                             WHERE   StudentID = 'HS00007'
+                           ) AS S ON S.StudentID = P.StudenID
+                                     AND P.Semester = 1*/
+
+
+
+                //var list = ctx.Points
+                //     .Join(ctx.Students
+                //     , poi => poi.StudenID, stu => stu.StudentID, (poi, stu) => new { poi, stu })
+                //     .Join(ctx.Subjects
+                //     , p => p.poi.SubjectID, s => s.SubjectID, (p, s) => new { p.stu, p.poi, s }
+                //     )
+                //     .Where(m => m.stu.StudentID == ID && m.poi.Semester == semester)
+                //     .Select(m => new
+                //     {
+                //         StudentID = m.stu.StudentID,
+                //         FullName = m.stu.FullName,
+                //         SubjectName = m.s.SubjectName,
+                //         Test15Minutes = m.poi.Test15Minutes,
+                //         Test45Minutes = m.poi.Test45Minutes,
+                //         TestSemester = m.poi.TestSemester,
+                //         Average = m.poi.Average,
+                //     }).ToList();
 
                 return Json(list, JsonRequestBehavior.AllowGet);
             }
         }
 
-        /*
-          SELECT  s.StudentID ,
-        s.FullName ,
-        S2.SubjectName ,
-        P.Test15Minutes ,
-        P.Test45Minutes ,
-        P.TestSemester ,
-        P.Average
-FROM    dbo.Students AS s
-        JOIN dbo.Point AS P ON s.StudentID = P.StudenID
-        JOIN dbo.Subject AS S2 ON P.SubjectID = S2.SubjectID
-*/
+
     }
 }

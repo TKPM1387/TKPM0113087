@@ -20,5 +20,10 @@ namespace QLHocSinh
         public string password { get; set; }
         public string email { get; set; }
         public Nullable<int> Role { get; set; }
+        public string address { get; set; }
+        public string phonenumber { get; set; }
+        public Nullable<int> flag { get; set; }
+        public Nullable<System.DateTime> birthday { get; set; }
+        public Nullable<int> gender { get; set; }
     }
 }

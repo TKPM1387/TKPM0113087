@@ -11,7 +11,7 @@ namespace QLHocSinh.Controllers
     {
         //
         // GET: /Home/
-        //[CheckLogin]
+        [CheckLogin]
         public ActionResult Index()
         {
             return View();

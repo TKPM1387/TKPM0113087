@@ -3,6 +3,7 @@
     loadtable();
 });
 function init() {
+    hideError();
     $('#liststudent').DataTable({
         "paging": true,
         "ordering": false,
@@ -55,7 +56,9 @@ function init() {
                         return '<a href= "/Students/ViewDetail?ID=' + row.StudentID + '">' + row.StudentID + '</a>';
                     }
                 },
-                { 'data': 'FullName' },
+                {
+                    'data': 'FullName'
+                },
                 { 'data': 'Class', "visible": false },
 
                 { 'data': 'ClassName' },
@@ -101,7 +104,9 @@ function loadtable() {
     });
 }
 
-
+function btnclose() {
+    $("#exampleModal").modal("hide")
+}
 function edit(fid, fname, fgender, fbirthday, faddress, femail, fphonenumber, fclass) {
 
     $('#sid').val(fid);
@@ -122,18 +127,60 @@ function edit(fid, fname, fgender, fbirthday, faddress, femail, fphonenumber, fc
     $('#email').val(femail);
     $('#phonenumber').val(fphonenumber);
 }
+function hideError() {
+    $('#spfullname').hide()
+    $('#spbirthday').hide()
+    $('#spaddress').hide()
+    $('#spemail').hide()
+    $('#spblock').hide()
+    $('#spgrade').hide()
+    $('#spnote').hide()
 
+    $("div.form-group").removeClass('has-error');
+}
 function updateinfo() {
     var a = $('#birthDay').val().split('/');
     var b = a[1] + '/' + a[0] + '/' + a[2];
+
+    var sid = $('#sid').val();
+    var sfullname = $("#fullName").val();
+    var sbirthday = $("#birthDay").val();
+    var c = sbirthday.split('/');
+    sbirthday = c[1] + '/' + c[0] + '/' + c[2];
+    var saddress = $("#address").val();
+    var sgender = $("#gender").val();
+    var semail = $("#email").val();
+    var sphonenumber = $("#phonenumber").val();
+    var sclass = $("#grade2").val();
+
+    var i = 0;
+    if (sfullname == "") {
+        $('#fmfullname').removeClass('row');
+        $('#fmfullname').addClass('has-danger row');
+        $('#spfullname').show()
+        i++;
+    }
+    else {
+        $('#fmfullname').removeClass('has-danger row');
+        $('#fmfullname').addClass('row');
+        $('#spfullname').hide()
+
+    }
+    if (i != 0) {
+        //alert(i);
+        return;
+    }
+
+
+
 
     var s = {
         StudentID: $('#sid').val(),
         FullName: $('#fullName').val(),
         BirthDay: b,
         Gender: $('#gender').val(),
-        Email: $('#gender').val(),
-        PhoneNumber: $('#gender').val(),
+        Email: $('#email').val(),
+        PhoneNumber: $('#phonenumber').val(),
         Address: $('#address').val(),
         Class: $('#grade2').val()
     };
@@ -150,6 +197,9 @@ function updateinfo() {
             if (result[0].value == 1) {
                 swal("Cập nhật thành công", "success", "success");
                 loadtable();
+            } else {
+
+                swal("Cập nhật thất bại", result[0].message, "error");                
             }
         }
     });

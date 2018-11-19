@@ -49,7 +49,6 @@ C:\Users\Administrator\Desktop\QuanLyHocSinh1\QLHocSinh\bin\System.Web.Helpers.x
 C:\Users\Administrator\Desktop\QuanLyHocSinh1\QLHocSinh\bin\System.Web.Mvc.xml
 C:\Users\Administrator\Desktop\QuanLyHocSinh1\QLHocSinh\obj\Debug\QLHocSinh.dll
 C:\Users\Administrator\Desktop\QuanLyHocSinh1\QLHocSinh\obj\Debug\QLHocSinh.pdb
-D:\QLHS\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\EntityFramework.xml
 D:\QLHS\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\QLHocSinh.dll.config
 D:\QLHS\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\QLHocSinh.dll
 D:\QLHS\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\QLHocSinh.pdb
@@ -61,6 +60,7 @@ D:\QLHS\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\System.Web.Razor.dll
 D:\QLHS\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\System.Web.Webpages.Deployment.dll
 D:\QLHS\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\System.Web.Webpages.dll
 D:\QLHS\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\System.Web.Webpages.Razor.dll
+D:\QLHS\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\EntityFramework.xml
 D:\QLHS\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\EntityFramework.SqlServer.xml
 D:\QLHS\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\System.Web.Razor.xml
 D:\QLHS\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\System.Web.Webpages.xml
