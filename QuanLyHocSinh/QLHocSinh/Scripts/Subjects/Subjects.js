@@ -1,6 +1,29 @@
 ﻿$(document).ready(function () {
     init();
     load_table();
+
+    $('#subjectname').change(function () {
+        if (this.value != '') {
+            $('#fmsubjectname').removeClass('has-danger row');
+            $('#fmsubjectname').addClass('row');
+            $('#spsubjectname').hide()
+        }
+
+    });
+    $("#subjectperiod").TouchSpin({
+        min: 1,
+        max: 500,
+        stepinterval: 1,
+        maxboostedstep: 1,
+    });
+    $("#subjecttype").TouchSpin({
+        min: 1,
+        max: 5,
+        stepinterval: 1,
+        maxboostedstep: 1,
+    });
+
+    hideError();
 });
 
 function init() {
@@ -106,7 +129,32 @@ function edit(id, name, period, type) {
     $('#subjectperiod').val(period)
     $('#subjecttype').val(type)
 }
+function hideError() {
+    $('#spsubjectname').hide()
+
+    $("div.form-group").removeClass('has-error');
+}
 function updateinfosubject() {
+    var ssubjectname = $("#subjectname").val();
+    var i = 0;
+    if (ssubjectname == "") {
+        $('#fmsubjectname').removeClass('row');
+        $('#fmsubjectname').addClass('has-danger row');
+        $('#spsubjectname').show()
+        i++;
+    }
+    else {
+        $('#fmsubjectname').removeClass('has-danger row');
+        $('#fmsubjectname').addClass('row');
+        $('#spsubjectname').hide()
+
+    }
+
+    if (i != 0) {
+        //alert(i);
+        return;
+    }
+
 
     var subject = {
         SubjectID: $('#subjectid').val(),
@@ -126,11 +174,22 @@ function updateinfosubject() {
             if (result[0].value == 1) {
                 swal("Cập nhật thành công", "success", "success");
                 load_table();
+                hideError();
+                btnclose();
             }
         },
         error: function (xhr, status, error) { alert('Có lỗi xảy ra!!'); }
     });
 
+}
+function btnclose() {
+    $("#exampleModal").modal("hide")    
+    hideError();
+}
+
+function btnclosemodaladd() {
+    $("#ModelAddSubject").modal("hide")
+    hideError();
 }
 function clearmodal() {
      $('#subjectnameadd').val('')
@@ -157,6 +216,7 @@ function addsubject() {
                 swal("Thêm thành công", "success", "success");
                 load_table();
                 clearmodal()
+                btnclosemodaladd();
             }
         },
         error: function (xhr, status, error) { alert('Có lỗi xảy ra!!'); }

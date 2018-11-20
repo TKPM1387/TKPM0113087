@@ -62,10 +62,11 @@
                                 </div>
 
                                 <div class="col-md-12">
-                                    <div class="form-group row">
+                                    <div id="fmsubjectname"  class="form-group row">
                                         <label class="control-label text-right  col-md-4">Tên môn học</label>
                                         <div class="col-md-8">
                                             <input id="subjectname" type="text" class="form-control">
+                                            <small id="spsubjectname" class="form-control-feedback">Tên môn học không được để trống </small>
                                         </div>
                                     </div>
                                 </div>
@@ -91,8 +92,8 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="updateinfosubject()"><i class="fa fa-edit" style="font-size:16px"></i>Lưu</button>
+                            <button type="button" class="btn btn-default" onclick="btnclose()">Đóng</button>
+                            <button type="button" class="btn btn-primary"  onclick="updateinfosubject()"><i class="fa fa-edit" style="font-size:16px"></i>Lưu</button>
                         </div>
                     </div>
                 </div>
@@ -138,8 +139,8 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="addsubject()"><i class="fa fa-edit" style="font-size:16px"></i>Lưu</button>
+                            <button type="button" class="btn btn-default" onclick="btnclosemodaladd()">Đóng</button>
+                            <button type="button" class="btn btn-primary" onclick="addsubject()"><i class="fa fa-edit" style="font-size:16px"></i>Lưu</button>
                         </div>
                     </div>
                 </div>

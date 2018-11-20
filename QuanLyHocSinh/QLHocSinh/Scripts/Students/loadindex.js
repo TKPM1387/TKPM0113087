@@ -8,7 +8,7 @@ function init() {
         "paging": true,
         "ordering": false,
         "info": false,
-        "searching": false,
+        "searching": true,
         //data: data,
         //"scrollX": true,
         //"sScrollX": '110%',
@@ -103,9 +103,47 @@ function loadtable() {
         }
     });
 }
+function checkvalidPhone() {
+    var a = $('#note').val()
+    var filter = /^((\+[1-9]{1,4}[ \-]*)|(\([0-9]{2,3}\)[ \-]*)|([0-9]{2,4})[ \-]*)*?[0-9]{3,4}?[ \-]*[0-9]{3,4}?$/;
+    if (a == "")
+        return true;
 
+    if (filter.test(a) && a.length >= 10) {
+        return true
+    }
+    else {
+        return false
+    }
+
+
+}
+
+function checkvalidDate() {
+    var c = $('#birthDay').val().split('/');
+    if (c[2] > 1900 && moment($('#birthDay').val().split('/'), ["MM-DD-YYYY", "DD-MM", "DD-MM-YYYY"]).isValid())
+        return true;
+    return false;
+}
+
+function checkvalidEmail() {
+    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+    return regex.test($("#email").val());
+}
+function hideError() {
+    $('#spfullname').hide()
+    $('#spbirthday').hide()
+    $('#spaddress').hide()
+    $('#spemail').hide()
+    $('#spgrade').hide()
+    $('#spnote').hide()
+
+    $("div.form-group").removeClass('has-error');
+}
 function btnclose() {
     $("#exampleModal").modal("hide")
+    hideError()
 }
 function edit(fid, fname, fgender, fbirthday, faddress, femail, fphonenumber, fclass) {
 
@@ -136,7 +174,20 @@ function hideError() {
     $('#spgrade').hide()
     $('#spnote').hide()
 
-    $("div.form-group").removeClass('has-error');
+    $("#email").val('');
+    $("#note").val('');
+
+    $("div.form-group").removeClass('has-danger row');
+    //$('#fmemail').removeClass('has-danger row');
+    $('div.form-group').addClass('row');
+}
+function clearfilter() {
+
+    $("#fullName").val('');
+    $('#birthDay').datepicker('update', new Date());
+    $("#address").val('');
+    $("#email").val('');
+    $("#note").val('');
 }
 function updateinfo() {
     var a = $('#birthDay').val().split('/');
@@ -150,7 +201,7 @@ function updateinfo() {
     var saddress = $("#address").val();
     var sgender = $("#gender").val();
     var semail = $("#email").val();
-    var sphonenumber = $("#phonenumber").val();
+    var sphonenumber = $("#note").val();
     var sclass = $("#grade2").val();
 
     var i = 0;
@@ -166,6 +217,56 @@ function updateinfo() {
         $('#spfullname').hide()
 
     }
+    if (!checkvalidDate()) {
+        $('#fmbirthday').removeClass('row');
+        $('#fmbirthday').addClass('has-danger row');
+        $('#spbirthday').show()
+        i++;
+    }
+    else {
+        $('#fmbirthday').removeClass('has-danger row');
+        $('#fmbirthday').addClass('row');
+        $('#spbirthday').hide()
+
+    }
+    if (saddress == "") {
+        $('#fmaddress').removeClass('row');
+        $('#fmaddress').addClass('has-danger row');
+        $('#spaddress').show()
+        i++;
+    }
+    else {
+        $('#fmaddress').removeClass('has-danger row');
+        $('#fmaddress').addClass('row');
+        $('#spaddress').hide();
+
+    }
+  
+    if (!checkvalidPhone()) {
+        $('#fmnote').removeClass('row');
+        $('#fmnote').addClass('has-danger row');
+        $('#spnote').show()
+        i++;
+    }
+    else {
+        $('#fmnote').removeClass('has-danger row');
+        $('#fmnote').addClass('row');
+        $('#spnote').hide()
+    }
+    if (!checkvalidEmail() && semail != "") {
+        $('#fmemail').removeClass('row');
+        $('#fmemail').addClass('has-danger row');
+        $('#spemail').show()
+        i++;
+    }
+    else {
+        $('#fmemail').removeClass('has-danger row');
+        $('#fmemail').addClass('row');
+        $('#spemail').hide()
+
+    }
+
+
     if (i != 0) {
         //alert(i);
         return;
@@ -201,6 +302,7 @@ function updateinfo() {
 
                 swal("Cập nhật thất bại", result[0].message, "error");                
             }
+            btnclose();
         }
     });
 

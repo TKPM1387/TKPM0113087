@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Page = "Quản lý học sinh";
 }
- 
+
 <link href="../assets/css/style.css" rel="stylesheet">
 <style>
     /*ul.tree > * {
@@ -68,18 +68,17 @@
             <div class="modal-content card card-outline-primary">
                 <div class="modal-header card-header">
                     <h4 class="modal-title" id="exampleModalLabel1" style="color:white">Cập nhật thông tin</h4>
-                  </div>
+                </div>
                 <div class="modal-body">
                     <form>
-
                         <div class="col-md-12">
-                            <div class="form-group row">
+                            <div id="fmfullname" class="form-group row">
                                 <label class="control-label text-right  col-md-4">Họ tên</label>
                                 <div class="col-md-8">
                                     <input id="fullName" type="text" class="form-control">
                                     <input id="sid" type="hidden" />
+                                    <small id="spfullname" class="form-control-feedback">Họ tên không được để trống </small>
                                 </div>
-                                <small id="spfullname" class="form-control-feedback">Họ tên không được để trống </small>
                             </div>
                         </div>
 
@@ -95,38 +94,41 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <div class="form-group row">
+                            <div id="fmbirthday"  class="form-group row">
                                 <label class="control-label text-right  col-md-4">Ngày sinh</label>
                                 <div class="col-md-8">
-                                    @*<input id="fullName" type="text" class="form-control">*@
                                     <input type="text" id="birthDay" class="form-control" placeholder="mm/dd/yyyy">
+                                    <small id="spbirthday" class="form-control-feedback">Ngày sinh không hợp lệ </small>
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-md-12">
-                            <div class="form-group row">
+                            <div class="form-group row" id="fmaddress">
                                 <label class="control-label text-right  col-md-4">Địa chỉ</label>
                                 <div class="col-md-8">
                                     <input id="address" type="text" class="form-control">
+                                    <small id="spaddress" class="form-control-feedback">Địa chỉ không được để trống. </small>
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-md-12">
-                            <div class="form-group row">
+                            <div id="fmemail" class="form-group row">
                                 <label class="control-label text-right  col-md-4">Email</label>
                                 <div class="col-md-8">
                                     <input id="email" type="text" class="form-control">
+                                    <small id="spemail" class="form-control-feedback">Email không hợp lệ </small>
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-md-12">
-                            <div class="form-group row">
+                            <div id="fmnote" class="form-group row">
                                 <label class="control-label text-right  col-md-4">Số điện thoại</label>
                                 <div class="col-md-8">
-                                    <input id="phonenumber" type="text" class="form-control">
+                                    <input id="note" type="text" class="form-control">
+                                    <small id="spnote" class="form-control-feedback">Số điện thoại không hợp lệ </small>
                                 </div>
                             </div>
                         </div>
@@ -143,7 +145,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" onclick="btnclose()">Đóng</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="updateinfo()"><i class="fa fa-edit" style="font-size:16px"></i>Lưu</button>
+                    <button type="button" class="btn btn-primary" onclick="updateinfo()"><i class="fa fa-edit" style="font-size:16px"></i>Lưu</button>
                 </div>
             </div>
         </div>
