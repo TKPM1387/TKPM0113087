@@ -359,13 +359,43 @@ namespace QLHocSinh.Controllers
             }
         }
 
+        public bool CheckMaxClass(int classlevel)
+        {
+            using (var ctx = new QLHSEntities())
+            {
+                //var level = ctx.Classes.Where(c => c.ID == classid).FirstOrDefault().ClassLevel;
+
+                var currenttotal = ctx.Classes.Where(c => c.ClassLevel == classlevel).ToList();
+                var maxtotal = ctx.ClassLevels.Where(l => l.ID == classlevel).FirstOrDefault().MaxTotal;
+
+                if (currenttotal.Count >= maxtotal)
+                {
+                    return false;
+                }
+                return true;
+            }
+        }
+
+
+
         [HttpPost]
         public ActionResult AddClass(Class c)
         {
+            int t = int.Parse(c.ClassLevel.ToString());
+            var result = new ArrayList();
+            if (!CheckMaxClass(t))
+            {
+                result.Add(
+                    new
+                    {
+                        value = -1,
+                        message="Khối đã đạt số lượng tối đa"
+                    });
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
             c.MaxTotal = 40;
             c.Total = 0;
             c.Flag = 1;
-            var result = new ArrayList();
             using (var ctx = new QLHSEntities())
             {
 

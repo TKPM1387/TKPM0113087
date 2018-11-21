@@ -728,6 +728,7 @@
     <Content Include="assets\scss\icons\weather-icons\fonts\weathericons-regular-webfont.ttf" />
     <Content Include="assets\scss\icons\weather-icons\fonts\weathericons-regular-webfont.woff" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\Account\Auth.js" />
     <Content Include="Scripts\Account\Profile.js" />
     <Content Include="Scripts\Classes\Classes.js" />
     <Content Include="Scripts\Classes\List.js" />
@@ -735,6 +736,7 @@
     <Content Include="Scripts\Home\Home.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\Report\Report.js" />
+    <Content Include="Scripts\Rule.js" />
     <Content Include="Scripts\Students\Detail.js" />
     <Content Include="Scripts\Students\loadindex.js" />
     <Content Include="Scripts\Students\Score.js" />

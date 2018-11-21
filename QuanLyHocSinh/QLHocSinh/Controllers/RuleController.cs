@@ -293,6 +293,12 @@ namespace QLHocSinh.Controllers
             }
 
         }
+
+        //public ActionResult AddNewStudent(Student s)
+        //{
+            
+        //}
+
         #endregion
     }
 }

@@ -108,11 +108,12 @@
                     <form>
 
                         <div class="col-md-12">
-                            <div class="form-group row">
+                            <div id="fmfullname" class="form-group row">
                                 <label class="control-label text-right  col-md-3">Họ tên</label>
                                 <div class="col-md-9">
                                     <input id="fullName" type="text" class="form-control">
                                     <input id="sid" type="hidden" />
+                                    <small id="spfullname" class="form-control-feedback">Họ tên không được để trống </small>
                                 </div>
                             </div>
                         </div>
@@ -130,20 +131,22 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <div class="form-group row">
+                            <div id="fmbirthday" class="form-group row">
                                 <label class="control-label text-right  col-md-3">Ngày sinh</label>
                                 <div class="col-md-9">
                                     @*<input id="fullName" type="text" class="form-control">*@
                                     <input type="text" id="birthDay" class="form-control" placeholder="mm/dd/yyyy">
+                                    <small id="spbirthday" class="form-control-feedback">Ngày sinh không hợp lệ </small>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-md-12">
-                            <div class="form-group row">
+                        <div class="col-md-12" >
+                            <div class="form-group row" id="fmaddress">
                                 <label class="control-label text-right  col-md-3">Địa chỉ</label>
                                 <div class="col-md-9">
                                     <input id="address" type="text" class="form-control">
+                                    <small id="spaddress" class="form-control-feedback">Địa chỉ không được để trống. </small>
                                 </div>
                             </div>
                         </div>
@@ -160,8 +163,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="updateinfo()">
+                    <button type="button" class="btn btn-default" onclick="closeModifyStudent()">Đóng</button>
+                    <button type="button" class="btn btn-primary"  onclick="updateinfo()">
                     <i class="fa fa-edit" style="font-size:16px"></i>Lưu</button>
                 </div>
             </div>
@@ -186,7 +189,7 @@
                             <form>
 
                                 <div class="col-md-12">
-                                    <div class="form-group row">
+                                    <div  class="form-group row">
                                         <label class="control-label text-right  col-md-4">Mã môn học</label>
                                         <div class="col-md-8">
                                             <input id="subjectid" type="text" class="form-control" disabled>
@@ -195,27 +198,32 @@
                                 </div>
 
                                 <div class="col-md-12">
-                                    <div class="form-group row">
+                                    <div id="fmsubjectname"  class="form-group row">
                                         <label class="control-label text-right  col-md-4">Tên môn học</label>
                                         <div class="col-md-8">
                                             <input id="subjectname" type="text" class="form-control">
+                                            <small id="spsubjectname" class="form-control-feedback">Tên môn học không được để trống </small>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <div class="form-group row">
+                                    <div id="fmsubjectperiod"   class="form-group row">
                                         <label class="control-label text-right  col-md-4">Số tiết</label>
                                         <div class="col-md-8">
                                             <input id="subjectperiod" type="text" class="form-control">
+                                            <small id="spsubjectperiod" class="form-control-feedback">Tên môn học không được để trống </small>
+
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-md-12">
-                                    <div class="form-group row">
+                                    <div id="fmsubjecttype" class="form-group row">
                                         <label class="control-label text-right  col-md-4">Hệ số</label>
                                         <div class="col-md-8">
                                             <input id="subjecttype" type="text" class="form-control">
+                                            <small id="spsubjecttype" class="form-control-feedback">Tên môn học không được để trống </small>
+
                                         </div>
                                     </div>
                                 </div>
@@ -224,8 +232,8 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="updateinfosubject()">
+                            <button type="button" onclick="btnclose()" class="btn btn-default">Đóng</button>
+                            <button type="button" class="btn btn-primary" onclick="updateinfosubject()">
                             <i class="fa fa-edit" style="font-size:16px"></i>Lưu</button>
                         </div>
                     </div>
@@ -251,10 +259,11 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <div class="form-group row">
+                                    <div id="fmclassname" class="form-group row">
                                         <label class="control-label text-right  col-md-4">Tên lớp</label>
                                         <div class="col-md-8">
                                             <input id="classnameadd" type="text" class="form-control">
+                                            <small id="spclassname" class="form-control-feedback">Tên lớp không được để trống</small>
                                         </div>
                                     </div>
                                 </div>
@@ -262,8 +271,8 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="addclass()">
+                            <button type="button" class="btn btn-default" onclick="closeAddClass()">Đóng</button>
+                            <button type="button" class="btn btn-primary" onclick="addclass()">
                             <i class="fa fa-edit" style="font-size:16px"></i>
                             Thêm
                             </button>

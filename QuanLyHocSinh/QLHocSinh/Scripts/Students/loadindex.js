@@ -131,16 +131,16 @@ function checkvalidEmail() {
 
     return regex.test($("#email").val());
 }
-function hideError() {
-    $('#spfullname').hide()
-    $('#spbirthday').hide()
-    $('#spaddress').hide()
-    $('#spemail').hide()
-    $('#spgrade').hide()
-    $('#spnote').hide()
+//function hideError() {
+//    $('#spfullname').hide()
+//    $('#spbirthday').hide()
+//    $('#spaddress').hide()
+//    $('#spemail').hide()
+//    $('#spgrade').hide()
+//    $('#spnote').hide()
 
-    $("div.form-group").removeClass('has-error');
-}
+//    $("div.form-group").removeClass('has-error');
+//}
 function btnclose() {
     $("#exampleModal").modal("hide")
     hideError()
@@ -178,7 +178,6 @@ function hideError() {
     $("#note").val('');
 
     $("div.form-group").removeClass('has-danger row');
-    //$('#fmemail').removeClass('has-danger row');
     $('div.form-group').addClass('row');
 }
 function clearfilter() {

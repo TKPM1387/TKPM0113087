@@ -24,33 +24,10 @@ namespace QLHocSinh.Controllers
         {
             using (var ctx = new QLHSEntities())
             {
-                var list = ctx.Subjects.Where(p => 1 == 1).ToList();
+                var list = ctx.Subjects.Where(p => p.Flag != -1).ToList();
                 return Json(list, JsonRequestBehavior.AllowGet);
 
             }
-            //string path = @"Data Source=.\SQLEXPRESS;Initial Catalog=QLHS;Integrated Security=True";
-            //int i = 1;
-            //var sjs = new List<Subjects>();
-            //using (var con = new SqlConnection(path))
-            //{
-            //    var cmd = new SqlCommand("getSubjects", con) { CommandType = CommandType.StoredProcedure };
-            //    con.Open();
-            //    var dr = cmd.ExecuteReader();
-            //    while (dr.Read())
-            //    {
-            //        var sj = new Subjects
-            //        {
-            //            STT = i,
-            //            SubjectID = Convert.ToInt32(dr[0].ToString()),
-            //            SubjectName = dr[1].ToString(),
-            //            Level = dr[2].ToString(),
-            //            Period= int.Parse(dr[3].ToString())
-            //        };
-            //        sjs.Add(sj);
-            //        i++;
-            //    }
-            //}
-            //return Json(sjs, JsonRequestBehavior.AllowGet);
 
         }
         public ActionResult getListSubject()
@@ -60,27 +37,6 @@ namespace QLHocSinh.Controllers
                 var list = ctx.Subjects.Where(p => p.Flag != -1).ToList();
                 return Json(list, JsonRequestBehavior.AllowGet);
             }
-
-            //string path = @"Data Source=.\SQLEXPRESS;Initial Catalog=QLHS;Integrated Security=True";
-            //int i = 1;
-            //var sjs = new List<Subjects>();
-            //using (var con = new SqlConnection(path))
-            //{
-            //    var cmd = new SqlCommand("getListSubject", con) { CommandType = CommandType.StoredProcedure };
-            //    con.Open();
-            //    var dr = cmd.ExecuteReader();
-            //    while (dr.Read())
-            //    {
-            //        var sj = new Subjects
-            //        {
-            //            SubjectID = Convert.ToInt32(dr[0].ToString()),
-            //            SubjectName = dr[1].ToString(),
-            //        };
-            //        sjs.Add(sj);
-            //        i++;
-            //    }
-            //}
-            //return Json(sjs, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -104,10 +60,35 @@ namespace QLHocSinh.Controllers
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public bool checkTotalSubject()
+        {
+            var ctx = new QLHSEntities();
+            var current_total = ctx.Subjects.Where(p => p.Flag != -1).ToList().Count;
+
+            var max_total = ctx.RuleSubjects.Where(p => 1 == 1).FirstOrDefault().MaxTotal;
+
+            if (current_total < max_total)
+            {
+                return true;
+            }
+            return false;
+        }
+
         [HttpPost]
         public ActionResult AddSubject(Subject s)
         {
             var result = new ArrayList();
+            if (!checkTotalSubject())
+            {
+                result.Add(
+                    new
+                    {
+                        value = -1,
+                        message = "Số lượng môn học đã đạt tối đa"
+                    });
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
             using (var ctx = new QLHSEntities())
             {
                 ctx.Subjects.Add(s);

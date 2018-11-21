@@ -22,7 +22,20 @@
         stepinterval: 1,
         maxboostedstep: 1,
     });
-
+    $("#subjectperiodadd").TouchSpin({
+        min: 1,
+        max: 500,
+        stepinterval: 1,
+        maxboostedstep: 1,
+    });
+    $("#subjecttypeadd").TouchSpin({
+        min: 1,
+        max: 5,
+        stepinterval: 1,
+        maxboostedstep: 1,
+    });
+    
+    
     hideError();
 });
 
@@ -131,8 +144,13 @@ function edit(id, name, period, type) {
 }
 function hideError() {
     $('#spsubjectname').hide()
+    $('#spsubjectnameadd').hide()
+    $('#spsubjecttypeadd').hide()
+    $('#spsubjectperiodadd').hide()
 
-    $("div.form-group").removeClass('has-error');
+    
+    $("div.form-group").removeClass('has-danger row');
+    $('div.form-group').addClass('row');
 }
 function updateinfosubject() {
     var ssubjectname = $("#subjectname").val();
@@ -197,7 +215,47 @@ function clearmodal() {
      $('#subjecttypeadd').val('')
 }
 function addsubject() {
-       
+    var ssubjectname = $("#subjectnameadd").val();
+    var ssubjecttype = $("#subjecttypeadd").val();
+    var ssubjectperiod = $("#subjectperiodadd").val();
+    var i = 0;
+    if (ssubjectname == "") {
+        $('#fmsubjectnameadd').removeClass('row');
+        $('#fmsubjectnameadd').addClass('has-danger row');
+        $('#spsubjectnameadd').show()
+        i++;
+    }
+    else {
+        $('#fmsubjectnameadd').removeClass('has-danger row');
+        $('#fmsubjectnameadd').addClass('row');
+        $('#spsubjectnameadd').hide()
+    }
+    if (ssubjecttype == "") {
+        $('#fmsubjecttypeadd').removeClass('row');
+        $('#fmsubjecttypeadd').addClass('has-danger row');
+        $('#spsubjecttypeadd').show()
+        i++;
+    }
+    else {
+        $('#fmsubjectnameadd').removeClass('has-danger row');
+        $('#fmsubjectnameadd').addClass('row');
+        $('#spsubjectnameadd').hide()
+    }
+    if (ssubjectperiod == "") {
+        $('#fmsubjectperiodadd').removeClass('row');
+        $('#fmsubjectperiodadd').addClass('has-danger row');
+        $('#spsubjectperiodadd').show()
+        i++;
+    }
+    else {
+        $('#fmsubjectperiodadd').removeClass('has-danger row');
+        $('#fmsubjectperiodadd').addClass('row');
+        $('#spsubjectperiodadd').hide()
+    }
+
+    if (i != 0) {
+        return;
+    }
     var subject = {
         SubjectName: $('#subjectnameadd').val(),
         Period: $('#subjectperiodadd').val(),
@@ -217,6 +275,9 @@ function addsubject() {
                 load_table();
                 clearmodal()
                 btnclosemodaladd();
+            }
+            else {
+                swal("Thêm thất bại", result[0].message, "error");
             }
         },
         error: function (xhr, status, error) { alert('Có lỗi xảy ra!!'); }
