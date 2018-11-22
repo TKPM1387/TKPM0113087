@@ -1,9 +1,10 @@
 ﻿$(document).ready(function () {
     createControl();
+    loadAutocomplete();
 })
 function createControl() {
     $('#semester').selectpicker();
-    
+
     $('#student').DataTable({
         "paging": true,
         "ordering": false,
@@ -47,20 +48,18 @@ function createControl() {
                          return meta.row + meta.settings._iDisplayStart + 1;
                      }
                  },
-                { 'data': 'StudentID', "visible": false},
-                { 'data': 'FullName', "width": "20%" },
+                { 'data': 'StudentID', "visible": false },
+                { 'data': 'FullName', "width": "20%", "visible": false },
                 { 'data': 'SubjectName' },
                 { 'data': 'Test15Minutes' },
                 { 'data': 'Test45Minutes' },
                 { 'data': 'TestSemester' },
-                { 'data': 'Average' },                
+                { 'data': 'Average' },
         ]
     });
 
 }
 function ViewDetail() {
-
-    
     var id = $('#txtIDName').val();
 
     $.ajax({
@@ -74,4 +73,26 @@ function ViewDetail() {
             dataTable.rows.add(data).draw();
         }
     });
+}
+function loadAutocomplete() {
+    var options = {
+        //data: [
+        //    { "FullName": "Cyclops", "StudentID": "Scott Summers" },
+        //    { "FullName": "Professor X", "StudentID": "Charles Francis Xavier" },
+        //    { "FullName": "Mystique", "StudentID": "Raven Darkholme" },
+        //    { "FullName": "Magneto", "StudentID": "Max Eisenhardt" }
+        //],
+        url: "GetAllStudent",
+        getValue: "FullName",
+        list: {
+            onSelectItemEvent: function () {
+                var value = $("#IDShow").getSelectedItemData().StudentID;
+                $("#txtIDName").val(value).trigger("change");
+            },
+            match: {
+                enabled: true
+            }
+        }
+    };
+    $("#IDShow").easyAutocomplete(options);
 }

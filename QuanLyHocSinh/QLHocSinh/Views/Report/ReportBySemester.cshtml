@@ -1,12 +1,10 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Báo cáo tổng kết môn";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <div class="row">
     <div class="col-12">
-        <div class="card card-outline-info">
+        <div class="card card-outline-primary">
             <div class="card-header">
                 <h4 class="m-b-0 text-white">Bảng điểm môn học</h4>
             </div>
@@ -16,14 +14,14 @@
                         <hr class="m-t-0 m-b-40">
                         <!--/row-->
                         <div class="row">
-                            <div class="col-md-4">
+                            @*<div class="col-md-4">
                                 <div id="fmgrade" class="form-group row">
                                     <label class="control-label text-right col-md-4">Môn học</label>
                                     <div class="col-md-8">
                                         <select id="subject" data-style="form-control btn-secondary"></select>
                                     </div>
                                 </div>
-                            </div>
+                            </div>*@
                             <div class="col-md-4">
                                 <div id="fmgrade" class="form-group row">
                                     <label class="control-label text-right col-md-4">Học kỳ</label>
@@ -38,7 +36,7 @@
                             <div class="col-md-4">
                                 <div id="fmgrade" class="form-group row">
                                     <div class="col-md-9">
-                                        <button type="button" onclick="ViewReportBySubject()" class="btn btn-success">Xem báo cáo</button>
+                                        <button type="button" onclick="ViewReportBySemester()" class="btn btn-success">Xem báo cáo</button>
                                     </div>
                                 </div>
                             </div>
@@ -61,5 +59,4 @@
         </div>
     </div>
 </div>
-
 <script src="~/Scripts/Report/Report.js"></script>

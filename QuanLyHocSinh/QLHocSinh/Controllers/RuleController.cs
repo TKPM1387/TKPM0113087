@@ -300,5 +300,20 @@ namespace QLHocSinh.Controllers
         //}
 
         #endregion
+
+        #region Permission
+
+        public ActionResult GetPermission()
+        {
+            var result = new ArrayList();
+            var permission = CurrentContext.GetCurUser().flag;
+            result.Add(
+                   new
+                   {
+                       auth = permission
+                   });
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
     }
 }

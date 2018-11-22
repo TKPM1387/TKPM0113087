@@ -37,7 +37,7 @@
       <EntityTypeMapping TypeName="QLHSModel.Point">
         <MappingFragment StoreEntitySet="Point">
           <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="StudenID" ColumnName="StudenID" />
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
           <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
           <ScalarProperty Name="Semester" ColumnName="Semester" />
           <ScalarProperty Name="Test15Minutes" ColumnName="Test15Minutes" />
@@ -45,6 +45,9 @@
           <ScalarProperty Name="TestSemester" ColumnName="TestSemester" />
           <ScalarProperty Name="Average" ColumnName="Average" />
           <ScalarProperty Name="Flag" ColumnName="Flag" />
+          <ScalarProperty Name="StudenJoinID" ColumnName="StudenJoinID" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="ClassID" ColumnName="ClassID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -197,17 +200,7 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="getStudentPoint" FunctionName="QLHSModel.Store.getStudentPoint">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="QLHSModel.getStudentPoint_Result">
-          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
-          <ScalarProperty Name="FullName" ColumnName="FullName" />
-          <ScalarProperty Name="Test15Minutes" ColumnName="Test15Minutes" />
-          <ScalarProperty Name="Test45Minutes" ColumnName="Test45Minutes" />
-          <ScalarProperty Name="TestSemester" ColumnName="TestSemester" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="getStudentPoint" FunctionName="QLHSModel.Store.getStudentPoint" />
     <FunctionImportMapping FunctionImportName="getStudents" FunctionName="QLHSModel.Store.getStudents">
       <ResultMapping>
         <ComplexTypeMapping TypeName="QLHSModel.getStudents_Result">
@@ -245,6 +238,26 @@
           <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
           <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="Period" ColumnName="Period" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ReportFolowSubject" FunctionName="QLHSModel.Store.ReportFolowSubject">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="QLHSModel.ReportFolowSubject_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+          <ScalarProperty Name="SiSo" ColumnName="SiSo" />
+          <ScalarProperty Name="SlOk" ColumnName="SlOk" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ReportFolowYear" FunctionName="QLHSModel.Store.ReportFolowYear">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="QLHSModel.ReportFolowYear_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+          <ScalarProperty Name="SiSo" ColumnName="SiSo" />
+          <ScalarProperty Name="SlOk" ColumnName="SlOk" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

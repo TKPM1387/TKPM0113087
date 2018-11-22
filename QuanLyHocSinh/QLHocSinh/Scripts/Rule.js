@@ -1,22 +1,23 @@
-﻿function GetMaxTotalInClass(classid) {
-    $.ajax({
-        type: "POST",
-        url: '/Rule/AddNewStudent',
-        contentType: "application/json; charset=utf-8",
-        //data: stu,
-        data: JSON.stringify(stu),
-        dataType: "json",
-        success: function (result) {
-            if (result[0].value == 1) {
-                
-            }
-            else {
+﻿//var permission = 0
+//$(document).ready(function () {
+//    GetPermission()
+//});
 
-            }
-        },
-        //error: function (xhr, status, error)
-        //{
-        //    alert('Có lỗi xảy ra!!');
-        //}
-    });
-}
+//function GetPermission() {
+//    $.ajax({
+//        type: "GET",
+//        url: '/Rule/GetPermission',
+//        async:false,
+//        contentType: "application/json; charset=utf-8",
+//        dataType: "json",
+//        success: function (result) {
+//            permission = result[0].auth;
+//            if (permission == 1)
+//                return true;
+//            return false;
+//        },
+//        error: function (result) {
+//            return false;
+//        }
+//    });
+//}

@@ -39,7 +39,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="StudenID" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="StudentID" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="SubjectID" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="Semester" Type="int" />
           <Property Name="Test15Minutes" Type="float" />
@@ -47,6 +47,9 @@
           <Property Name="TestSemester" Type="float" />
           <Property Name="Average" Type="float" />
           <Property Name="Flag" Type="int" />
+          <Property Name="StudenJoinID" Type="nvarchar" MaxLength="255" />
+          <Property Name="Date" Type="date" />
+          <Property Name="ClassID" Type="int" />
         </EntityType>
         <EntityType Name="RuleAge">
           <Key>
@@ -154,6 +157,15 @@
           <Parameter Name="fclass" Type="varchar" Mode="In" />
         </Function>
         <Function Name="getSubjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ReportFolowSubject" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Year" Type="int" Mode="In" />
+          <Parameter Name="Semester" Type="int" Mode="In" />
+          <Parameter Name="SubjectID" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="ReportFolowYear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Year" Type="int" Mode="In" />
+          <Parameter Name="Semester" Type="int" Mode="In" />
+        </Function>
         <Function Name="UpdateStudentPoint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="fids" Type="varchar" Mode="In" />
           <Parameter Name="fp15" Type="varchar" Mode="In" />
@@ -211,7 +223,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StudenID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StudentID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="SubjectID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Semester" Type="Int32" />
           <Property Name="Test15Minutes" Type="Double" />
@@ -219,6 +231,9 @@
           <Property Name="TestSemester" Type="Double" />
           <Property Name="Average" Type="Double" />
           <Property Name="Flag" Type="Int32" />
+          <Property Name="StudenJoinID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="ClassID" Type="Int32" />
         </EntityType>
         <EntityType Name="RuleAge">
           <Key>
@@ -328,7 +343,7 @@
           <FunctionImport Name="getStudentDetail" ReturnType="Collection(QLHSModel.getStudentDetail_Result)">
             <Parameter Name="idname" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="getStudentPoint" ReturnType="Collection(QLHSModel.getStudentPoint_Result)">
+          <FunctionImport Name="getStudentPoint">
             <Parameter Name="fsubjectid" Mode="In" Type="String" />
             <Parameter Name="fclassid" Mode="In" Type="String" />
           </FunctionImport>
@@ -337,6 +352,15 @@
             <Parameter Name="fclass" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="getSubjects" ReturnType="Collection(QLHSModel.getSubjects_Result)" />
+          <FunctionImport Name="ReportFolowSubject" ReturnType="Collection(QLHSModel.ReportFolowSubject_Result)">
+            <Parameter Name="Year" Mode="In" Type="Int32" />
+            <Parameter Name="Semester" Mode="In" Type="Int32" />
+            <Parameter Name="SubjectID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ReportFolowYear" ReturnType="Collection(QLHSModel.ReportFolowYear_Result)">
+            <Parameter Name="Year" Mode="In" Type="Int32" />
+            <Parameter Name="Semester" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="UpdateStudentPoint">
             <Parameter Name="fids" Mode="In" Type="String" />
             <Parameter Name="fp15" Mode="In" Type="String" />
@@ -389,13 +413,6 @@
           <Property Type="Int32" Name="TBHK1" Nullable="false" />
           <Property Type="Int32" Name="TBHK2" Nullable="false" />
         </ComplexType>
-        <ComplexType Name="getStudentPoint_Result">
-          <Property Type="String" Name="StudentID" Nullable="true" MaxLength="7" />
-          <Property Type="String" Name="FullName" Nullable="true" MaxLength="255" />
-          <Property Type="Double" Name="Test15Minutes" Nullable="true" />
-          <Property Type="Double" Name="Test45Minutes" Nullable="true" />
-          <Property Type="Double" Name="TestSemester" Nullable="true" />
-        </ComplexType>
         <ComplexType Name="getStudents_Result">
           <Property Type="String" Name="StudentID" Nullable="true" MaxLength="7" />
           <Property Type="String" Name="FullName" Nullable="true" MaxLength="255" />
@@ -423,6 +440,18 @@
           <Property Type="String" Name="SubjectName" Nullable="true" MaxLength="255" />
           <Property Type="Int32" Name="Type" Nullable="true" />
           <Property Type="Int32" Name="Period" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="ReportFolowSubject_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="ClassName" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="SiSo" Nullable="true" />
+          <Property Type="Int32" Name="SlOk" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="ReportFolowYear_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="ClassName" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="SiSo" Nullable="true" />
+          <Property Type="Int32" Name="SlOk" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -466,7 +495,7 @@
             <EntityTypeMapping TypeName="QLHSModel.Point">
               <MappingFragment StoreEntitySet="Point">
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="StudenID" ColumnName="StudenID" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
                 <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
                 <ScalarProperty Name="Semester" ColumnName="Semester" />
                 <ScalarProperty Name="Test15Minutes" ColumnName="Test15Minutes" />
@@ -474,6 +503,9 @@
                 <ScalarProperty Name="TestSemester" ColumnName="TestSemester" />
                 <ScalarProperty Name="Average" ColumnName="Average" />
                 <ScalarProperty Name="Flag" ColumnName="Flag" />
+                <ScalarProperty Name="StudenJoinID" ColumnName="StudenJoinID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -626,17 +658,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="getStudentPoint" FunctionName="QLHSModel.Store.getStudentPoint">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="QLHSModel.getStudentPoint_Result">
-                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
-                <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="Test15Minutes" ColumnName="Test15Minutes" />
-                <ScalarProperty Name="Test45Minutes" ColumnName="Test45Minutes" />
-                <ScalarProperty Name="TestSemester" ColumnName="TestSemester" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getStudentPoint" FunctionName="QLHSModel.Store.getStudentPoint" />
           <FunctionImportMapping FunctionImportName="getStudents" FunctionName="QLHSModel.Store.getStudents">
             <ResultMapping>
               <ComplexTypeMapping TypeName="QLHSModel.getStudents_Result">
@@ -674,6 +696,26 @@
                 <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Period" ColumnName="Period" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ReportFolowSubject" FunctionName="QLHSModel.Store.ReportFolowSubject">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QLHSModel.ReportFolowSubject_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+                <ScalarProperty Name="SiSo" ColumnName="SiSo" />
+                <ScalarProperty Name="SlOk" ColumnName="SlOk" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ReportFolowYear" FunctionName="QLHSModel.Store.ReportFolowYear">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QLHSModel.ReportFolowYear_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+                <ScalarProperty Name="SiSo" ColumnName="SiSo" />
+                <ScalarProperty Name="SlOk" ColumnName="SlOk" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

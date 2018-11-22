@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b25d45e806e34b249ce72c6df2a9ae8a" Name="Diagram1">
+      <Diagram DiagramId="f133d8e8524a42dab6a51eedf6a91c61" Name="Diagram1">
         <EntityTypeShape EntityType="QLHSModel.Class" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="QLHSModel.ClassLevel" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="QLHSModel.Customer" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
@@ -13,8 +13,8 @@
         <EntityTypeShape EntityType="QLHSModel.RuleStandardScore" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="QLHSModel.RuleSubject" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="QLHSModel.Student" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QLHSModel.Subject" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QLHSModel.User" Width="1.5" PointX="2.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLHSModel.Subject" Width="1.5" PointX="4.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLHSModel.User" Width="1.5" PointX="6.75" PointY="7.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

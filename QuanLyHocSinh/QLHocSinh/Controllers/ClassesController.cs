@@ -239,7 +239,7 @@ namespace QLHocSinh.Controllers
             using (var ctx = new QLHSEntities())
             {
                 var list = (from s in ctx.Students
-                            from p in ctx.Points.Where(p1 => p1.StudenID == s.StudentID && p1.SubjectID == subject).DefaultIfEmpty()
+                            from p in ctx.Points.Where(p1 => p1.StudentID == s.StudentID && p1.SubjectID == subject).DefaultIfEmpty()
                             where s.Class == grade
                             select new
                             {
@@ -338,6 +338,28 @@ namespace QLHocSinh.Controllers
             }
         }
 
+        public ActionResult GetListAllClass()
+        {
+            using (var ctx = new QLHSEntities())
+            {
+                var pu = ctx.Classes
+                    .Join(ctx.ClassLevels
+                    , u => u.ClassLevel, uir => uir.ID, (u, uir) => new { u, uir })
+                    .Where(m => 1 == 1)
+                    .OrderBy(m => m.u.ClassLevel)
+                    .Select(m => new
+                    {
+                        ClassID = m.u.ID,
+                        ClassName = m.u.ClassName,
+                        ClassLevelName = m.uir.LevelName,
+                        Total = m.u.Total,
+                        MaxTotal = m.u.MaxTotal
+                    }).ToList();
+
+
+                return Json(pu, JsonRequestBehavior.AllowGet);
+            }
+        }
         [HttpPost]
         public ActionResult UpdateClass(Class c)
         {
@@ -429,7 +451,7 @@ namespace QLHocSinh.Controllers
 
                 var list = (from sj in ctx.Subjects
                             from p in ctx.Points.Where(p1 => p1.SubjectID == sj.SubjectID && p1.Semester == semester).DefaultIfEmpty()
-                            from st in ctx.Students.Where(s1 => s1.StudentID == p.StudenID && p.Semester == semester && s1.StudentID == ID).DefaultIfEmpty()
+                            from st in ctx.Students.Where(s1 => s1.StudentID == p.StudentID && p.Semester == semester && s1.StudentID == ID).DefaultIfEmpty()
                             //where st.StudentID == ID
                             select new
                             {

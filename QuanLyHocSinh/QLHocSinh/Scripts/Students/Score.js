@@ -1,8 +1,13 @@
 ﻿$(document).ready(function () {
     createControl();
-
+    HideModify()
 });
-
+function HideModify() {
+    if (permission != 1) {
+        var table = $('#classtable').DataTable();
+        table.columns([7]).visible(false);
+    }
+}
 function createControl() {
     $('#grade').selectpicker();
     $('#subject').selectpicker();

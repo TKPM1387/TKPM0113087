@@ -30,8 +30,15 @@
     <link href="../assets/css/style.css" rel="stylesheet">
     <!-- You can change the theme colors from here -->
     <link href="../assets/css/colors/blue.css" id="theme" rel="stylesheet">
-    <script src="../assets/plugins/jquery/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    @*<script src="../assets/plugins/jquery/jquery.min.js"></script>*@
     <script src="~/assets/moment.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <link href="~/assets/autocomplete/easy-autocomplete.css" rel="stylesheet" />
+    <link href="~/assets/autocomplete/easy-autocomplete.themes.min.css" rel="stylesheet" />
+    <script src="~/assets/autocomplete/jquery.easy-autocomplete.min.js"></script>
     <link href="../assets/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -52,6 +59,31 @@
         })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
         ga('create', 'UA-85622565-1', 'auto');
         ga('send', 'pageview');
+    </script>
+    <script type='text/javascript'>
+        var permission = 0
+        $(document).ready(function () {
+            GetPermission()
+        });
+
+        function GetPermission() {
+            $.ajax({
+                type: "GET",
+                url: '/Rule/GetPermission',
+                async: false,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    permission = result[0].auth;
+                    if (permission == 1)
+                        return true;
+                    return false;
+                },
+                error: function (result) {
+                    return false;
+                }
+            });
+        }
     </script>
     <style>
         body {
@@ -120,53 +152,53 @@
                         <!-- Comment -->
                         <!-- ============================================================== -->
                         @*<li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted text-muted waves-effect waves-dark" href="index.html" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="mdi mdi-message"></i>
-                                <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
-                            </a>
-                            <div class="dropdown-menu mailbox animated bounceInDown">
-                                <ul>
-                                    <li>
-                                        <div class="drop-title">Thông báo</div>
-                                    </li>
-                                    <li>
-                                        <div class="message-center">
-                                            <!-- Message -->
-                                            <a href="index.html#">
-                                                <div class="btn btn-danger btn-circle"><i class="fa fa-link"></i></div>
-                                                <div class="mail-contnet">
-                                                    <h5>Luanch Admin</h5> <span class="mail-desc">Just see the my new admin!</span> <span class="time">9:30 AM</span>
-                                                </div>
-                                            </a>
-                                            <!-- Message -->
-                                            <a href="index.html#">
-                                                <div class="btn btn-success btn-circle"><i class="ti-calendar"></i></div>
-                                                <div class="mail-contnet">
-                                                    <h5>Event today</h5> <span class="mail-desc">Just a reminder that you have event</span> <span class="time">9:10 AM</span>
-                                                </div>
-                                            </a>
-                                            <!-- Message -->
-                                            <a href="index.html#">
-                                                <div class="btn btn-info btn-circle"><i class="ti-settings"></i></div>
-                                                <div class="mail-contnet">
-                                                    <h5>Settings</h5> <span class="mail-desc">You can customize this template as you want</span> <span class="time">9:08 AM</span>
-                                                </div>
-                                            </a>
-                                            <!-- Message -->
-                                            <a href="index.html#">
-                                                <div class="btn btn-primary btn-circle"><i class="ti-user"></i></div>
-                                                <div class="mail-contnet">
-                                                    <h5>Pavan kumar</h5> <span class="mail-desc">Just see the my admin!</span> <span class="time">9:02 AM</span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link text-center" href="javascript:void(0);"> <strong>Check all notifications</strong> <i class="fa fa-angle-right"></i> </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>*@
+                                <a class="nav-link dropdown-toggle text-muted text-muted waves-effect waves-dark" href="index.html" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="mdi mdi-message"></i>
+                                    <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
+                                </a>
+                                <div class="dropdown-menu mailbox animated bounceInDown">
+                                    <ul>
+                                        <li>
+                                            <div class="drop-title">Thông báo</div>
+                                        </li>
+                                        <li>
+                                            <div class="message-center">
+                                                <!-- Message -->
+                                                <a href="index.html#">
+                                                    <div class="btn btn-danger btn-circle"><i class="fa fa-link"></i></div>
+                                                    <div class="mail-contnet">
+                                                        <h5>Luanch Admin</h5> <span class="mail-desc">Just see the my new admin!</span> <span class="time">9:30 AM</span>
+                                                    </div>
+                                                </a>
+                                                <!-- Message -->
+                                                <a href="index.html#">
+                                                    <div class="btn btn-success btn-circle"><i class="ti-calendar"></i></div>
+                                                    <div class="mail-contnet">
+                                                        <h5>Event today</h5> <span class="mail-desc">Just a reminder that you have event</span> <span class="time">9:10 AM</span>
+                                                    </div>
+                                                </a>
+                                                <!-- Message -->
+                                                <a href="index.html#">
+                                                    <div class="btn btn-info btn-circle"><i class="ti-settings"></i></div>
+                                                    <div class="mail-contnet">
+                                                        <h5>Settings</h5> <span class="mail-desc">You can customize this template as you want</span> <span class="time">9:08 AM</span>
+                                                    </div>
+                                                </a>
+                                                <!-- Message -->
+                                                <a href="index.html#">
+                                                    <div class="btn btn-primary btn-circle"><i class="ti-user"></i></div>
+                                                    <div class="mail-contnet">
+                                                        <h5>Pavan kumar</h5> <span class="mail-desc">Just see the my admin!</span> <span class="time">9:02 AM</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <a class="nav-link text-center" href="javascript:void(0);"> <strong>Check all notifications</strong> <i class="fa fa-angle-right"></i> </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>*@
                         <!-- ============================================================== -->
                         <!-- End Comment -->
 
@@ -197,8 +229,8 @@
                                         <li><a href="@Url.Action("Profile","Account")"><i class="ti-user"></i> Cài đặt tài khoản</a></li>
                                         <li><a href="@Url.Action("ChangePassword","Account")"><i class="ti-lock"></i> Thay đổi mật khẩu</a></li>
                                         @*<li><a href="index.html#"><i class="ti-email"></i> Inbox</a></li>
-                                        <li role="separator" class="divider"></li>
-                                        <li><a href="index.html#"><i class="ti-settings"></i> Account Setting</a></li>*@
+                                            <li role="separator" class="divider"></li>
+                                            <li><a href="index.html#"><i class="ti-settings"></i> Account Setting</a></li>*@
                                         <li role="separator" class="divider"></li>
                                         <li><a id="logoutLink" href="javascript:;"><i class="fa fa-power-off"></i> Thoát</a></li>
                                     </ul>
@@ -309,7 +341,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="ui-user-card.html">
+                                    <a href="/Report/ReportBySemester">
                                         <i class="fa fa-pie-chart" aria-hidden="true"></i>
                                         Tổng kết học kỳ
                                     </a>
@@ -510,6 +542,7 @@
     <!-- ============================================================== -->
     <!-- Style switcher -->
     <!-- ============================================================== -->
+    <script src="~/Scripts/Rule.js"></script>
     <script src="../assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
     <script type="text/javascript">
         $('#logoutLink').on('click', function () {

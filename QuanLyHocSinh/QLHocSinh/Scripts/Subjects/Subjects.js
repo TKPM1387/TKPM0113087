@@ -37,8 +37,14 @@
     
     
     hideError();
+    HideModify();
 });
-
+function HideModify() {
+    if (permission != 1) {
+        var table = $('#subjecttable').DataTable();
+        table.columns([5]).visible(false);
+    }
+}
 function init() {
     $('#subjecttable').DataTable({
         "paging": false,

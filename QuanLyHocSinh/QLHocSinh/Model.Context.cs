@@ -126,7 +126,7 @@ namespace QLHocSinh
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getStudentDetail_Result>("getStudentDetail", idnameParameter);
         }
     
-        public virtual ObjectResult<getStudentPoint_Result> getStudentPoint(string fsubjectid, string fclassid)
+        public virtual int getStudentPoint(string fsubjectid, string fclassid)
         {
             var fsubjectidParameter = fsubjectid != null ?
                 new ObjectParameter("fsubjectid", fsubjectid) :
@@ -136,7 +136,7 @@ namespace QLHocSinh
                 new ObjectParameter("fclassid", fclassid) :
                 new ObjectParameter("fclassid", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getStudentPoint_Result>("getStudentPoint", fsubjectidParameter, fclassidParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("getStudentPoint", fsubjectidParameter, fclassidParameter);
         }
     
         public virtual ObjectResult<getStudents_Result> getStudents()
@@ -156,6 +156,36 @@ namespace QLHocSinh
         public virtual ObjectResult<getSubjects_Result> getSubjects()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getSubjects_Result>("getSubjects");
+        }
+    
+        public virtual ObjectResult<ReportFolowSubject_Result> ReportFolowSubject(Nullable<int> year, Nullable<int> semester, string subjectID)
+        {
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("Year", year) :
+                new ObjectParameter("Year", typeof(int));
+    
+            var semesterParameter = semester.HasValue ?
+                new ObjectParameter("Semester", semester) :
+                new ObjectParameter("Semester", typeof(int));
+    
+            var subjectIDParameter = subjectID != null ?
+                new ObjectParameter("SubjectID", subjectID) :
+                new ObjectParameter("SubjectID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReportFolowSubject_Result>("ReportFolowSubject", yearParameter, semesterParameter, subjectIDParameter);
+        }
+    
+        public virtual ObjectResult<ReportFolowYear_Result> ReportFolowYear(Nullable<int> year, Nullable<int> semester)
+        {
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("Year", year) :
+                new ObjectParameter("Year", typeof(int));
+    
+            var semesterParameter = semester.HasValue ?
+                new ObjectParameter("Semester", semester) :
+                new ObjectParameter("Semester", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReportFolowYear_Result>("ReportFolowYear", yearParameter, semesterParameter);
         }
     
         public virtual int UpdateStudentPoint(string fids, string fp15, string fp45, string fpl)

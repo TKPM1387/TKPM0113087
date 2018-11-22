@@ -133,7 +133,7 @@ namespace QLHocSinh.Controllers
             {
                 var student = ctx.Subjects
                     .Join(ctx.Points, s => s.SubjectID, p => p.SubjectID, (s, p) => new { s, p })
-                    .Where(px => px.p.StudenID == id)
+                    .Where(px => px.p.StudentID == id)
                     .Select(m => new
                     {
                         SubjectName = m.s.SubjectName,
@@ -281,39 +281,25 @@ namespace QLHocSinh.Controllers
         {
             using (var ctx = new QLHSEntities())
             {
-                var s = ctx.Students.Where(p => p.Class == grade && p.State != -1).ToList();
-                return Json(s, JsonRequestBehavior.AllowGet);
+                var list = ctx.Students
+                        .Join(ctx.Classes
+                        , u => u.Class, uir => uir.ID, (u, uir) => new { u, uir })
+                        .Where(m => m.u.State != -1 && m.u.Class==grade)
+                        .OrderBy(m => m.u.Class)
+                        .Select(m => new
+                        {
+                            StudentID = m.u.StudentID,
+                            FullName = m.u.FullName,
+                            Class = m.u.Class,
+                            ClassName = m.uir.ClassName,
+                            BirthDay = m.u.BirthDay,
+                            Gender = m.u.Gender,
+                            Address = m.u.Address,
+                            Email = m.u.Email,
+                            PhoneNumber = m.u.PhoneNumber,
+                        }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
             }
-
-
-            //string path = @"Data Source=.\SQLEXPRESS;Initial Catalog=QLHS;Integrated Security=True";
-            //int i = 1;
-            //var students = new List<Students>();
-            //using (var con = new SqlConnection(path))
-            //{
-            //    var cmd = new SqlCommand("getStudentsByClass", con);
-            //    cmd.CommandType = CommandType.StoredProcedure;
-            //    cmd.Parameters.Add(new SqlParameter("@fclass", grade));
-            //    con.Open();
-            //    var dr = cmd.ExecuteReader();
-            //    while (dr.Read())
-            //    {
-            //        var student = new Students
-            //        {
-            //            STT = i,
-            //            StudentID = dr[1].ToString(),
-            //            FullName = dr[2].ToString(),
-            //            BirthDay = Convert.ToDateTime(dr[3].ToString()),
-            //            Gender = Convert.ToInt32(dr[4].ToString()),
-            //            Email = dr[5].ToString(),
-            //            PhoneNumber = dr[6].ToString(),
-            //            Address = dr[7].ToString(),
-            //        };
-            //        students.Add(student);
-            //        i++;
-            //    }
-            //}
-            //return Json(students, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -323,7 +309,7 @@ namespace QLHocSinh.Controllers
             using (var ctx = new QLHSEntities())
             {
                 var pu = ctx.Points
-                    .Where(u => u.StudenID == p.StudenID
+                    .Where(u => u.StudentID == p.StudentID
                     && u.SubjectID == p.SubjectID
                     && u.Semester == p.Semester)
                     .FirstOrDefault();
@@ -331,7 +317,7 @@ namespace QLHocSinh.Controllers
                 if (pu == null)
                 {
                     var point = new Point();
-                    point.StudenID = p.StudenID;
+                    point.StudentID = p.StudentID;
                     point.SubjectID = p.SubjectID;
                     point.Test15Minutes = p.Test15Minutes;
                     point.Test45Minutes = p.Test45Minutes;
@@ -461,7 +447,7 @@ namespace QLHocSinh.Controllers
             var result = new ArrayList();
             using (var ctx = new QLHSEntities())
             {
-                var s = ctx.Points.Where(ss => ss.StudenID == studentid && ss.SubjectID == subjectid).FirstOrDefault();
+                var s = ctx.Points.Where(ss => ss.StudentID == studentid && ss.SubjectID == subjectid).FirstOrDefault();
                 s.Flag = -1;
                 ctx.SaveChanges();
                 result.Add(
@@ -553,7 +539,14 @@ namespace QLHocSinh.Controllers
             }
         }
 
-
+        public ActionResult GetAllStudent()
+        {
+            using (var ctx = new QLHSEntities())
+            {
+                var list = ctx.Students.Where(p => p.State != -1).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+        }
 
         //[HttpPost]
         //public ActionResult testadd(Students stu)

@@ -34,7 +34,7 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="StudenID" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="StudentID" Type="nvarchar" MaxLength="255" Nullable="false" />
     <Property Name="SubjectID" Type="nvarchar" MaxLength="255" Nullable="false" />
     <Property Name="Semester" Type="int" />
     <Property Name="Test15Minutes" Type="float" />
@@ -42,6 +42,9 @@
     <Property Name="TestSemester" Type="float" />
     <Property Name="Average" Type="float" />
     <Property Name="Flag" Type="int" />
+    <Property Name="StudenJoinID" Type="nvarchar" MaxLength="255" />
+    <Property Name="Date" Type="date" />
+    <Property Name="ClassID" Type="int" />
   </EntityType>
   <EntityType Name="RuleAge">
     <Key>
@@ -149,6 +152,15 @@
     <Parameter Name="fclass" Type="varchar" Mode="In" />
   </Function>
   <Function Name="getSubjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ReportFolowSubject" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Year" Type="int" Mode="In" />
+    <Parameter Name="Semester" Type="int" Mode="In" />
+    <Parameter Name="SubjectID" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ReportFolowYear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Year" Type="int" Mode="In" />
+    <Parameter Name="Semester" Type="int" Mode="In" />
+  </Function>
   <Function Name="UpdateStudentPoint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="fids" Type="varchar" Mode="In" />
     <Parameter Name="fp15" Type="varchar" Mode="In" />

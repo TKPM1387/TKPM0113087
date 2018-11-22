@@ -42,6 +42,7 @@
             $('#spemail').hide()
         }
     });
+    
 });
 
 function createControl() {
@@ -294,9 +295,6 @@ function addStudent() {
         error: function (xhr, status, error) { alert('Có lỗi xảy ra!!'); }
     });
 }
-function myFunction() {
-    alert("I am an alert box!");
-}
 function load_table() {
     $(document).ready(function () {
         $.ajax({
@@ -480,4 +478,11 @@ function edit(id) {
     });
 
 
+}
+
+function HideModify() {
+    if (permission != 1) {
+        var table = $('#studentTable').DataTable();
+        table.columns([9]).visible(false);
+    }
 }

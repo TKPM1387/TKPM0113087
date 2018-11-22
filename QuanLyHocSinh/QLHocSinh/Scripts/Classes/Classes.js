@@ -1,70 +1,11 @@
 ﻿$(document).ready(function () {
     createControl();
     hideError();
+    createclasslist();
+    HideModify();
 });
 function createControl() {
-    $('#block').selectpicker();
-    $('#block2').selectpicker();
-
-    $('#grade').selectpicker();
-    $.ajax({
-        type: "GET",
-        url: '/Classes/getClassLevel',
-        contentType: "application/json; charset=utf-8",
-        async: false,
-        dataType: "json",
-        success: function (data) {
-            var jsonData = JSON.stringify(data);
-            $.each(JSON.parse(jsonData), function (idx, obj) {
-                $("#block").append('<option value="' + obj.value + '">' + obj.text + '</option>').selectpicker('refresh');
-                $("#block2").append('<option value="' + obj.value + '">' + obj.text + '</option>').selectpicker('refresh');
-            });
-        },
-        error: function (xhr, status, error) {
-            //alert('err or seleccct 2222:');
-        }
-    });
-
-    $('#block').on('change', function (e) {
-        // console.log(this.value);
-        $.ajax({
-            type: "GET",
-            url: '/Classes/getClassByLevel',
-            async: false,
-            contentType: "application/json; charset=utf-8",
-            data: { idLevel: this.value },
-            dataType: "json",
-            success: function (data) {
-                $('#grade').find('option').remove().end();
-                var jsonData = JSON.stringify(data);
-                $.each(JSON.parse(jsonData), function (idx, obj) {
-                    $("#grade").append('<option value="' + obj.value + '">' + obj.text + '</option>').selectpicker('refresh');
-                });
-                loadtotal();
-            },
-            error: function (xhr, status, error) {
-                //alert('Error789:');
-            }
-        });
-    });
-
-    $('#grade').on('change', function (e) {
-        // console.log(this.value);
-        $.ajax({
-            type: "GET",
-            url: '/Classes/getTotalInClass',
-            async: false,
-            contentType: "application/json; charset=utf-8",
-            data: { ID: this.value },
-            dataType: "json",
-            success: function (data) {
-                $('#total').html(data.Total + '/' + data.MaxTotal)
-            },
-            error: function (xhr, status, error) {
-                //alert('Error789:');
-            }
-        });
-    });
+   
     initSP();
     var t = $('#classtable').DataTable({
         "paging": true,
@@ -153,28 +94,76 @@ function createControl() {
     }).draw();
 
 }
+function createclasslist() {
+    var t = $('#listclass').DataTable({
+        "paging": true,
+        //"ordering": false,
+        "info": false,
+        "searching": false,
+        //data: data,
+        destroy: true,
+        retrieve: true,
+        buttons: [
+            'copy', 'excel', 'pdf'
+        ],
+        "language": {
+            //"url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Vietnamese.json",
+            "decimal": "",
+            "emptyTable": "Không có dữ liệu",
+            "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+            "infoEmpty": "Showing 0 to 0 of 0 entries",
+            "infoFiltered": "(filtered from _MAX_ total entries)",
+            "infoPostFix": "",
+            "thousands": ",",
+            "lengthMenu": "Hiển thị  _MENU_  dòng",
+            "loadingRecords": "Loading...",
+            "processing": "Processing...",
+            "search": "Tìm nè:",
+            "zeroRecords": "No matching records found",
+            "paginate": {
+                "first": "Đầu",
+                "last": "Cuối",
+                "next": "Sau",
+                "previous": "Trước"
+            },
+            "aria": {
+                "sortAscending": ": activate to sort column ascending",
+                "sortDescending": ": activate to sort column descending"
+            }
+        },
+        columns: [
+                //{ 'data': 'STT' },
+                {
+                    "data": "id",
+                    render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                    }
+                },
+                { 'data': 'ClassID' },
+                { 'data': 'ClassName' },
+                { 'data': 'ClassLevelName' },
+                { 'data': 'Total' },
+                { 'data': 'MaxTotal' },
+
+                 {
+                     "render": function (data, type, row) {
+                         return '<button type="button" data-toggle="modal" data-target="#exampleModal" onclick="edit(' + "'" + row.StudentID + "'" + ',' + "'" + row.FullName + "'" + ',' + row.Gender + ',' + row.BirthDay + ',' + "'" + row.Address + "'" + ')" class="btn btn-warning waves-effect waves-light"><i class="fa fa-pencil-square-o" ></i></button>' +
+                             '<button onclick="DeleteStudent(' + "'" + row.StudentID + "'" + ')" style="margin-left: 5px;" type="button" class="btn btn-danger waves-effect waves-light"><i class="fa fa-times" aria-hidden="true"></i></button>';
+                     }
+                 }
+        ]
+    });
+
+    t.on('order.dt search.dt', function () {
+        t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+            cell.innerHTML = i + 1;
+        });
+    }).draw();
+    LoadListClass();
+}
 
 function initSP() {
 
-    $.ajax({
-        type: "GET",
-        url: '/Classes/getClassByLevel',
-        async: false,
-        contentType: "application/json; charset=utf-8",
-        data: { idLevel: $('#block').val() },
-        dataType: "json",
-        success: function (data) {
-            $('#grade').find('option').remove().end();
-            var jsonData = JSON.stringify(data);
-            $.each(JSON.parse(jsonData), function (idx, obj) {
-                $("#grade").append('<option value="' + obj.value + '">' + obj.text + '</option>').selectpicker('refresh');
-            });
-        },
-        error: function (xhr, status, error) {
-            alert('Error789:');
-        }
-    });
-    loadtotal();
 
 }
 function DeleteStudent(id) {
@@ -239,27 +228,6 @@ function clearfilter() {
     $("#classnameadd").val('');
 }
 
-function loadclass() {
-    $.ajax({
-        type: "GET",
-        url: '/Classes/getClassByLevel',
-        async: false,
-        contentType: "application/json; charset=utf-8",
-        data: { idLevel: $('#block').val() },
-        dataType: "json",
-        success: function (data) {
-            $('#grade').find('option').remove().end();
-            var jsonData = JSON.stringify(data);
-            $.each(JSON.parse(jsonData), function (idx, obj) {
-                $("#grade").append('<option value="' + obj.value + '">' + obj.text + '</option>').selectpicker('refresh');
-            });
-            loadtotal();
-        },
-        error: function (xhr, status, error) {
-            alert('Error789:');
-        }
-    });
-}
 function edit(fid, fname, fgender, fbirthday, faddress) {
     $('#fullName').val(fname);
     $('#address').val(faddress);
@@ -293,6 +261,26 @@ function ViewListStudent() {
             dataTable.rows.add(data).draw();
         }
     });
+}
+
+function LoadListClass() {
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "/Classes/GetListAllClass",
+        success: function (data) {
+            var dataTable = $('#listclass').DataTable();
+            dataTable.clear().draw();
+            dataTable.rows.add(data).draw();
+        }
+    });
+}
+
+function HideModify() {
+    if (permission != 1) {
+        var table = $('#listclass').DataTable();
+        table.columns([6]).visible(false);
+    }
 }
 
 function loadtotal() {
@@ -370,7 +358,7 @@ function updateinfo() {
         $('#spaddress').hide();
 
     }
-    
+
     if (i != 0) {
         //alert(i);
         return;
@@ -399,7 +387,7 @@ function updateinfo() {
         data: JSON.stringify(s),
         dataType: "json",
         success: function (result) {
-           
+
             if (result[0].value == 1) {
                 swal("Cập nhật thành công", "success", "success");
                 loadtable();

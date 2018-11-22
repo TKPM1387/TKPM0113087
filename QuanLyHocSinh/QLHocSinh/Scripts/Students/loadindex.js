@@ -1,7 +1,101 @@
 ﻿$(document).ready(function () {
+    createcontrol()
     init();
     loadtable();
+    HideModify()
+    initSP()
 });
+function initSP() {
+
+    $.ajax({
+        type: "GET",
+        url: '/Classes/getClassByLevel',
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        data: { idLevel: $('#block').val() },
+        dataType: "json",
+        success: function (data) {
+            $('#grade').find('option').remove().end();
+            var jsonData = JSON.stringify(data);
+            $.each(JSON.parse(jsonData), function (idx, obj) {
+                $("#grade").append('<option value="' + obj.value + '">' + obj.text + '</option>').selectpicker('refresh');
+            });
+        },
+        error: function (xhr, status, error) {
+            alert('Error789:');
+        }
+    });
+   loadtotal();
+
+}
+function createcontrol() {
+    $('#block').selectpicker();
+    $('#grade').selectpicker();
+    $.ajax({
+        type: "GET",
+        url: '/Classes/getClassLevel',
+        contentType: "application/json; charset=utf-8",
+        async: false,
+        dataType: "json",
+        success: function (data) {
+            var jsonData = JSON.stringify(data);
+            $.each(JSON.parse(jsonData), function (idx, obj) {
+                $("#block").append('<option value="' + obj.value + '">' + obj.text + '</option>').selectpicker('refresh');
+            });
+        },
+        error: function (xhr, status, error) {
+            //alert('err or seleccct 2222:');
+        }
+    });
+    $('#block').on('change', function (e) {
+        // console.log(this.value);
+        $.ajax({
+            type: "GET",
+            url: '/Classes/getClassByLevel',
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            data: { idLevel: this.value },
+            dataType: "json",
+            success: function (data) {
+                $('#grade').find('option').remove().end();
+                var jsonData = JSON.stringify(data);
+                $.each(JSON.parse(jsonData), function (idx, obj) {
+                    $("#grade").append('<option value="' + obj.value + '">' + obj.text + '</option>').selectpicker('refresh');
+                });
+                loadtotal();
+            },
+            error: function (xhr, status, error) {
+                //alert('Error789:');
+            }
+        });
+    });
+
+    $('#grade').on('change', function (e) {
+        // console.log(this.value);
+        $.ajax({
+            type: "GET",
+            url: '/Classes/getTotalInClass',
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            data: { ID: this.value },
+            dataType: "json",
+            success: function (data) {
+                $('#total').html(data.Total + '/' + data.MaxTotal)
+            },
+            error: function (xhr, status, error) {
+                //alert('Error789:');
+            }
+        });
+    });
+
+}
+function HideModify() {
+    var a = GetPermission();
+    if (permission!=1) {
+        var table = $('#liststudent').DataTable();
+        table.columns([10]).visible(false);
+    }
+}
 function init() {
     hideError();
     $('#liststudent').DataTable({
@@ -29,7 +123,7 @@ function init() {
             "lengthMenu": "Hiển thị  _MENU_  dòng",
             "loadingRecords": "Loading...",
             "processing": "Processing...",
-            "search": "Tìm nè:",
+            "search": "Tìm :",
             "zeroRecords": "No matching records found",
             "paginate": {
                 "first": "Đầu",
@@ -90,7 +184,22 @@ function init() {
         ]
     });
 }
-
+function loadtotal() {
+    $.ajax({
+        type: "GET",
+        url: '/Classes/getTotalInClass',
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        data: { ID: $('#grade').val() },
+        dataType: "json",
+        success: function (data) {
+            $('#total').html(data.Total + '/' + data.MaxTotal)
+        },
+        error: function (xhr, status, error) {
+            alert('Error789:');
+        }
+    });
+}
 function loadtable() {
     $.ajax({
         type: "GET",
@@ -154,7 +263,7 @@ function edit(fid, fname, fgender, fbirthday, faddress, femail, fphonenumber, fc
     var date = new Date(parseInt(fbirthday.toString().substr(6)));
     var month = date.getMonth() + 1;
     $('#birthDay').val(date.getDate() + "/" + month + "/" + date.getFullYear());
-    
+
 
     $('#gender').val(fgender);
     $('#gender').selectpicker('refresh')
@@ -240,7 +349,7 @@ function updateinfo() {
         $('#spaddress').hide();
 
     }
-  
+
     if (!checkvalidPhone()) {
         $('#fmnote').removeClass('row');
         $('#fmnote').addClass('has-danger row');
@@ -299,7 +408,7 @@ function updateinfo() {
                 loadtable();
             } else {
 
-                swal("Cập nhật thất bại", result[0].message, "error");                
+                swal("Cập nhật thất bại", result[0].message, "error");
             }
             btnclose();
         }
@@ -334,5 +443,20 @@ function DeleteStudent(id) {
                 }
             }
         });
+    });
+}
+
+function ViewListStudent() {
+    var gr = $('#grade').val();
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "/Students/GetStudentsByClass",
+        data: { grade: gr },
+        success: function (data) {
+            var dataTable = $('#liststudent').DataTable();
+            dataTable.clear().draw();
+            dataTable.rows.add(data).draw();
+        }
     });
 }
