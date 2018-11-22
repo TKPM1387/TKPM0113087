@@ -54,6 +54,7 @@ D:\QLHS\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\System.Web.Helpers.xml
 D:\QLHS\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\System.Web.Mvc.xml
 D:\QLHS\TKPM0113087\QuanLyHocSinh\QLHocSinh\obj\Debug\QLHocSinh.dll
 D:\QLHS\TKPM0113087\QuanLyHocSinh\QLHocSinh\obj\Debug\QLHocSinh.pdb
+D:\QLHS\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\Newtonsoft.Json.dll
 D:\Demo\TKPM0113087-master\QuanLyHocSinh\QLHocSinh\bin\QLHocSinh.dll
 D:\Demo\TKPM0113087-master\QuanLyHocSinh\QLHocSinh\bin\QLHocSinh.pdb
 D:\Demo\TKPM0113087-master\QuanLyHocSinh\QLHocSinh\bin\EntityFramework.dll
@@ -72,7 +73,6 @@ D:\Demo\TKPM0113087-master\QuanLyHocSinh\QLHocSinh\bin\System.Web.Webpages.Deplo
 D:\Demo\TKPM0113087-master\QuanLyHocSinh\QLHocSinh\bin\System.Web.Webpages.Razor.xml
 D:\Demo\TKPM0113087-master\QuanLyHocSinh\QLHocSinh\bin\System.Web.Helpers.xml
 D:\Demo\TKPM0113087-master\QuanLyHocSinh\QLHocSinh\bin\System.Web.Mvc.xml
+D:\Demo\TKPM0113087-master\QuanLyHocSinh\QLHocSinh\obj\Debug\QLHocSinh.csprojResolveAssemblyReference.cache
 D:\Demo\TKPM0113087-master\QuanLyHocSinh\QLHocSinh\obj\Debug\QLHocSinh.dll
 D:\Demo\TKPM0113087-master\QuanLyHocSinh\QLHocSinh\obj\Debug\QLHocSinh.pdb
-D:\Demo\TKPM0113087-master\QuanLyHocSinh\QLHocSinh\obj\Debug\QLHocSinh.csprojResolveAssemblyReference.cache
-D:\QLHS\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\Newtonsoft.Json.dll

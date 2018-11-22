@@ -15,7 +15,7 @@ namespace QLHocSinh.Controllers
         //
         // GET: /Report/
 
-        string path = @"Data Source=.\SQLSERVER;Initial Catalog=QLHS;Integrated Security=True";
+        string path = @"Data Source=.\sqlexpress;Initial Catalog=QLHS;Integrated Security=True";
         [CheckLogin]
         public ActionResult Index()
         {
@@ -32,8 +32,27 @@ namespace QLHocSinh.Controllers
         }
         public ActionResult GetReportBySubject(int semester, string subjectid)
         {
+            using (var ctx = new QLHSEntities())
+            {
+                //var query = (from c in ctx.Classes
+                //            join p in ctx.Points
+                //            on c.ID equals p.ClassID
+                //            group new { c, p } by new { c.ID, c.ClassName } into g
+                //            select new
+                //            {
+                //                g.Key.ID,
+                //                g.Key.ClassName,
+                //                Total = g.Sum(px => px.p.Average >= 5 ? 1 : 0),
+                //               // Count = g.Select(x => x.c.ID).Distinct().Count()
+                //               c = g.Count()
+                //            }).ToList();
+                              
+
+            }
+
             using (var con = new SqlConnection(path))
             {
+
                 var cmd = new SqlCommand("ReportFolowSubject", con) { CommandType = CommandType.StoredProcedure };
                 cmd.Parameters.Add(new SqlParameter("@Year", 0));
                 cmd.Parameters.Add(new SqlParameter("@Semester", semester));
