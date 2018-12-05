@@ -67,6 +67,7 @@ function createControl() {
                 { 'data': 'ClassName' },
                 { 'data': 'SiSo' },
                 { 'data': 'SlOk' },
+                { 'data': 'scale' },
 
         ]
     });

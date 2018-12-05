@@ -129,5 +129,138 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="addStudent" FunctionName="QLHSModel.Store.addStudent" />
+    <FunctionImportMapping FunctionImportName="checklogin" FunctionName="QLHSModel.Store.checklogin">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="QLHSModel.checklogin_Result">
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="getClassByLevel" FunctionName="QLHSModel.Store.getClassByLevel" />
+    <FunctionImportMapping FunctionImportName="GetClasses" FunctionName="QLHSModel.Store.GetClasses">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="QLHSModel.GetClasses_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+          <ScalarProperty Name="LevelName" ColumnName="LevelName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="getClassLevel" FunctionName="QLHSModel.Store.getClassLevel">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="QLHSModel.getClassLevel_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="LevelName" ColumnName="LevelName" />
+          <ScalarProperty Name="MaxTotal" ColumnName="MaxTotal" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="getListSubject" FunctionName="QLHSModel.Store.getListSubject">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="QLHSModel.getListSubject_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+          <ScalarProperty Name="Flag" ColumnName="Flag" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Level1" ColumnName="Level1" />
+          <ScalarProperty Name="Level2" ColumnName="Level2" />
+          <ScalarProperty Name="Level3" ColumnName="Level3" />
+          <ScalarProperty Name="Period" ColumnName="Period" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="getStudentByID" FunctionName="QLHSModel.Store.getStudentByID">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="QLHSModel.getStudentByID_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="BirthDay" ColumnName="BirthDay" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="ClassLevel" ColumnName="ClassLevel" />
+          <ScalarProperty Name="Class" ColumnName="Class" />
+          <ScalarProperty Name="State" ColumnName="State" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="getStudentDetail" FunctionName="QLHSModel.Store.getStudentDetail">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="QLHSModel.getStudentDetail_Result">
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+          <ScalarProperty Name="TBHK1" ColumnName="TBHK1" />
+          <ScalarProperty Name="TBHK2" ColumnName="TBHK2" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="getStudentPoint" FunctionName="QLHSModel.Store.getStudentPoint" />
+    <FunctionImportMapping FunctionImportName="getStudents" FunctionName="QLHSModel.Store.getStudents">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="QLHSModel.getStudents_Result">
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="BirthDay" ColumnName="BirthDay" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="getStudentsByClass" FunctionName="QLHSModel.Store.getStudentsByClass">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="QLHSModel.getStudentsByClass_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="BirthDay" ColumnName="BirthDay" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="ClassLevel" ColumnName="ClassLevel" />
+          <ScalarProperty Name="Class" ColumnName="Class" />
+          <ScalarProperty Name="State" ColumnName="State" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="getSubjects" FunctionName="QLHSModel.Store.getSubjects">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="QLHSModel.getSubjects_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Period" ColumnName="Period" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ReportFolowSubject" FunctionName="QLHSModel.Store.ReportFolowSubject">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="QLHSModel.ReportFolowSubject_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+          <ScalarProperty Name="SiSo" ColumnName="SiSo" />
+          <ScalarProperty Name="SlOk" ColumnName="SlOk" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ReportFolowYear" FunctionName="QLHSModel.Store.ReportFolowYear">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="QLHSModel.ReportFolowYear_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+          <ScalarProperty Name="SiSo" ColumnName="SiSo" />
+          <ScalarProperty Name="SlOk" ColumnName="SlOk" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="UpdateStudentPoint" FunctionName="QLHSModel.Store.UpdateStudentPoint" />
   </EntityContainerMapping>
 </Mapping>

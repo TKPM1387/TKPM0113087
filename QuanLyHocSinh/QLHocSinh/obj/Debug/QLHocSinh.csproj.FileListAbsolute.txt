@@ -76,3 +76,26 @@ D:\Demo\TKPM0113087-master\QuanLyHocSinh\QLHocSinh\bin\System.Web.Mvc.xml
 D:\Demo\TKPM0113087-master\QuanLyHocSinh\QLHocSinh\obj\Debug\QLHocSinh.csprojResolveAssemblyReference.cache
 D:\Demo\TKPM0113087-master\QuanLyHocSinh\QLHocSinh\obj\Debug\QLHocSinh.dll
 D:\Demo\TKPM0113087-master\QuanLyHocSinh\QLHocSinh\obj\Debug\QLHocSinh.pdb
+T:\HCDH Nam 1\Phan tich tihet ke phan mem\DoAn\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\QLHocSinh.dll.config
+T:\HCDH Nam 1\Phan tich tihet ke phan mem\DoAn\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\QLHocSinh.dll
+T:\HCDH Nam 1\Phan tich tihet ke phan mem\DoAn\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\QLHocSinh.pdb
+T:\HCDH Nam 1\Phan tich tihet ke phan mem\DoAn\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\EntityFramework.dll
+T:\HCDH Nam 1\Phan tich tihet ke phan mem\DoAn\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\EntityFramework.SqlServer.dll
+T:\HCDH Nam 1\Phan tich tihet ke phan mem\DoAn\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\Newtonsoft.Json.dll
+T:\HCDH Nam 1\Phan tich tihet ke phan mem\DoAn\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\System.Web.Helpers.dll
+T:\HCDH Nam 1\Phan tich tihet ke phan mem\DoAn\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\System.Web.Mvc.dll
+T:\HCDH Nam 1\Phan tich tihet ke phan mem\DoAn\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\System.Web.Razor.dll
+T:\HCDH Nam 1\Phan tich tihet ke phan mem\DoAn\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\System.Web.Webpages.Deployment.dll
+T:\HCDH Nam 1\Phan tich tihet ke phan mem\DoAn\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\System.Web.Webpages.dll
+T:\HCDH Nam 1\Phan tich tihet ke phan mem\DoAn\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\System.Web.Webpages.Razor.dll
+T:\HCDH Nam 1\Phan tich tihet ke phan mem\DoAn\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\EntityFramework.xml
+T:\HCDH Nam 1\Phan tich tihet ke phan mem\DoAn\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\EntityFramework.SqlServer.xml
+T:\HCDH Nam 1\Phan tich tihet ke phan mem\DoAn\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\System.Web.Razor.xml
+T:\HCDH Nam 1\Phan tich tihet ke phan mem\DoAn\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\System.Web.Webpages.xml
+T:\HCDH Nam 1\Phan tich tihet ke phan mem\DoAn\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\System.Web.Webpages.Deployment.xml
+T:\HCDH Nam 1\Phan tich tihet ke phan mem\DoAn\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\System.Web.Webpages.Razor.xml
+T:\HCDH Nam 1\Phan tich tihet ke phan mem\DoAn\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\System.Web.Helpers.xml
+T:\HCDH Nam 1\Phan tich tihet ke phan mem\DoAn\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\System.Web.Mvc.xml
+T:\HCDH Nam 1\Phan tich tihet ke phan mem\DoAn\TKPM0113087\QuanLyHocSinh\QLHocSinh\obj\Debug\QLHocSinh.csprojResolveAssemblyReference.cache
+T:\HCDH Nam 1\Phan tich tihet ke phan mem\DoAn\TKPM0113087\QuanLyHocSinh\QLHocSinh\obj\Debug\QLHocSinh.dll
+T:\HCDH Nam 1\Phan tich tihet ke phan mem\DoAn\TKPM0113087\QuanLyHocSinh\QLHocSinh\obj\Debug\QLHocSinh.pdb

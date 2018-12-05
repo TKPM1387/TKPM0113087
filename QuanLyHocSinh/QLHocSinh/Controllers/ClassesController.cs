@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
 
 namespace QLHocSinh.Controllers
@@ -25,7 +26,8 @@ namespace QLHocSinh.Controllers
         {
             return View();
         }
-        string path = @"Data Source=.\SQLEXPRESS;Initial Catalog=QLHS;Integrated Security=True";
+        //string path = @"Data Source=.\SQLEXPRESS;Initial Catalog=QLHS;Integrated Security=True";
+        string path = WebConfigurationManager.AppSettings["Connect"];
         public List<Dictionary<string, object>> GetTableRows(DataTable dtData)
         {
             List<Dictionary<string, object>>

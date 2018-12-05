@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
 
 namespace QLHocSinh.Controllers
@@ -15,7 +16,8 @@ namespace QLHocSinh.Controllers
         //
         // GET: /Report/
 
-        string path = @"Data Source=.\sqlexpress;Initial Catalog=QLHS;Integrated Security=True";
+        //string path = @"Data Source=.\sqlexpress;Initial Catalog=QLHS;Integrated Security=True";
+        string path =   WebConfigurationManager.AppSettings["Connect"];
         [CheckLogin]
         public ActionResult Index()
         {
