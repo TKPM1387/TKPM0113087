@@ -32,7 +32,7 @@ namespace QLHocSinh.Controllers
         {
             return View();
         }
-        public ActionResult GetReportBySubject(int semester, string subjectid)
+        public ActionResult GetReportBySubject(int semester, string subjectid, string Year)
         {
             using (var ctx = new QLHSEntities())
             {
@@ -56,7 +56,8 @@ namespace QLHocSinh.Controllers
             {
 
                 var cmd = new SqlCommand("ReportFolowSubject", con) { CommandType = CommandType.StoredProcedure };
-                cmd.Parameters.Add(new SqlParameter("@Year", 0));
+                cmd.Parameters.Add(new SqlParameter("@Year1", Year.Split('-')[0]));
+                cmd.Parameters.Add(new SqlParameter("@Year2", Year.Split('-')[1]));
                 cmd.Parameters.Add(new SqlParameter("@Semester", semester));
                 cmd.Parameters.Add(new SqlParameter("@SubjectID", subjectid));
                 con.Open();
@@ -69,12 +70,13 @@ namespace QLHocSinh.Controllers
             }
         }
 
-        public ActionResult GetReportBySemester(int semester)
+        public ActionResult GetReportBySemester(int semester, string Year)
         {
             using (var con = new SqlConnection(path))
             {
                 var cmd = new SqlCommand("ReportFolowYear", con) { CommandType = CommandType.StoredProcedure };
-                cmd.Parameters.Add(new SqlParameter("@Year", 0));
+                cmd.Parameters.Add(new SqlParameter("@Year1", Year.Split('-')[0]));
+                cmd.Parameters.Add(new SqlParameter("@Year2", Year.Split('-')[1]));
                 cmd.Parameters.Add(new SqlParameter("@Semester", semester));
                 con.Open();
                 SqlDataAdapter sda = new SqlDataAdapter(cmd);

@@ -147,6 +147,7 @@
     <Content Include="assets\images\users\8.jpg" />
     <Content Include="assets\images\users\default.png" />
     <Content Include="assets\item\420756-PDLYSC-675.jpg" />
+    <Content Include="assets\jquery-1,9,1.js" />
     <Content Include="assets\js\chat.js" />
     <Content Include="assets\js\custom.min.js" />
     <Content Include="assets\js\dashboard1.js" />
@@ -735,6 +736,7 @@
     <Content Include="assets\scss\icons\weather-icons\fonts\weathericons-regular-webfont.svg" />
     <Content Include="assets\scss\icons\weather-icons\fonts\weathericons-regular-webfont.ttf" />
     <Content Include="assets\scss\icons\weather-icons\fonts\weathericons-regular-webfont.woff" />
+    <Content Include="assets\ui-1,10,3.js" />
     <Content Include="Global.asax" />
     <Content Include="Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

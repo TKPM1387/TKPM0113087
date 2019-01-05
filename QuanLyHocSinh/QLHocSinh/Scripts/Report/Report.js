@@ -5,6 +5,8 @@
 function createControl() {
     $('#subject').selectpicker();
     $('#semester').selectpicker();
+    $('#Year').selectpicker();
+    
     $.ajax({
         type: "GET",
         url: '/Subjects/getListSubject',
@@ -79,8 +81,9 @@ function ViewReportBySubject() {
         type: "GET",
         dataType: "json",
         data: {
-            semester: 1,
-            subjectid: "MH00001"
+            semester: $('#semester').val(),
+            subjectid: $('#subject').val(),
+            Year: $('#Year').val()
         },
         url: "/Report/GetReportBySubject",
         success: function (data) {
@@ -99,6 +102,7 @@ function ViewReportBySemester() {
         dataType: "json",
         data: {
             semester: $('#semester').val(),
+            Year: $('#Year').val()
         },
         url: "/Report/GetReportBySemester",
         success: function (data) {

@@ -1,4 +1,5 @@
 ﻿
+using Newtonsoft.Json;
 using QLHocSinh.Helper;
 using System;
 using System.Collections;
@@ -127,25 +128,39 @@ namespace QLHocSinh.Controllers
             return json;
 
         }
+        public ActionResult GetPointTB(string StudentID)
+        {
+            using (var con = new SqlConnection(path))
+            {
 
+                var cmd = new SqlCommand("PointTB", con) { CommandType = CommandType.StoredProcedure };
+                cmd.Parameters.Add(new SqlParameter("@StudentID", StudentID));
+                con.Open();
+                SqlDataAdapter sda = new SqlDataAdapter(cmd);
+                var tb = new DataTable();
+                sda.Fill(tb);
+                string JSONresult;
+                JSONresult = JsonConvert.SerializeObject(tb);
+                return Json(JSONresult, JsonRequestBehavior.AllowGet);
+            }
+        }
 
         public ActionResult GetListPoint(string id)
         {
-            using (var ctx = new QLHSEntities())
+            using (var con = new SqlConnection(path))
             {
-                var student = ctx.Subjects
-                    .Join(ctx.Points, s => s.SubjectID, p => p.SubjectID, (s, p) => new { s, p })
-                    .Where(px => px.p.StudentID == id)
-                    .Select(m => new
-                    {
-                        SubjectName = m.s.SubjectName,
-                        Test15Minutes = m.p.Test15Minutes,
-                        Test45Minutes = m.p.Test45Minutes,
-                        TestSemester = m.p.TestSemester
 
-                    }).ToList();
-
-                return Json(student, JsonRequestBehavior.AllowGet);
+                var cmd = new SqlCommand("GetListPointStudent", con) { CommandType = CommandType.StoredProcedure };
+                cmd.Parameters.Add(new SqlParameter("@StudentID", id));
+                con.Open();
+                SqlDataAdapter sda = new SqlDataAdapter(cmd);
+                var tb = new DataTable();
+                sda.Fill(tb);
+                List<Dictionary<string, object>> ds;
+                ds = GetTableRows(tb);
+                var json = Json(ds, JsonRequestBehavior.AllowGet);
+                json.MaxJsonLength = int.MaxValue;
+                return json;
             }
         }
         public ActionResult getStudentByID(string id)

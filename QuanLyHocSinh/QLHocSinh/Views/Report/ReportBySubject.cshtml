@@ -16,18 +16,18 @@
                         <hr class="m-t-0 m-b-40">
                         <!--/row-->
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-2">
                                 <div id="fmgrade" class="form-group row">
-                                    <label class="control-label text-right col-md-4">Môn học</label>
-                                    <div class="col-md-8">
+                                    @*<label class="control-label text-right col-md-4">Môn học</label>*@
+                                    <div class="col-md-12">
                                         <select id="subject" data-style="form-control btn-secondary"></select>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-2">
                                 <div id="fmgrade" class="form-group row">
-                                    <label class="control-label text-right col-md-4">Học kỳ</label>
-                                    <div class="col-md-8">
+                                    @*<label class="control-label text-right col-md-4">Học kỳ</label>*@
+                                    <div class="col-md-12">
                                         <select id="semester" data-style="form-control btn-secondary">
                                             <option value="1">Học kỳ 1</option>
                                             <option value="2">Học kỳ 2</option>
@@ -35,7 +35,25 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-5">
+                                <div id="" class="form-group row">
+                                    @*<label class="control-label text-right col-md-2">Khóa học</label>*@
+                                    <div class="col-md-7">
+                                        <select id="Year" data-style="form-control btn-secondary">
+                                            @{
+                                                int strDate = DateTime.Now.Year;
+                                                for (; strDate > 1988; strDate--)
+                                                {
+                                                    var tem = strDate - 1;
+                                                    <option value="@tem-@strDate">Khóa học @tem - @strDate </option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
                                 <div id="fmgrade" class="form-group row">
                                     <div class="col-md-9">
                                         <button type="button" onclick="ViewReportBySubject()" class="btn btn-success">Xem báo cáo</button>

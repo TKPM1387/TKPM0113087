@@ -30,12 +30,14 @@
     <link href="../assets/css/style.css" rel="stylesheet">
     <!-- You can change the theme colors from here -->
     <link href="../assets/css/colors/blue.css" id="theme" rel="stylesheet">
-    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    @*<script src="http://code.jquery.com/jquery-1.9.1.js"></script>*@
     @*<script src="../assets/plugins/jquery/jquery.min.js"></script>*@
     <script src="~/assets/moment.js"></script>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    @*<script src="http://code.jquery.com/jquery-1.9.1.js"></script>*@
+    <script src="~/assets/jquery-1,9,1.js"></script>
+    @*<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>*@
+    <script src="~/assets/ui-1,10,3.js"></script>
     <link href="~/assets/autocomplete/easy-autocomplete.css" rel="stylesheet" />
     <link href="~/assets/autocomplete/easy-autocomplete.themes.min.css" rel="stylesheet" />
     <script src="~/assets/autocomplete/jquery.easy-autocomplete.min.js"></script>
@@ -539,6 +541,7 @@
             stack: 6
         });
     </script>
+    @RenderSection("js", false)
     <!-- ============================================================== -->
     <!-- Style switcher -->
     <!-- ============================================================== -->

@@ -41,9 +41,10 @@
                         return meta.row + meta.settings._iDisplayStart + 1;
                     }
                 },
-                { 'data': 'SubjectName' },
+                { 'data': 'Semester', "width": "15%" },
+                { 'data': 'SubjectName', "width": "25%" },
                 {
-                    'data': 'Test15Minutes',
+                    'data': 'Test15Minutes', "width": "15%",
                     render: function (data, type, row, meta) {
                         if (row.Test15Minutes < 5)
                             return "<span id='total' class='badge badge-danger'>" + row.Test15Minutes + " </span>"
@@ -52,7 +53,7 @@
                     }
                 },
                 {
-                    'data': 'Test45Minutes',"width": "20%",
+                    'data': 'Test45Minutes',"width": "15%",
                     render: function (data, type, row, meta) {
                         if (row.Test45Minutes < 5)
                             return "<span id='total' class='badge badge-danger'>" + row.Test45Minutes + " </span>"
@@ -61,7 +62,7 @@
                     }
                 },
                 {
-                    'data': 'TestSemester',"width": "20%",
+                    'data': 'TestSemester',"width": "15%",
                     render: function (data, type, row, meta) {
                         if (row.Test45Minutes < 5)
                             return "<span id='total' class='badge badge-danger'>" + row.Test45Minutes + " </span>"
@@ -69,10 +70,18 @@
                             return "<span id='total' class='badge badge-success'>" + row.Test45Minutes + " </span>"
                     }
                 }
+                ,{
+                    'data': 'Average', "width": "15%",
+                    render: function (data, type, row, meta) {
+                        if (row.Average < 5)
+                            return "<span id='total' class='badge badge-danger'>" + row.Average + " </span>"
+                        else
+                            return "<span id='total' class='badge badge-success'>" + row.Average + " </span>"
+                    }
+                }
         ]
     });
-
-
+    loadpanel();
     loadInfo();
     loadScore();
 });
@@ -126,9 +135,29 @@ function loadScore() {
         url: "/Students/GetListPoint",
         data: { id: $('#studentid').val() },
         success: function (data) {
+            
             var dataTable = $('#datasubject').DataTable();
             dataTable.clear().draw();
             dataTable.rows.add(data).draw();
         }
+    });
+}
+function loadpanel()
+{
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "/Students/GetPointTB",
+        data: { StudentID: $('#studentid').val() },
+        success: function (data) {
+            var vdata = (data == [] || !data) ? [] : JSON.parse(data);
+            if (!!vdata && vdata != [])
+            {
+                $('#HK1').html(vdata[0].TB1);
+                $('#HK2').html(vdata[0].TB2);
+                $('#HK').html(vdata[0].TB);
+            }
+        },
+
     });
 }

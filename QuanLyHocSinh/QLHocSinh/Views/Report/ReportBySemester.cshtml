@@ -24,8 +24,8 @@
                             </div>*@
                             <div class="col-md-4">
                                 <div id="fmgrade" class="form-group row">
-                                    <label class="control-label text-right col-md-4">Học kỳ</label>
-                                    <div class="col-md-8">
+                                    @*<label class="control-label text-right col-md-3">Học kỳ</label>*@
+                                    <div class="col-md-7">
                                         <select id="semester" data-style="form-control btn-secondary">
                                             <option value="1">Học kỳ 1</option>
                                             <option value="2">Học kỳ 2</option>
@@ -33,7 +33,24 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
+                                <div id="" class="form-group row">
+                                    @*<label class="control-label text-right col-md-3">Khóa học</label>*@
+                                    <div class="col-md-8">
+                                        <select id="Year" data-style="form-control btn-secondary">
+                                            @{
+                                                int strDate = DateTime.Now.Year;
+                                                for (; strDate > 1988; strDate--)
+                                                {
+                                                    var tem = strDate - 1;
+                                                    <option value="@tem-@strDate">Khóa học @tem - @strDate </option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
                                 <div id="fmgrade" class="form-group row">
                                     <div class="col-md-9">
                                         <button type="button" onclick="ViewReportBySemester()" class="btn btn-success">Xem báo cáo</button>

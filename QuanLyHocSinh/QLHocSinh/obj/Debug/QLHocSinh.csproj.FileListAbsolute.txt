@@ -96,6 +96,6 @@ T:\HCDH Nam 1\Phan tich tihet ke phan mem\DoAn\TKPM0113087\QuanLyHocSinh\QLHocSi
 T:\HCDH Nam 1\Phan tich tihet ke phan mem\DoAn\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\System.Web.Webpages.Razor.xml
 T:\HCDH Nam 1\Phan tich tihet ke phan mem\DoAn\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\System.Web.Helpers.xml
 T:\HCDH Nam 1\Phan tich tihet ke phan mem\DoAn\TKPM0113087\QuanLyHocSinh\QLHocSinh\bin\System.Web.Mvc.xml
-T:\HCDH Nam 1\Phan tich tihet ke phan mem\DoAn\TKPM0113087\QuanLyHocSinh\QLHocSinh\obj\Debug\QLHocSinh.csprojResolveAssemblyReference.cache
 T:\HCDH Nam 1\Phan tich tihet ke phan mem\DoAn\TKPM0113087\QuanLyHocSinh\QLHocSinh\obj\Debug\QLHocSinh.dll
 T:\HCDH Nam 1\Phan tich tihet ke phan mem\DoAn\TKPM0113087\QuanLyHocSinh\QLHocSinh\obj\Debug\QLHocSinh.pdb
+T:\HCDH Nam 1\Phan tich tihet ke phan mem\DoAn\TKPM0113087\QuanLyHocSinh\QLHocSinh\obj\Debug\QLHocSinh.csprojResolveAssemblyReference.cache
