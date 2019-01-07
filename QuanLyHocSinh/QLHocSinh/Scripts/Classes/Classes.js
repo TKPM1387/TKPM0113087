@@ -2,7 +2,7 @@
     createControl();
     hideError();
     createclasslist();
-    HideModify();
+    //HideModify();
 });
 function createControl() {
    
@@ -147,8 +147,8 @@ function createclasslist() {
 
                  {
                      "render": function (data, type, row) {
-                         return '<button type="button" data-toggle="modal" data-target="#exampleModal" onclick="edit(' + "'" + row.StudentID + "'" + ',' + "'" + row.FullName + "'" + ',' + row.Gender + ',' + row.BirthDay + ',' + "'" + row.Address + "'" + ')" class="btn btn-warning waves-effect waves-light"><i class="fa fa-pencil-square-o" ></i></button>' +
-                             '<button onclick="DeleteStudent(' + "'" + row.StudentID + "'" + ')" style="margin-left: 5px;" type="button" class="btn btn-danger waves-effect waves-light"><i class="fa fa-times" aria-hidden="true"></i></button>';
+                         return '<button type="button" data-toggle="modal" data-target="#exampleModal" onclick="editclass(' + "'" + row.ClassID + "'" + ',' + "'" + row.ClassName + "'" + ',' + "'" + row.ClassLevel + "'" + ',' + "'" + row.ClassLevelName + "'" + ')" class="btn btn-warning waves-effect waves-light"><i class="fa fa-pencil-square-o" ></i></button>' +
+                             '<button onclick="DeleteClass(' + "'" + row.ClassID + "'" + ')" style="margin-left: 5px;" type="button" class="btn btn-danger waves-effect waves-light"><i class="fa fa-times" aria-hidden="true"></i></button>';
                      }
                  }
         ]
@@ -164,6 +164,38 @@ function createclasslist() {
 
 function initSP() {
 
+
+}
+function updateinfoclass()
+{
+    var IDClass = $('#hidClassID').val();
+    var cla = classes = {
+        ID: IDClass,
+        ClassName: $('#ClassName').val(),
+        ClassLevel: $('#block3').val()
+    };
+    $.ajax({
+        type: "POST",
+        url: '/Classes/UpdateClass',
+        contentType: "application/json; charset=utf-8",
+        data: cla,
+        dataType: "json",
+        success: function (result) {
+            if (result[0].value == 1) {
+                swal("Cập nhật công", "success", "success");
+                LoadListClass();
+            }
+            else {
+                swal("Cập nhật thất bại", result[0].message, "error");
+                //clearfilter();
+            }
+        },
+        error: function (xhr, status, error) { alert('Có lỗi xảy ra!!'); }
+    });
+    
+}
+function DeleteClass(Id)
+{
 
 }
 function DeleteStudent(id) {
@@ -227,7 +259,15 @@ function clearfilter() {
 
     $("#classnameadd").val('');
 }
-
+function editclass(ClassID, ClassName, Classlevel, ClassLevelName)
+{
+    //$('#ClassID').val(ClassID);
+    $('#hidClassID').val(0);
+    $('#hidClassID').val(ClassID);
+    $('#ClassName').val(ClassName);
+    $('#block3').val(Classlevel);
+    
+}
 function edit(fid, fname, fgender, fbirthday, faddress) {
     $('#fullName').val(fname);
     $('#address').val(faddress);
@@ -275,7 +315,7 @@ function LoadListClass() {
         }
     });
 }
-
+//editclass
 function HideModify() {
     if (permission != 1) {
         var table = $('#listclass').DataTable();
@@ -365,7 +405,7 @@ function updateinfo() {
     }
 
     var a = $('#birthDay').val().split('/');
-    var b = a[1] + '/' + a[0] + '/' + a[2];
+    var b = a[2] + '/' + a[1] + '/' + a[0];
 
     var s = studentdetail = {
         StudentID: $('#sid').val(),
@@ -434,8 +474,8 @@ function addclass() {
             if (result[0].value == 1) {
                 swal("Thêm thành công", "success", "success");
                 $('#classnameadd').val('')
-                loadclass()
-                closeAddClass()
+                loadclass();
+                closeAddClass();
             }
             else {
                 swal("Thêm thất bại", result[0].message, "error");

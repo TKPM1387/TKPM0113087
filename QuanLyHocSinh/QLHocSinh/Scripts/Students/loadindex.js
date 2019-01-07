@@ -299,7 +299,7 @@ function clearfilter() {
 }
 function updateinfo() {
     var a = $('#birthDay').val().split('/');
-    var b = a[1] + '/' + a[0] + '/' + a[2];
+    var b = a[2] + '/' + a[1] + '/' + a[0];
 
     var sid = $('#sid').val();
     var sfullname = $("#fullName").val();

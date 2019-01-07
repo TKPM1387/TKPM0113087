@@ -354,6 +354,7 @@ namespace QLHocSinh.Controllers
                         ClassID = m.u.ID,
                         ClassName = m.u.ClassName,
                         ClassLevelName = m.uir.LevelName,
+                        ClassLevel = m.u.ClassLevel,
                         Total = m.u.Total,
                         MaxTotal = m.u.MaxTotal
                     }).ToList();
@@ -505,6 +506,7 @@ namespace QLHocSinh.Controllers
                 return Json(list, JsonRequestBehavior.AllowGet);
             }
         }
+        
 
 
     }
