@@ -15,6 +15,10 @@
     .badge {
         font-size: 100% !important;
     }
+    .btn-success{
+    background: #7460ee;
+    border: 1px solid #7460ee;
+}
 </style>
 
 
@@ -87,7 +91,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-12" hidden>
                                     <div id="fmsubjectperiod" class="form-group row">
                                         <label class="control-label text-right  col-md-4">Khối</label>
                                         <div class="col-md-8">
@@ -96,7 +100,14 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                <div class="col-md-12" >
+                                    <div class="form-group has-error row ">
+                                        <label class="control-label col-md-6" style="padding-top: 9px;">Sĩ số tối đa</label>
+                                        <div class="col-md-6">
+                                            <input id="maxtotal" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                         <div class="modal-footer">

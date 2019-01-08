@@ -28,11 +28,28 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div id="fmblock" class="form-group row">
-                                    <label class="control-label text-right col-md-5">Nhập mã/ Họ tên học sinh:</label>
+                                    <label class="control-label text-right col-md-3">Nhập mã/ Họ tên học sinh:</label>
                                     <div class="col-md-4">
                                         <input id="txtIDName" type="text" class="form-control">
                                     </div>
                                     <div class="col-md-3">
+                                        <div id="" class="form-group row">
+                                            @*<label class="control-label text-right col-md-2">Khóa học</label>*@
+                                            <div class="col-md-12">
+                                                <select id="Year" data-style="form-control btn-secondary">
+                                                    @{
+                                                        int strDate = DateTime.Now.Year;
+                                                        for (; strDate > 1988; strDate--)
+                                                        {
+                                                            var tem = strDate - 1;
+                                                            <option value="@tem-@strDate">Khóa học @tem - @strDate </option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
                                         <button type="button" onclick="ViewDetailStudent()" class="btn btn-primary">
                                             <i class="fa fa-search" aria-hidden="true"></i>Tìm kiếm
                                         </button>

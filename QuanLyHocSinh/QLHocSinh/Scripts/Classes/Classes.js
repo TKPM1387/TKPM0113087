@@ -147,13 +147,13 @@ function createclasslist() {
 
                  {
                      "render": function (data, type, row) {
-                         return '<button type="button" data-toggle="modal" data-target="#exampleModal" onclick="editclass(' + "'" + row.ClassID + "'" + ',' + "'" + row.ClassName + "'" + ',' + "'" + row.ClassLevel + "'" + ',' + "'" + row.ClassLevelName + "'" + ')" class="btn btn-warning waves-effect waves-light"><i class="fa fa-pencil-square-o" ></i></button>' +
-                             '<button onclick="DeleteClass(' + "'" + row.ClassID + "'" + ')" style="margin-left: 5px;" type="button" class="btn btn-danger waves-effect waves-light"><i class="fa fa-times" aria-hidden="true"></i></button>';
+
+                         return ''//'<button type="button" data-toggle="modal" data-target="#exampleModal" onclick="editclass(' + "'" + row.ClassID + "'" + ',' + "'" + row.ClassName + "'" + ',' + "'" + row.ClassLevel + "'" + ',' + "'" + row.ClassLevelName + "'" + ')" class="btn btn-warning waves-effect waves-light"><i class="fa fa-pencil-square-o" ></i></button>';
                      }
                  }
         ]
     });
-
+    // +'<button onclick="DeleteClass(' + "'" + row.ClassID + "'" + ')" style="margin-left: 5px;" type="button" class="btn btn-danger waves-effect waves-light"><i class="fa fa-times" aria-hidden="true"></i></button>'
     t.on('order.dt search.dt', function () {
         t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
             cell.innerHTML = i + 1;

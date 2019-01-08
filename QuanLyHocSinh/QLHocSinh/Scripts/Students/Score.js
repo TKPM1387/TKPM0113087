@@ -12,7 +12,7 @@ function createControl() {
     $('#grade').selectpicker();
     $('#subject').selectpicker();
     $('#semester').selectpicker();
-
+    $('#Year').selectpicker();
     $("#fp15").TouchSpin({
         min: 1,
         max: 10,
@@ -194,16 +194,17 @@ function ViewStudentScore() {
     var gr = $('#grade').val();
     var sj = $('#subject').val();
     var sr = $('#semester').val();
-
+    var year = $('#Year').val();
     $.ajax({
         type: "GET",
         dataType: "json",
         url: "/Classes/GetStudentPoint",
-        data: { grade: gr, subject: sj },
+        data: { grade: gr, subject: sj,semester: sr,year: year },
         success: function (data) {
+            var obj = JSON.parse(data);
             var dataTable = $('#classtable').DataTable();
             dataTable.clear().draw();
-            dataTable.rows.add(data).draw();
+            dataTable.rows.add(obj).draw();
         }
     });
 
@@ -221,7 +222,7 @@ function edit(id, name, p15, p45, pl) {
 function updatepoint() {
 
     var p = {
-        StudenID: $('#fid').val(),
+        StudentID: $('#fid').val(),
         SubjectID: $('#subject').val(),
         FullName: $('#fullName').val(),
         Test15Minutes: $('#fp15').val(),

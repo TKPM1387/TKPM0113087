@@ -22,26 +22,26 @@
                         <hr class="m-t-0 m-b-40">
                         <!--/row-->
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div id="fmgrade" class="form-group row">
-                                    <label class="control-label text-right col-md-3" style="padding-top: 6px;">Lớp</label>
-                                    <div class="col-md-9">
+                                    @*<label class="control-label text-right col-md-3" style="padding-top: 6px;">Lớp</label>*@
+                                    <div class="col-md-12">
                                         <select id="grade" data-style="form-control btn-secondary"></select>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div id="fmgrade" class="form-group row">
-                                    <label class="control-label text-right col-md-4" style="padding-top: 6px;">Môn</label>
-                                    <div class="col-md-8">
+                                    @*<label class="control-label text-right col-md-4" style="padding-top: 6px;">Môn</label>*@
+                                    <div class="col-md-12">
                                         <select id="subject" data-style="form-control btn-secondary"></select>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div id="fmgrade" class="form-group row">
-                                    <label class="control-label text-right col-md-4" style="padding-top: 6px;">Học kỳ</label>
-                                    <div class="col-md-8">
+                                  @*  <label class="control-label text-right col-md-4" style="padding-top: 6px;">Học kỳ</label>*@
+                                    <div class="col-md-12">
                                         <select id="semester" data-style="form-control btn-secondary">
                                             <option value="1">Học kỳ 1</option>
                                             <option value="2">Học kỳ 2</option>
@@ -50,11 +50,28 @@
                                 </div>
                             </div>
                             <div class="col-md-3">
+                                <div id="" class="form-group row">
+                                    @*<label class="control-label text-right col-md-2">Khóa học</label>*@
+                                    <div class="col-md-12">
+                                        <select id="Year" data-style="form-control btn-secondary">
+                                            @{
+                                                int strDate = DateTime.Now.Year;
+                                                for (; strDate > 1988; strDate--)
+                                                {
+                                                    var tem = strDate - 1;
+                                                    <option value="@tem-@strDate">Khóa học @tem - @strDate </option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
                                 <div id="fmgrade" class="form-group row">
-                                    <div class="col-md-9">
+                                    <div class="col-md-12">
                                         <button type="button" onclick="ViewStudentScore()" class="btn btn-primary">
-                                        <i class="fa fa-search" aria-hidden="true"></i>
-                                        Xem bảng điểm lớp
+                                            <i class="fa fa-search" aria-hidden="true"></i>
+                                            Xem bảng điểm lớp
                                         </button>
                                     </div>
                                 </div>
@@ -131,6 +148,7 @@
                             </div>
                         </div>
                     </div>
+
                 </form>
             </div>
             <div class="modal-footer">

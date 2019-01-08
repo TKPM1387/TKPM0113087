@@ -3,7 +3,7 @@
 
 });
 function init() {
-
+    $('#Year').selectpicker();
     $('#detailtable').DataTable({
         "paging": true,
         "ordering": false,
@@ -74,16 +74,17 @@ function init() {
     });
 }
 function ViewDetailStudent() {
-
+    var year = $('#Year').val();
     $.ajax({
         type: "GET",
         dataType: "json",
         url: "/Classes/GetStudentDetail",
-        data: { idname: $('#txtIDName').val() },
+        data: { year: year, content: $('#txtIDName').val() },
         success: function (data) {
+            var obj = JSON.parse(data);
             var dataTable = $('#detailtable').DataTable();
             dataTable.clear().draw();
-            dataTable.rows.add(data).draw();
+            dataTable.rows.add(obj).draw();
         }
     });
 };

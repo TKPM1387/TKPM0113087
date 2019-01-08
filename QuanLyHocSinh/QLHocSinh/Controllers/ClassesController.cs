@@ -1,4 +1,5 @@
 ﻿
+using Newtonsoft.Json;
 using QLHocSinh.Helper;
 using System;
 using System.Collections;
@@ -184,121 +185,83 @@ namespace QLHocSinh.Controllers
 
         }
 
-        public ActionResult GetStudentDetail(string idname)
+        public ActionResult GetStudentDetail(string year, string content)
         {
-            using (var ctx = new QLHSEntities())
-            {
-                var pu = ctx.Students
-                        .Join(ctx.Classes
-                        , u => u.Class, uir => uir.ID, (u, uir) => new { u, uir })
-                        .Where(
-                            m => m.u.State != -1 &&
-                            (m.u.StudentID.Contains(idname) || m.u.FullName.Contains(idname))
-                            )
-                        .OrderBy(m => m.u.Class)
-                        .Select(m => new
-                        {
-                            StudentID = m.u.StudentID,
-                            FullName = m.u.FullName,
-                            ClassName = m.uir.ClassName,
-                            TBHK1 = 4,
-                            TBHK2 = 5
-                        }).ToList();
-                return Json(pu, JsonRequestBehavior.AllowGet);
-            }
-
-            //string path = @"Data Source=.\SQLEXPRESS;Initial Catalog=QLHS;Integrated Security=True";
-            //int i = 1;
-            //var students = new List<StudentDetail>();
-            //using (var con = new SqlConnection(path))
+            //using (var ctx = new QLHSEntities())
             //{
-            //    var cmd = new SqlCommand("getStudentDetail", con);
-            //    cmd.CommandType = CommandType.StoredProcedure;
-            //    cmd.Parameters.Add(new SqlParameter("@idname", idname));
-            //    con.Open();
-            //    var dr = cmd.ExecuteReader();
-            //    while (dr.Read())
-            //    {
-            //        var student = new StudentDetail
-            //        {
-            //            STT = i,
-            //            StudentID = Convert.ToInt32(dr[0].ToString()),
-            //            FullName = dr[1].ToString(),
-            //            Class = dr[2].ToString(),
-            //            TBHK1 = Convert.ToInt32(dr[3].ToString()),
-            //            TBHK2 = Convert.ToInt32(dr[4].ToString()),
-            //        };
-            //        students.Add(student);
-            //        i++;
-            //    }
+            //    var pu = ctx.Students
+            //            .Join(ctx.Classes
+            //            , u => u.Class, uir => uir.ID, (u, uir) => new { u, uir })
+            //            .Where(
+            //                m => m.u.State != -1 &&
+            //                (m.u.StudentID.Contains(idname) || m.u.FullName.Contains(idname))
+            //                )
+            //            .OrderBy(m => m.u.Class)
+            //            .Select(m => new
+            //            {
+            //                StudentID = m.u.StudentID,
+            //                FullName = m.u.FullName,
+            //                ClassName = m.uir.ClassName,
+            //                TBHK1 = 4,
+            //                TBHK2 = 5
+            //            }).ToList();
+            //    return Json(pu, JsonRequestBehavior.AllowGet);
             //}
-            //return Json(students, JsonRequestBehavior.AllowGet);
+            using (var con = new SqlConnection(path))
+            {
+
+                var cmd = new SqlCommand("GetListStudentTotal", con) { CommandType = CommandType.StoredProcedure };
+                cmd.Parameters.Add(new SqlParameter("@Year1", year.Split('-')[0]));
+                cmd.Parameters.Add(new SqlParameter("@Year2", year.Split('-')[1]));
+                cmd.Parameters.Add(new SqlParameter("@content", content));
+                con.Open();
+                SqlDataAdapter sda = new SqlDataAdapter(cmd);
+                var tb = new DataTable();
+                sda.Fill(tb);
+                string JSONresult;
+                JSONresult = JsonConvert.SerializeObject(tb);
+                return Json(JSONresult, JsonRequestBehavior.AllowGet);
+            }
+           
         }
 
-        public ActionResult GetStudentPoint(int grade, string subject)
+        public ActionResult GetStudentPoint(int grade,string subject,int semester,string year)
         {
-            var result = new ArrayList();
-            using (var ctx = new QLHSEntities())
-            {
-                var list = (from s in ctx.Students
-                            from p in ctx.Points.Where(p1 => p1.StudentID == s.StudentID && p1.SubjectID == subject).DefaultIfEmpty()
-                            where s.Class == grade
-                            select new
-                            {
-                                StudentID = s.StudentID,
-                                FullName = s.FullName,
-                                Average = p.Average,
-                                Test15Minutes = p.Test15Minutes,
-                                Test45Minutes = p.Test45Minutes,
-                                TestSemester = p.TestSemester
-                            }).ToList();
-
-
-                //var list = ctx.Students
-                //      .Join(ctx.Points
-                //      , u => u.StudentID, uir => uir.StudenID, (u, uir) => new { u, uir })
-                //      .Where(m => m.u.Class == grade && m.uir.SubjectID == subject && m.uir.Flag != -1)
-                //      .OrderBy(m => m.u.StudentID)
-                //      .Select(m => new
-                //      {
-                //          StudentID = m.u.StudentID,
-                //          FullName = m.u.FullName,
-                //          Test15Minutes = m.uir.Test15Minutes,
-                //          Test45Minutes = m.uir.Test45Minutes,
-                //          TestSemester = m.uir.TestSemester,
-                //          Average = m.uir.Average
-                //      }).ToList();
-
-                return Json(list, JsonRequestBehavior.AllowGet);
-            }
-
-            //string path = @"Data Source=.\SQLEXPRESS;Initial Catalog=QLHS;Integrated Security=True";
-            //int i = 1;
-            //var students = new List<StudentPoint>();
-            //using (var con = new SqlConnection(path))
+            //var result = new ArrayList();
+            //using (var ctx = new QLHSEntities())
             //{
-            //    var cmd = new SqlCommand("getStudentPoint", con);
-            //    cmd.CommandType = CommandType.StoredProcedure;
-            //    cmd.Parameters.Add(new SqlParameter("@fsubjectid", grade));
-            //    cmd.Parameters.Add(new SqlParameter("@fclassid", subject));
-            //    con.Open();
-            //    var dr = cmd.ExecuteReader();
-            //    while (dr.Read())
-            //    {
-            //        var student = new StudentPoint
-            //        {
-            //            STT = i,
-            //            StudentID = Convert.ToInt32(dr[0].ToString()),
-            //            FullName = dr[1].ToString(),
-            //            Test15Minutes = dr[2].ToString(),
-            //            Test45Minutes = dr[3].ToString(),
-            //            TestSemester = dr[4].ToString(),
-            //        };
-            //        students.Add(student);
-            //        i++;
-            //    }
+            //    var list = (from s in ctx.Students
+            //                from p in ctx.Points.Where(p1 => p1.StudentID == s.StudentID && p1.SubjectID == subject).DefaultIfEmpty()
+            //                where s.Class == grade
+            //                select new
+            //                {
+            //                    StudentID = s.StudentID,
+            //                    FullName = s.FullName,
+            //                    Average = p.Average,
+            //                    Test15Minutes = p.Test15Minutes,
+            //                    Test45Minutes = p.Test45Minutes,
+            //                    TestSemester = p.TestSemester
+            //                }).ToList();
+            //    return Json(list, JsonRequestBehavior.AllowGet);
             //}
-            //return Json(students, JsonRequestBehavior.AllowGet);
+            using (var con = new SqlConnection(path))
+            {
+
+                var cmd = new SqlCommand("GetListPoint", con) { CommandType = CommandType.StoredProcedure };
+                cmd.Parameters.Add(new SqlParameter("@Year1", year.Split('-')[0]));
+                cmd.Parameters.Add(new SqlParameter("@Year2", year.Split('-')[1]));
+                cmd.Parameters.Add(new SqlParameter("@Semester", semester));
+                cmd.Parameters.Add(new SqlParameter("@Class", grade));
+                cmd.Parameters.Add(new SqlParameter("@Subject", subject));
+                con.Open();
+                SqlDataAdapter sda = new SqlDataAdapter(cmd);
+                var tb = new DataTable();
+                sda.Fill(tb);
+                string JSONresult;
+                JSONresult = JsonConvert.SerializeObject(tb);
+                return Json(JSONresult, JsonRequestBehavior.AllowGet);
+            }
+            
         }
 
         [CheckLogin]
@@ -383,7 +346,25 @@ namespace QLHocSinh.Controllers
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
         }
+        [HttpPost]
+        public ActionResult DeleteClass(Class c)
+        {
+            var result = new ArrayList();
+            using (var ctx = new QLHSEntities())
+            {
+                var classx = ctx.Classes.Where(cl => cl.ID == c.ID).FirstOrDefault();
 
+                classx.Flag = -1;
+
+                ctx.SaveChanges();
+                result.Add(
+                    new
+                    {
+                        value = 1
+                    });
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+        }
         public bool CheckMaxClass(int classlevel)
         {
             using (var ctx = new QLHSEntities())
@@ -445,65 +426,45 @@ namespace QLHocSinh.Controllers
             }
         }
 
-        public ActionResult GetStudentPointDetail(string ID, int semester)
+        public ActionResult GetStudentPointDetail(string ID, int semester, string year)
         {
             var result = new ArrayList();
             using (var ctx = new QLHSEntities())
             {
-                var name = (from s in ctx.Students where s.StudentID == ID select s.FullName).FirstOrDefault().ToString();
+                //var name = (from s in ctx.Students where s.StudentID == ID select s.FullName).FirstOrDefault().ToString();
 
-                var list = (from sj in ctx.Subjects
-                            from p in ctx.Points.Where(p1 => p1.SubjectID == sj.SubjectID && p1.Semester == semester).DefaultIfEmpty()
-                            from st in ctx.Students.Where(s1 => s1.StudentID == p.StudentID && p.Semester == semester && s1.StudentID == ID).DefaultIfEmpty()
-                            //where st.StudentID == ID
-                            select new
-                            {
-                                StudentID = ID,
-                                FullName = name,
-                                SubjectName=sj.SubjectName,
-                                Average = p.Average,
-                                Test15Minutes = p.Test15Minutes,
-                                Test45Minutes = p.Test45Minutes,
-                                TestSemester = p.TestSemester
+                //var list = (from sj in ctx.Subjects
+                //            from p in ctx.Points.Where(p1 => p1.SubjectID == sj.SubjectID && p1.Semester == semester).DefaultIfEmpty()
+                //            from st in ctx.Students.Where(s1 => s1.StudentID == p.StudentID && p.Semester == semester && s1.StudentID == ID).DefaultIfEmpty()
+                //            //where st.StudentID == ID
+                //            select new
+                //            {
+                //                StudentID = ID,
+                //                FullName = name,
+                //                SubjectName=sj.SubjectName,
+                //                Average = p.Average,
+                //                Test15Minutes = p.Test15Minutes,
+                //                Test45Minutes = p.Test45Minutes,
+                //                TestSemester = p.TestSemester
 
-                            }).ToList();
+                //            }).ToList();
+                //return Json(list, JsonRequestBehavior.AllowGet);
+                using (var con = new SqlConnection(path))
+                {
 
-                /* SELECT  S.ID ,
-                 S.StudentID ,
-                 S.FullName ,
-                 P.Semester ,
-                 P.Test15Minutes ,
-                 P.Test45Minutes ,
-                 P.TestSemester,S2.SubjectID,S2.SubjectName
-                 FROM    dbo.Subject AS S2
-                 LEFT JOIN dbo.Point AS P ON S2.SubjectID = P.SubjectID
-                 LEFT JOIN ( SELECT  *
-                             FROM    dbo.Students
-                             WHERE   StudentID = 'HS00007'
-                           ) AS S ON S.StudentID = P.StudenID
-                                     AND P.Semester = 1*/
-
-
-
-                //var list = ctx.Points
-                //     .Join(ctx.Students
-                //     , poi => poi.StudenID, stu => stu.StudentID, (poi, stu) => new { poi, stu })
-                //     .Join(ctx.Subjects
-                //     , p => p.poi.SubjectID, s => s.SubjectID, (p, s) => new { p.stu, p.poi, s }
-                //     )
-                //     .Where(m => m.stu.StudentID == ID && m.poi.Semester == semester)
-                //     .Select(m => new
-                //     {
-                //         StudentID = m.stu.StudentID,
-                //         FullName = m.stu.FullName,
-                //         SubjectName = m.s.SubjectName,
-                //         Test15Minutes = m.poi.Test15Minutes,
-                //         Test45Minutes = m.poi.Test45Minutes,
-                //         TestSemester = m.poi.TestSemester,
-                //         Average = m.poi.Average,
-                //     }).ToList();
-
-                return Json(list, JsonRequestBehavior.AllowGet);
+                    var cmd = new SqlCommand("GetListPoint", con) { CommandType = CommandType.StoredProcedure };
+                    cmd.Parameters.Add(new SqlParameter("@Year1", year.Split('-')[0]));
+                    cmd.Parameters.Add(new SqlParameter("@Year2", year.Split('-')[1]));
+                    cmd.Parameters.Add(new SqlParameter("@Semester", semester));
+                    cmd.Parameters.Add(new SqlParameter("@StudenID", ID));
+                    con.Open();
+                    SqlDataAdapter sda = new SqlDataAdapter(cmd);
+                    var tb = new DataTable();
+                    sda.Fill(tb);
+                    string JSONresult;
+                    JSONresult = JsonConvert.SerializeObject(tb);
+                    return Json(JSONresult, JsonRequestBehavior.AllowGet);
+                }
             }
         }
         

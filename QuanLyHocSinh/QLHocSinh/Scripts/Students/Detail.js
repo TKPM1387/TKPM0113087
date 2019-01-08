@@ -4,7 +4,8 @@
 })
 function createControl() {
     $('#semester').selectpicker();
-
+    $('#Year').selectpicker();
+    
     $('#student').DataTable({
         "paging": true,
         "ordering": false,
@@ -61,16 +62,18 @@ function createControl() {
 }
 function ViewDetail() {
     var id = $('#txtIDName').val();
-
+    var sr = $('#semester').val();
+    var year = $('#Year').val();
     $.ajax({
         type: "GET",
         dataType: "json",
         url: "/Classes/GetStudentPointDetail",
-        data: { ID: id, semester: $('#semester').val() },
+        data: { ID: id, semester: sr, year: year },
         success: function (data) {
+            var obj = JSON.parse(data);
             var dataTable = $('#student').DataTable();
             dataTable.clear().draw();
-            dataTable.rows.add(data).draw();
+            dataTable.rows.add(obj).draw();
         }
     });
 }
